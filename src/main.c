@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
+/*   Updated: 2022/01/18 23:28:04 by vkuklys          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*
 Copyright (c) 2004-2021, Lode Vandevenne
 
@@ -21,69 +33,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "../mlx/mlx.h"
-#include "../libft/libft.h"
-
-// #include <vector>
-// #include <iostream>
-
-// #include "quickcg.h"
-// using namespace QuickCG;
-
-/*
-g++ *.cpp -lSDL -O3 -W -Wall -ansi -pedantic
-g++ *.cpp -lSDL
-*/
-
-//place the example code below here:
-
-#define screenWidth 640
-#define screenHeight 480
-#define mapWidth 24
-#define mapHeight 24
-#define MOVE_LEFT 0
-#define MOVE_RIGHT 2
-#define MOVE_DOWN 1
-#define MOVE_UP 13
-#define ROTATE_LEFT 123
-#define ROTATE_RIGHT 124
-#define ESCAPE 53
-#define false 0
-#define true 0
-
-typedef struct s_img
-{
-  void *img_ptr;
-  char *addr;
-  int bpp;
-  int sl;
-  int endian;
-  int width;
-  int height;
-} t_img;
-
-typedef struct s_data
-{
-  int worldMap[64];
-
-  // // players position
-  float p_x;
-  float p_y;
-  double plane_x;
-  double plane_y;
-  double dir_x;
-  double dir_y;
-  float delta_x;
-  float delta_y;
-  float angle;
-  void *mlx_ptr;
-  void *mlx_win;
-  t_img img;
-} t_data;
+#include "../includes/cub3d.h"
 
 int worldMap[mapWidth][mapHeight] =
     {
@@ -239,15 +189,20 @@ int draw_game(t_data *data)
     int hit = 0; //was there a wall hit?
     int side;    //was a NS or a EW wall hit?
     //calculate step and initial sideDist
+    // int color;
+    // color = 0xFF0000;
+
     if (rayDirX < 0)
     {
       stepX = -1;
       sideDistX = (data->p_x - mapX) * deltaDistX;
+      // color = 0x00FF00;
     }
     else
     {
       stepX = 1;
       sideDistX = (mapX + 1.0 - data->p_x) * deltaDistX;
+      // color = 0x0000FF;
     }
     if (rayDirY < 0)
     {
@@ -323,12 +278,23 @@ int draw_game(t_data *data)
     }
 
     // give x and y sides different brightness
-    
 
     //draw the pixels of the stripe as a vertical line
+    // for(int k = 0; k < drawStart; k++)
+    // {
+    //   int tmp =  0xFF00FF;
+    //   my_mlx_pixel_put(&data->img, x, k, tmp);
+    // }
+    // fprintf(stderr, "%d - %d", drawStart, drawEnd);
+    // exit(1);
     for (int k = drawStart; k < drawEnd + 10; k++)
     {
       my_mlx_pixel_put(&data->img, x, k, color);
+    }
+    for (int k = drawEnd + 10; k < 512; k++)
+    {
+      int tmp = 0xFF00FF;
+      my_mlx_pixel_put(&data->img, x, k, tmp);
     }
   }
   mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img_ptr, 0, 0);
@@ -339,8 +305,10 @@ int draw_game(t_data *data)
 int main(void)
 {
   t_data data;
-
+  
   init_data(&data);
+  init_map("maps/test.cub", &data);
+  is_map_valid(&data);
   mlx_loop_hook(data.mlx_ptr, draw_game, &data);
   mlx_hook(data.mlx_win, 2, 1L << 0, update_game, &data);
   mlx_loop(data.mlx_ptr);
