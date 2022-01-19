@@ -6,11 +6,11 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/19 00:30:18 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/19 19:24:33 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int get_perimeter(char *filename, t_data *data)
 {
