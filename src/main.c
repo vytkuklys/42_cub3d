@@ -34,7 +34,7 @@
 
 #include "../includes/cub3d.h"
 
-int worldMap[mapWidth][mapHeight] =
+int worldMap[MAPWIDTH][MAPHEIGHT] =
     {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
