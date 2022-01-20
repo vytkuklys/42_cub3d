@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
+#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 12:13:12 by jludt             #+#    #+#              #
-#    Updated: 2022/01/09 15:54:23 by vkuklys          ###   ########.fr        #
+#    Updated: 2022/01/18 21:16:35 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT_DIR = ./libft/
 MINLBX_DIR = ./mlx/
 
 # Source files and object files
-SRC_FILES = main.c			
+SRC_FILES = main.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
@@ -60,6 +60,15 @@ $(NAME): $(OBJ)
 	@echo "$(YELLOW)\n      -> Building $(NAME) ...$(RESET)"
 	@gcc $(OBJ) $(LNK) -lm -o $(NAME)
 	@echo "$(GREEN)***   Project $(NAME) successfully compiled   ***\n$(RESET)"
+	@echo "$(GREEN)                        _/                        _/"$(X)
+	@echo "$(GREEN)                       _/        _/_/_/          _/ "$(X)
+	@echo "$(GREEN)    _/_/_/  _/    _/  _/_/_/          _/    _/_/_/  "$(X)
+	@echo "$(GREEN) _/        _/    _/  _/    _/    _/_/    _/    _/   "$(X)
+	@echo "$(GREEN)_/        _/    _/  _/    _/        _/  _/    _/    "$(X)
+	@echo "$(GREEN) _/_/_/    _/_/_/  _/_/_/    _/_/_/      _/_/_/     "$(X)
+	@printf "\n\n"
+
+
 
 # clean rule
 clean:
