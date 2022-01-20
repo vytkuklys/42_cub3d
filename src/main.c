@@ -32,6 +32,7 @@
 // // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // // */
 
+
 #include "../includes/cub3d.h"
 
 int worldMap[MAPWIDTH][MAPHEIGHT] =
