@@ -6,7 +6,7 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 12:13:12 by jludt             #+#    #+#              #
-#    Updated: 2022/01/18 21:16:35 by tblaase          ###   ########.fr        #
+#    Updated: 2022/01/20 13:25:52 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT_DIR = ./libft/
 MINLBX_DIR = ./mlx/
 
 # Source files and object files
-SRC_FILES = main.c
+SRC_FILES = main.c init.c validation.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
