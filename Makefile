@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
+#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 12:13:12 by jludt             #+#    #+#              #
-#    Updated: 2022/01/20 15:33:24 by tblaase          ###   ########.fr        #
+#    Updated: 2022/01/21 17:49:17 by vkuklys          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT_DIR = ./libft/
 MINLBX_DIR = ./mlx/
 
 # Source files and object files
-SRC_FILES = main.c init.c validation.c
+SRC_FILES = main.c init.c validation.c checkers.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
