@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:39:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/21 20:00:22 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/21 21:25:22 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int is_x_right_wall(t_data *data);
 int is_y_right_wall(t_data *data);
 int is_x_left_wall(t_data *data);
 int is_y_left_wall(t_data *data);
-
+void my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int draw_minimap(t_data *data);
 
 // static int worldMap[MAPWIDTH][MAPHEIGHT] =
 //     {
