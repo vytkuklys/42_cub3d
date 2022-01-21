@@ -32,7 +32,6 @@
 // // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // // */
 
-
 #include "../includes/cub3d.h"
 
 int worldMap[MAPWIDTH][MAPHEIGHT] =
@@ -47,58 +46,59 @@ int worldMap[MAPWIDTH][MAPHEIGHT] =
         {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 4, 0, 0, 0, 0, 5, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 4, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 4, 4, 4, 4, 4, 4, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 0, 0, 0, 0, 5, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 0, 4, 4, 4, 4, 4, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-int e = 0;
-
 int update_game(int key, t_data *data)
 {
-  // double data->plane_x = 0, data->plane_y = 0.66;             //the 2d raycaster version of camera plane
-  // double time = 0;                              //time of current frame
-  // double oldTime = 0;                           //time of previous frame
-  // double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-  double frameTime = 0.08; //frameTime is the time this frame has taken, in seconds
-
-  // double data->dir_x = -1, data->dir_y = 0;         //initial direction vector
+  double frameTime = 0.012; //frameTime is the time this frame has taken, in seconds
   double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-  double rotSpeed = frameTime * 3.0;  //the constant value is in radians/second
+  double rotSpeed = frameTime * 4.0;  //the constant value is in radians/second
   if (key == MOVE_UP)
   {
     if (worldMap[(int)(data->p_x + data->dir_x * moveSpeed)][(int)(data->p_y)] == false)
     {
-
       data->p_x += data->dir_x * moveSpeed;
     }
     if (worldMap[(int)(data->p_x)][(int)(data->p_y + data->dir_y * moveSpeed)] == false)
     {
       data->p_y += data->dir_y * moveSpeed;
     }
-    // data->p_x -=1;
   }
-  //move backwards if no wall behind you
   else if (key == MOVE_DOWN)
   {
     if (worldMap[(int)(data->p_x - data->dir_x * moveSpeed)][(int)(data->p_y)] == false)
       data->p_x -= data->dir_x * moveSpeed;
     if (worldMap[(int)(data->p_x)][(int)(data->p_y - data->dir_y * moveSpeed)] == false)
       data->p_y -= data->dir_y * moveSpeed;
-    // data->p_x +=1;
   }
-  //rotate to the right
   else if (key == MOVE_RIGHT)
+  {
+    if (worldMap[(int)(data->p_x + data->dir_x * moveSpeed)][(int)(data->p_y)] == false)
+      data->p_y -= data->dir_x * moveSpeed;
+    if (worldMap[(int)(data->p_x)][(int)(data->p_y - data->dir_y * moveSpeed)] == false)
+      data->p_x += data->dir_y * moveSpeed;
+  }
+  else if (key == MOVE_LEFT)
+  {
+    if (worldMap[(int)(data->p_x + data->dir_x * moveSpeed)][(int)(data->p_y)] == false)
+      data->p_y += data->dir_x * moveSpeed;
+    if (worldMap[(int)(data->p_x)][(int)(data->p_y - data->dir_y * moveSpeed)] == false)
+      data->p_x -= data->dir_y * moveSpeed;
+  }
+  else if (key == ROTATE_RIGHT)
   {
     //both camera direction and camera plane must be rotated
     double oldDirX = data->dir_x;
@@ -108,8 +108,7 @@ int update_game(int key, t_data *data)
     data->plane_x = data->plane_x * cos(-rotSpeed) - data->plane_y * sin(-rotSpeed);
     data->plane_y = oldPlaneX * sin(-rotSpeed) + data->plane_y * cos(-rotSpeed);
   }
-  //rotate to the left
-  else if (key == MOVE_LEFT)
+  else if (key == ROTATE_LEFT)
   {
     // both camera direction and camera plane must be rotated
     double oldDirX = data->dir_x;
@@ -118,7 +117,6 @@ int update_game(int key, t_data *data)
     double oldPlaneX = data->plane_x;
     data->plane_x = data->plane_x * cos(rotSpeed) - data->plane_y * sin(rotSpeed);
     data->plane_y = oldPlaneX * sin(rotSpeed) + data->plane_y * cos(rotSpeed);
-    // data->plane_y = 1;
   }
   else if (key == ESCAPE)
   {
@@ -138,14 +136,15 @@ void my_mlx_pixel_put(t_img *img, int x, int y, int color)
 void init_data(t_data *data)
 {
   data->mlx_ptr = mlx_init();
-  data->mlx_win = mlx_new_window(data->mlx_ptr, 512, 512, "Cub3d");
+  data->mlx_win = mlx_new_window(data->mlx_ptr, 1024, 512, "Cub3d");
   data->p_x = 22;
   data->p_y = 13;
-  data->angle = 60;
   data->plane_x = 0;
   data->plane_y = 0.66;
   data->dir_x = -1;
   data->dir_y = 0;
+  data->pressed_key = -1;
+  data->pressed_key2 = -1;
 }
 
 int createRGB(int r, int g, int b)
@@ -159,6 +158,17 @@ int draw_game(t_data *data)
   int h = 512;
   data->img.img_ptr = mlx_new_image(data->mlx_ptr, 1024, 512);
   data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.sl, &data->img.endian);
+
+  if (data->pressed_key > -1 && data->pressed_key2 != data->pressed_key)
+  {
+    update_game(data->pressed_key, data);
+  }
+  if (data->pressed_key2 > -1 && data->pressed_key2 != data->pressed_key)
+  {
+    update_game(data->pressed_key2, data);
+  }
+      // update_game(MOVE_UP, data);
+
   for (int x = 0; x < w; x++)
   {
     //calculate ray position and direction
@@ -199,7 +209,7 @@ int draw_game(t_data *data)
     int color;
     int x_color;
     int y_color;
-   e++;
+    
     if (rayDirX < 0)
     {
       stepX = -1;
@@ -265,46 +275,14 @@ int draw_game(t_data *data)
     int lineHeight = (int)(h / perpWallDist);
 
     //calculate lowest and highest pixel to fill in current stripe
-    int drawStart = -lineHeight / 2 + h / 2 - 10;
+    int drawStart = -lineHeight / 2 + h / 2 - 5;
     if (drawStart < 0)
       drawStart = 0;
-    int drawEnd = lineHeight / 2 + h / 2 + 10;
+    int drawEnd = lineHeight / 2 + h / 2 + 5;
     if (drawEnd >= h)
       drawEnd = h - 1;
 
     //choose wall color
-    // int color;
-    // switch (worldMap[mapX][mapY])
-    // {
-    // case 1:
-    //   color = 0x00FF00;
-    //   break; //red
-    // case 2:
-    //   color = 0x0000FF;
-    //   break; //green
-    // case 3:
-    //   color = 0xFFFFFF;
-    //   break; //blue
-    // case 4:
-    //   color = 0xFF0000;
-    //   break; //white
-    // default:
-    //   color = 0x00FF00;
-    //   break; //yellow
-    // }
-
-        // if (side == 1) {color = color / 2;}
-
-    // give x and y sides different brightness
-
-    //draw the pixels of the stripe as a vertical line
-    // for(int k = 0; k < drawStart; k++)
-    // {
-    //   int tmp =  0xFF00FF;
-    //   my_mlx_pixel_put(&data->img, x, k, tmp);
-    // }
-    // fprintf(stderr, "%d - %d", drawStart, drawEnd);
-    // exit(1);
     int tmp = createRGB(120, 50, 100);
     for (int k = 0; k < drawStart; k++)
     {
@@ -324,7 +302,31 @@ int draw_game(t_data *data)
   mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
   return 0;
 }
-
+int test(int key, t_data *data)
+{
+  if (data->pressed_key == -1 && data->pressed_key2 != key)
+    data->pressed_key = key;
+  else if (data->pressed_key != key)
+  {
+    data->pressed_key2 = key;
+  }
+  return (1);
+}
+int test2(int key, t_data *data)
+{
+  fprintf(stderr, "+\n");
+  if (data->pressed_key == key)
+  {
+    data->pressed_key = -1;
+    fprintf(stderr, "A - %d, ", key);
+  }
+  if (data->pressed_key2 == key)
+  {
+    data->pressed_key2 = -1;
+    fprintf(stderr, " B, - %d, ", key);
+  }
+  return (key);
+}
 int main(void)
 {
   t_data data;
@@ -333,16 +335,17 @@ int main(void)
   init_map("maps/test.cub", &data);
   is_map_valid(&data);
   mlx_loop_hook(data.mlx_ptr, draw_game, &data);
-  mlx_hook(data.mlx_win, 2, 1L << 0, update_game, &data);
+  mlx_hook(data.mlx_win, 2, 1L << 0, test, &data);
+  mlx_hook(data.mlx_win, 3, 1L << 0, test2, &data);
+  // if (data.pressed_key == 1)
+  // {
+  //   fprintf(stderr, "+ ");
+  // }
+  // mlx_hook(data.mlx_win, 2, 1L << 0, update_game, &data);
   mlx_loop(data.mlx_ptr);
 }
 
-
-
-
-
 //failed attempt to reduce pixelation below :D
-
 
 // typedef struct s_image
 // {
@@ -432,7 +435,7 @@ int main(void)
 //     t_image data;
 //     int width;
 //     int height;
-//     char *path = get_path_to_image('C');
+//     char *path = get_path_to_image('0');
 //     void *mlx = mlx_init();
 //     void *win = mlx_new_window(mlx, 1200, 1200, "Tutorial Window - Create Image");
 //     // // fprintf(stderr, "img: ");

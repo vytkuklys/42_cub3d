@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:39:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/20 15:45:24 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/20 22:01:47 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_map
 typedef struct s_data
 {
 	int			worldMap[64];
-//	float[2]	players_position;
 	float		p_x;
 	float		p_y;
 	double		plane_x;
@@ -77,9 +76,10 @@ typedef struct s_data
 	double		dir_y;
 	float		delta_x;
 	float		delta_y;
-	float		angle;
 	void		*mlx_ptr;
 	void		*mlx_win;
+	int			pressed_key;
+	int			pressed_key2;
 	t_img		img;
 	t_map		map;
 }				t_data;
