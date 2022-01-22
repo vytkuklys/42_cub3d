@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "../../new"
+		},
+		{
+			"path": "../../fail"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cub3d.h": "c"
+		}
+	}
+}

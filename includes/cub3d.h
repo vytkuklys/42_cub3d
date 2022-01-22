@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:39:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/21 21:25:22 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/22 23:16:22 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,29 @@
 # define ESCAPE 53
 
 #define  FRAMES 0.012
-#define  SPEED FRAMES * 5.0
-#define  ROTATION FRAMES * 4.0
+#define  SPEED FRAMES * 3.5
+#define  ROTATION FRAMES * 2.75
+
+#define NORTH 0
+#define EAST 1
+#define WEST 2
+#define SOUTH 3
+
+typedef struct s_textures
+{
+	int		east_wall[64][64];
+	int		west_wall[64][64];
+	int		north_wall[64][64];
+	int		south_wall[64][64];
+	void	*east_ptr;
+	void	*west_ptr;
+	void	*north_ptr;
+	void	*south_ptr;
+	char	*west_addr;
+	char	*east_addr;
+	char	*south_addr;
+	char	*north_addr;
+}				t_textures;
 
 typedef struct s_img
 {
@@ -61,13 +82,14 @@ typedef struct s_img
 	int		endian;
 	int		width;
 	int		height;
+	t_textures	textures;
 }				t_img;
 
 typedef struct s_map
 {
-	char	**map;
 	int		columns;
 	int		rows;
+	char	**map;
 }				t_map;
 
 typedef struct s_data
@@ -85,6 +107,8 @@ typedef struct s_data
 	void		*mlx_win;
 	int			pressed_key;
 	int			pressed_key2;
+	int			wall_y;
+	int			wall_x;
 	t_img		img;
 	t_map		map;
 }				t_data;
@@ -102,32 +126,10 @@ int is_x_left_wall(t_data *data);
 int is_y_left_wall(t_data *data);
 void my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int draw_minimap(t_data *data);
-
-// static int worldMap[MAPWIDTH][MAPHEIGHT] =
-//     {
-//         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 4, 4, 4, 4, 4, 4, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 0, 0, 0, 0, 5, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 0, 4, 4, 4, 4, 4, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+int init_textures(t_data *data);
+int draw_west_wall(t_img *img, int x, int start, int end);
+int test2(int key, t_data *data);
+int test(int key, t_data *data);
+int update_game(int key, t_data *data);
 
 #endif

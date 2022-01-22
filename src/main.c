@@ -61,63 +61,6 @@ int worldMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-int update_game(int key, t_data *data)
-{
-	if (key == MOVE_UP)
-	{
-		if (!is_x_forwards_wall(data))
-			data->p_x += data->dir_x * SPEED;
-		if (!is_y_forwards_wall(data))
-			data->p_y += (data->dir_y * SPEED);
-	}
-	else if (key == MOVE_DOWN)
-	{
-		if (!is_x_backwards_wall(data))
-			data->p_x -= data->dir_x * SPEED;
-		if (!is_y_backwards_wall(data))
-			data->p_y -= (data->dir_y * SPEED);
-	}
-	else if (key == MOVE_RIGHT)
-	{
-		if (!is_x_right_wall(data))
-			data->p_x += data->dir_y * SPEED;
-		if (!is_y_right_wall(data))
-			data->p_y -= data->dir_x * SPEED;
-	}
-	else if (key == MOVE_LEFT)
-	{
-		if (!is_x_left_wall(data))
-			data->p_x -= data->dir_y * SPEED;
-		if (!is_y_left_wall(data))
-			data->p_y += data->dir_x * SPEED;
-	}
-	else if (key == ROTATE_RIGHT)
-	{
-		//both camera direction and camera plane must be rotated
-		double oldDirX = data->dir_x;
-		data->dir_x = data->dir_x * cos(-ROTATION) - data->dir_y * sin(-ROTATION);
-		data->dir_y = oldDirX * sin(-ROTATION) + data->dir_y * cos(-ROTATION);
-		double oldPlaneX = data->plane_x;
-		data->plane_x = data->plane_x * cos(-ROTATION) - data->plane_y * sin(-ROTATION);
-		data->plane_y = oldPlaneX * sin(-ROTATION) + data->plane_y * cos(-ROTATION);
-	}
-	else if (key == ROTATE_LEFT)
-	{
-		// both camera direction and camera plane must be rotated
-		double oldDirX = data->dir_x;
-		data->dir_x = data->dir_x * cos(ROTATION) - data->dir_y * sin(ROTATION);
-		data->dir_y = oldDirX * sin(ROTATION) + data->dir_y * cos(ROTATION);
-		double oldPlaneX = data->plane_x;
-		data->plane_x = data->plane_x * cos(ROTATION) - data->plane_y * sin(ROTATION);
-		data->plane_y = oldPlaneX * sin(ROTATION) + data->plane_y * cos(ROTATION);
-	}
-	else if (key == ESCAPE)
-	{
-		exit(0);
-	}
-	return (0);
-}
-
 void my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char *dst;
@@ -138,6 +81,9 @@ void init_data(t_data *data)
 	data->dir_y = 0;
 	data->pressed_key = -1;
 	data->pressed_key2 = -1;
+	data->wall_y = -1;
+	data->wall_x = -1;
+	init_textures(data);
 }
 
 int createRGB(int r, int g, int b)
@@ -149,6 +95,8 @@ int draw_game(t_data *data)
 {
 	int w = 1024;
 	int h = 512;
+	int wall_type = 0;
+
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, 1024, 512);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.sl, &data->img.endian);
 
@@ -159,10 +107,6 @@ int draw_game(t_data *data)
 	if (data->pressed_key2 > -1 && data->pressed_key2 != data->pressed_key)
 	{
 		update_game(data->pressed_key2, data);
-	}
-	if (data->pressed_key == data->pressed_key2 && data->pressed_key != -1)
-	{
-		fprintf(stderr, "ERROR!!!!!!!\n");
 	}
 	for (int x = 0; x < w; x++)
 	{
@@ -210,24 +154,28 @@ int draw_game(t_data *data)
 			stepX = -1;
 			sideDistX = (data->p_x - mapX) * deltaDistX;
 			x_color = 0x00FF00;
+			data->wall_x = NORTH;
 		}
 		else
 		{
 			stepX = 1;
 			sideDistX = (mapX + 1.0 - data->p_x) * deltaDistX;
 			x_color = 0x0000FF;
+			data->wall_x = SOUTH;
 		}
 		if (rayDirY < 0)
 		{
 			stepY = -1;
 			sideDistY = (data->p_y - mapY) * deltaDistY;
 			y_color = 0xFFFFFF;
+			data->wall_y = WEST;
 		}
 		else
 		{
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - data->p_y) * deltaDistY;
 			y_color = 0xFF0000;
+			data->wall_y = EAST;
 		}
 		//perform DDA
 		while (hit == 0)
@@ -258,10 +206,12 @@ int draw_game(t_data *data)
 		if (side == 0)
 		{
 			color = x_color;
+			wall_type = data->wall_x;
 			perpWallDist = (sideDistX - deltaDistX);
 		}
 		else
 		{
+			wall_type = data->wall_y;
 			color = y_color;
 			perpWallDist = (sideDistY - deltaDistY);
 		}
@@ -270,56 +220,96 @@ int draw_game(t_data *data)
 		int lineHeight = (int)(h / perpWallDist);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + h / 2 - 5;
+		int drawStart = -lineHeight / 1.5 + h / 2 + 0;
 		if (drawStart < 0)
 			drawStart = 0;
-		int drawEnd = lineHeight / 2 + h / 2 + 5;
+		int drawEnd = lineHeight / 1.5 + h / 2 + 0;
 		if (drawEnd >= h)
 			drawEnd = h - 1;
 
-		//choose wall color
-		int tmp = createRGB(120, 50, 100);
+
+	// int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+
+      //calculate value of wallX
+      double wallX; //where exactly the wall was hit
+      if(side == 0) wallX = data->p_y + perpWallDist * rayDirY;
+      else          wallX = data->p_x + perpWallDist * rayDirX;
+      wallX -= floor((wallX));
+
+      //x coordinate on the texture
+      int texX = (int)(wallX * (double)(64));
+      if(side == 0 && rayDirX > 0) texX = 64 - texX - 1;
+      if(side == 1 && rayDirY < 0) texX = 64 - texX - 1;
+
+      // How much to increase the texture coordinate per screen pixel
+      double step = (1.0 * 64 / lineHeight) * 0.75;
+      // Starting texture coordinate
+      double texPos = (drawStart - 0 - h / 2 + lineHeight / 1.5) * step;
+      for(int y = drawStart; y < drawEnd; y++)
+      {
+        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+        int texY = (int)texPos & (64 - 1);
+        texPos += step;
+		int color;
+		if (wall_type == EAST)
+		{
+        	color = data->img.textures.east_wall[texX][texY];
+		}
+		else if (wall_type == WEST)
+		{
+        	color = data->img.textures.west_wall[texX][texY];
+		}
+		else if (wall_type == NORTH)
+		{
+        	color = data->img.textures.north_wall[texX][texY];
+		}
+		else
+		{
+        	color = data->img.textures.south_wall[texX][texY];
+		}
+		if (wall_type != WEST)color = (color >> 1) & 8355711;
+		my_mlx_pixel_put(&data->img, x, y, color);
+      }
+
+	// 	//choose wall color
+		int tmp = createRGB(105, 105, 105);
 		for (int k = 0; k < drawStart; k++)
 		{
 			my_mlx_pixel_put(&data->img, x, k, tmp);
 		}
-		for (int k = drawStart > 0 ? drawStart : 0; k < drawEnd && k < 512; k++)
-		{
-			my_mlx_pixel_put(&data->img, x, k, color);
-		}
-		tmp = createRGB(5, 130, 20);
-		for (int k = drawEnd; k < 512; k++)
-		{
-			my_mlx_pixel_put(&data->img, x, k, tmp);
-		}
+			tmp = createRGB(195, 195, 195);
+			for (int k = drawEnd; k < 512; k++)
+			{
+				my_mlx_pixel_put(&data->img, x, k, tmp);
+			}
 	}
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img_ptr, 0, 0);
 	mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
 	return 0;
 }
-int test(int key, t_data *data)
-{
-	if (data->pressed_key == -1 && data->pressed_key2 != key)
-		data->pressed_key = key;
-	else if (data->pressed_key != key)
-	{
-		data->pressed_key2 = key;
-	}
-	return (1);
-}
-int test2(int key, t_data *data)
-{
-	if (data->pressed_key == key)
-	{
-		data->pressed_key = -1;
-	}
-	if (data->pressed_key2 == key)
-	{
-		data->pressed_key2 = -1;
-	}
-	return (key);
-}
+// int test(int key, t_data *data)
+// {
+// 	if (data->pressed_key == -1 && data->pressed_key2 != key)
+// 		data->pressed_key = key;
+// 	else if (data->pressed_key != key)
+// 	{
+// 		data->pressed_key2 = key;
+// 	}
+// 	return (1);
+// }
+// int test2(int key, t_data *data)
+// {
+// 	if (data->pressed_key == key)
+// 	{
+// 		data->pressed_key = -1;
+// 	}
+// 	if (data->pressed_key2 == key)
+// 	{
+// 		data->pressed_key2 = -1;
+// 	}
+// 	return (key);
+// }
 int main(void)
 {
 	t_data data;
@@ -333,167 +323,3 @@ int main(void)
 	// mlx_hook(data.mlx_win, 2, 1L << 0, update_game, &data);
 	mlx_loop(data.mlx_ptr);
 }
-
-//failed attempt to reduce pixelation below :D
-
-// typedef struct s_image
-// {
-//     void *img;
-//     char *addr;
-//     int bpp;
-//     int sl;
-//     int endian;
-//     int width;
-//     int height;
-// } t_image;
-
-// void my_mlx_pixel_put(t_image *img, int x, int y, int color)
-// {
-//     char *dst;
-
-//     dst = img->addr + (y * img->sl + x * (img->bpp / 8));
-//     *(unsigned int *)dst = color;
-// }
-
-// int my_mlx_pixel_get(t_image *img, int x, int y)
-// {
-//     int color;
-//     char *dst;
-
-//     dst = img->addr + (y * img->sl + x * (img->bpp / 8));
-//     color = *(unsigned int *)dst;
-//     return (color);
-// }
-
-// char *get_path_to_image(char c)
-// {
-//     if (c == '0')
-//         return ("./images/grass.xpm");
-//     else if (c == '1')
-//         return ("./images/wall.xpm");
-//     else if (c == 'P')
-//         return ("./images/hero.xpm");
-//     else if (c == 'C')
-//         return ("./textures/north.xpm");
-//     else
-//         return ("./images/exit.xpm");
-// }
-
-// void display_line(void *mlx_ptr, void *win_ptr)
-// {
-//     int x;
-//     int width;
-//     int height;
-//     void *img_ptr;
-//     char *path;
-
-//     // width = 16;
-//     // height = 16;
-//     x = 1;
-//     // while ((*s)[x])
-//     // {
-//     path = get_path_to_image('0');
-//     fprintf(stderr, "%p", mlx_ptr);
-//     img_ptr = mlx_xpm_file_to_image(mlx_ptr, path, &width, &height);
-//     fprintf(stderr, "%p", img_ptr);
-//     mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 20, 20);
-//     x++;
-//     // }
-// }
-
-// int reduce_pixelation(int c1, int c2, int numerator, int denominator)
-// {
-//     int color;
-
-//     if (numerator == 0)
-//     {
-//         return c1;
-//     }
-//     color = (abs(c1 - c2) / denominator) * numerator;
-//     if (c1 < c2)
-//         color += c1;
-//     else
-//         color += c2;
-//     return color;
-// }
-
-// int main()
-// {
-//     t_image *img = NULL;
-//     img = malloc(sizeof(t_image));
-//     t_image data;
-//     int width;
-//     int height;
-//     char *path = get_path_to_image('0');
-//     void *mlx = mlx_init();
-//     void *win = mlx_new_window(mlx, 1200, 1200, "Tutorial Window - Create Image");
-//     // // fprintf(stderr, "img: ");
-//     // // img->img = NULL;
-//     if (!(img->img = mlx_new_image(mlx, 1200, 1200)))
-//         return (-1);
-//     img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->sl,
-//                                   &img->endian);
-//     data.img = mlx_xpm_file_to_image(mlx, path, &width, &height);
-//     // fprintf(stderr, "%p", data.img);
-//     data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.sl, &data.endian);
-
-//     // display_line(mlx, win);
-//     // The following code goes here.
-//     int img_pixels[64][64];
-//     for (int i = 0; i <= 63; i++)
-//     {
-//         for (int j = 0; j <= 63; j++)
-//         {
-//             img_pixels[i][j] = my_mlx_pixel_get(&data, i, j);
-//         }
-//     }
-//     int l = 0;
-//     for (int i = 0; i < 511; i++)
-//     {
-//         int k = 0;
-//         for (int j = 0; j < 511; j++)
-//         {
-//             my_mlx_pixel_put(img, i, j, img_pixels[l][k]);
-//             if (j % 8 == 0 && j > 0)
-//             {
-//                 k++;
-//             }
-//             // abc = reduce_pixelation(img_pixels[l][k], img_pixels[l][k], k % 4, 4);
-//         }
-//         if (i % 8 == 0 && i > 0)
-//         {
-//             l++;
-//         }
-//     }
-//     l = 0;
-//     int abc = img_pixels[0][0];
-//     int k = 0;
-//     for (int i = 0; i < 511; i++)
-//     {
-//         k = 0;
-//         for (int j = 0; j < 75; j++)
-//         {
-//             my_mlx_pixel_put(img, i + 514, j, abc);
-//             if (j % 8 == 0 && j > 0)
-//             {
-//                 k++;
-//             }
-//             if (k + 1 < 63)
-//             {
-//                 abc = reduce_pixelation(img_pixels[l][k], img_pixels[l][k + 1], k % 8, 8);
-//             }
-//         }
-//         if (i % 8 == 0 && i > 0)
-//         {
-//             l++;
-//         }
-//     }
-//     for (int i = 0; i < 8; i++)
-//     {
-//         fprintf(stderr, "%d - %d = ", img_pixels[l][k], img_pixels[l][k + 1]);
-//         fprintf(stderr, "%d\n", reduce_pixelation(img_pixels[l][k], img_pixels[l][k + 1], i, 8));
-//     }
-
-//     mlx_put_image_to_window(mlx, win, img->img, 0, 0);
-//     mlx_loop(mlx);
-// }

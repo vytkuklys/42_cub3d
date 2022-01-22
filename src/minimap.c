@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:22:53 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/21 22:41:25 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/22 23:14:40 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,84 +39,67 @@ int againSameMap[MAPWIDTH][MAPHEIGHT] =
         {1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-// void my_pixel_put(t_img *img, float x, float y, int color)
-// {
-// 	char *dst;
-
-// 	dst = img->addr + (y * img->sl + x * (img->bpp / 8));
-// 	*(unsigned int *)dst = color;
-// }
-
-int draw_16px(t_img *img, int x, int y, int color)
+int draw_25px(t_img *img, int x, int y, int color)
 {
-	int i;
-	int j;
-	i = 0;
-	while (i < 5)
-	{
-		j = 0;
-		while (j < 5)
-		{
-			my_mlx_pixel_put(img, (x * 5) + i, (y * 5)+j, color);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+    int i;
+    int j;
+    i = 0;
+    while (i < 5)
+    {
+        j = 0;
+        while (j < 5)
+        {
+            my_mlx_pixel_put(img, (x * 5) + i, (y * 5) + j, color);
+            j++;
+        }
+        i++;
+    }
+    return (0);
 }
 
 int draw_player(t_data *data)
 {
-
-		// draw_16px(&data->img, data->p_x + 11, data->p_y + 11, 0xFFFFFF);
-			int i;
-	int j;
-	i = 0;
-		while (i < 3)
-	{
-		j = -1;
-		while (j < 3)
-		{
-			my_mlx_pixel_put(&data->img, (data->p_x * 5) + i, (data->p_y * 5)+j, 0xFFFF33);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+    int i;
+    int j;
+    i = 0;
+    while (i < 3)
+    {
+        j = -1;
+        while (j < 3)
+        {
+            my_mlx_pixel_put(&data->img, (data->p_y * 5) + i, (data->p_x * 5) + j, 0xDC143C);
+            j++;
+        }
+        i++;
+    }
+    return (0);
 }
 
 int draw_minimap(t_data *data)
 {
     int rows = data->map.rows;
     int columns = data->map.columns;
-    rows = 24;
-    columns = 24;
     int i;
     int j;
     int color;
+
+    rows = 24;
+    columns = 24;
     i = 0;
-    while (i < rows)
+    while (i < columns)
     {
         j = 0;
-        while (j < columns)
+        while (j < rows)
         {
-            if (againSameMap[i][j] == false)
-            {
-                color = 0x0000CC;
-            }
+            if (againSameMap[j][i] == false)
+                color = 0xf0f8ff;
             else
-			{
-			 	color = 0xFF9999;
-			}
-			draw_16px(&data->img, i, j, color);
+                color = 0x1E90FF;
+            draw_25px(&data->img, i, j, color);
             j++;
         }
-		i++;
+        i++;
     }
-	draw_player(data);
-	if (data == NULL)
-	{
-		return 1;
-	}
+    draw_player(data);
     return (0);
 }
