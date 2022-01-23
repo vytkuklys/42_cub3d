@@ -6,44 +6,34 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 17:46:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/22 20:56:07 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:48:16 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int draw_east_wall(t_img *img, int x, int start, int end)
+void get_wall_data(t_data *data)
 {
-    start = start > 0 ? start : 0;
+	t_wall *wall;
+	int line_height;
+	double hit_point;
 
-    int i = 0;
-    int j = x % 64;
-    for (int k = start; i < 64 && k < end && k < 512; k++)
-    {
-        my_mlx_pixel_put(img, x, k, img->textures.east_wall[j][i]);
-        i++;
-    }
-    for (int k = start + 64; k < end && k < 512; k++)
-    {
-        my_mlx_pixel_put(img, x, k, 0x00FFF1);
-    }
-    return (0);
-}
-
-int draw_west_wall(t_img *img, int x, int start, int end)
-{
-    start = start > 0 ? start : 0;
-
-    int i = 0;
-    int j = x % 64;
-    for (int k = start; i < 64 && k < end && k < 512; k++)
-    {
-        my_mlx_pixel_put(img, x, k, img->textures.west_wall[j][i]);
-        i++;
-    }
-    for (int k = start + 64; k < end && k < 512; k++)
-    {
-        my_mlx_pixel_put(img, x, k, 0x00FFF1);
-    }
-    return (0);
+	wall = &data->wall;
+	line_height = (int)(data->height / data->ray.length);
+	wall->top = -line_height / 1.5 + data->height / 2 + 0;
+	if (wall->top < 0)
+		wall->top = 0;
+	wall->bottom = line_height / 1.5 + data->height / 2 + 0;
+	if (wall->bottom >= data->height)
+		wall->bottom = data->height - 1;
+	if (data->ray.side == 0)
+		hit_point = data->p_y + data->ray.length * data->ray.dir_y;
+	else
+		hit_point = data->p_x + data->ray.length * data->ray.dir_x;
+	hit_point -= floor((hit_point));
+	wall->x = (int)(hit_point * (double)(64));
+	if ((data->ray.side == 0 && data->ray.dir_x > 0) || (data->ray.side == 1 && data->ray.dir_y < 0))
+		wall->x = 64 - wall->x - 1;
+	wall->step = (1.0 * 64 / line_height) * 0.75;
+	wall->position = (wall->top - 0 - data->height / 2 + line_height / 1.5) * wall->step;
 }

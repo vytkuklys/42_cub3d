@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkers.c                                         :+:      :+:    :+:   */
+/*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 17:37:08 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 19:31:17 by vkuklys          ###   ########.fr       */
+/*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
+/*   Updated: 2022/01/23 19:47:20 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int sameMap[MAPWIDTH][MAPHEIGHT] =
+int sameWorldMap[MAPWIDTH][MAPHEIGHT] =
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -39,138 +39,93 @@ int sameMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-int is_x_forwards_wall(t_data *data)
+void set_cardinal_direction(t_data *data, t_ray *ray)
 {
-	int y;
-	int x;
-
-	if (data->dir_x > 0)
-		y = (int)((data->p_x + data->dir_x * SPEED) + WALL_DISTANCE);
-	else
-		y = (int)((data->p_x + data->dir_x * SPEED) - WALL_DISTANCE);
-	x = (int)(data->p_y);
-	if (sameMap[y][x] == false)
+	if (ray->dir_x < 0)
 	{
-		return (false);
+		ray->step_x = -1;
+		ray->side_dist_x = (data->p_x - (int)data->p_x) * ray->delta_x;
+		data->wall.vertical = NORTH;
 	}
-	return (true);
+	else
+	{
+		ray->step_x = 1;
+		ray->side_dist_x = ((int)data->p_x + 1.0 - data->p_x) * ray->delta_x;
+		data->wall.vertical = SOUTH;
+	}
+	if (ray->dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_dist_y = (data->p_y - (int)data->p_y) * ray->delta_y;
+		data->wall.horizontal = WEST;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_dist_y = ((int)data->p_y + 1.0 - data->p_y) * ray->delta_y;
+		data->wall.horizontal = EAST;
+	}
+} 
+
+void find_a_wall(t_data *data, t_ray *ray)
+{
+	int wall;
+	int x;
+	int y;
+
+	x = (int)data->p_x;
+	y = (int)data->p_y;
+	wall = false;
+	while (wall == false)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_x;
+			x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_y;
+			y += ray->step_y;
+			ray->side = 1;
+		}
+		if (sameWorldMap[x][y] > 0)
+			wall = true;
+	}
 }
 
-int is_y_forwards_wall(t_data *data)
+double count_ray_length(t_data *data)
 {
-	int y;
-	int x;
+	t_ray *ray;
+	double length;
 
-	if (data->dir_y > 0)
-		y = (int)(data->p_y + data->dir_y * SPEED + WALL_DISTANCE);
-	else
-		y = (int)(data->p_y + data->dir_y * SPEED - WALL_DISTANCE);
-	x = (int)(data->p_x);
-	if (sameMap[x][y] == false)
+	find_a_wall(data, &data->ray);
+	ray = &data->ray;
+	if (ray->side == 0)
 	{
-		return (false);
+		data->wall.direction = data->wall.vertical;
+		length = (ray->side_dist_x - ray->delta_x);
 	}
-	return (true);
+	else
+	{
+		data->wall.direction = data->wall.horizontal;
+		length = (ray->side_dist_y - ray->delta_y);
+	}
+	return (length);
 }
 
-int is_x_backwards_wall(t_data *data)
+int get_ray_data(t_data *data, int x)
 {
-	int y;
-	int x;
+	t_ray *ray;
 
-	if (data->dir_x > 0)
-		y = (int)(data->p_x - data->dir_x * SPEED - WALL_DISTANCE);
-	else
-		y = (int)(data->p_x - data->dir_x * SPEED + WALL_DISTANCE);
-	x = (int)(data->p_y);
-	if (sameMap[y][x] == false)
-	{
-		return (false);
-	}
-	return (true);
-}
-
-int is_y_backwards_wall(t_data *data)
-{
-	int y;
-	int x;
-
-	if (data->dir_y > 0)
-		y = (int)(data->p_y - data->dir_y * SPEED - WALL_DISTANCE);
-	else
-		y = (int)(data->p_y - data->dir_y * SPEED + WALL_DISTANCE);
-	x = (int)(data->p_x);
-	if (sameMap[x][y] == false)
-	{
-		return (false);
-	}
-	return (true);
-}
-
-int is_x_right_wall(t_data *data)
-{
-	int y;
-	int x;
-
-	if (data->dir_y > 0)
-		y = (int)(data->p_x + WALL_DISTANCE);
-	else
-		y = (int)(data->p_x - WALL_DISTANCE);
-	x = (int)(data->p_y - data->dir_y * SPEED);
-	if (sameMap[y][x] == false)
-	{
-		return (false);
-	}
-	return (true);
-}
-
-int is_y_right_wall(t_data *data)
-{
-	int y;
-	int x;
-
-	if (data->dir_x > 0)
-		y = (int)(data->p_y - WALL_DISTANCE);
-	else
-		y = (int)(data->p_y + WALL_DISTANCE);
-	x = (int)(data->p_x + data->dir_x * SPEED);
-	if (sameMap[x][y] == false)
-	{
-		return (false);
-	}
-	return (true);
-}
-
-int is_x_left_wall(t_data *data)
-{
-	int y;
-	int x;
-
-	if (data->dir_y > 0)
-		y = (int)(data->p_x - WALL_DISTANCE);
-	else
-		y = (int)(data->p_x + WALL_DISTANCE);
-	x = (int)(data->p_y - data->dir_y * SPEED);
-	if (sameMap[y][x] == false)
-	{
-		return (false);
-	}
-	return (true);
-}
-
-int is_y_left_wall(t_data *data)
-{
-	int y;
-	int x;
-
-	if (data->dir_x > 0)
-		y = (int)(data->p_y + WALL_DISTANCE);
-	else
-		y = (int)(data->p_y - WALL_DISTANCE);
-	x = (int)(data->p_x + data->dir_x * SPEED);
-	if (sameMap[x][y] == false)
-	{
-		return (false);
-	}
-	return (true);
+	ray = &data->ray;
+	ray->camera = 2 * x / (double)data->width - 1;
+	ray->dir_x = data->dir_x + data->plane_x * ray->camera;
+	ray->dir_y = data->dir_y + data->plane_y * ray->camera;
+	ray->delta_x = (ray->dir_x == 0) ? 1e30 : fabs(1 / ray->dir_x);
+	ray->delta_y = (ray->dir_y == 0) ? 1e30 : fabs(1 / ray->dir_y);
+	ray->length = count_ray_length(data);
+	set_cardinal_direction(data, &data->ray);
+	return (0);
 }

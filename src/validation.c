@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/19 00:38:18 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:29:57 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 // 1. Outer most borders need to be space or 1
 // 2. Each space has to be surounded (vertically, diagonally, horizontally) by space or 1
 
-int	are_outer_borders_valid(t_data *data)
+int are_outer_borders_valid(t_data *data)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
 
 	y = 0;
 	while (data->map.map[y] != NULL)
@@ -43,42 +43,42 @@ int	are_outer_borders_valid(t_data *data)
 
 int are_spaces_valid(t_data *data, int y_val, int x_val)
 {
-    int y[3];
-    int x[3];
-    int i;
-    int j;
+	int y[3];
+	int x[3];
+	int i;
+	int j;
 
-    y[0] = y_val - 1;
-    y[1] = y_val;
-    y[2] = y_val + 1;
-    x[0] = x_val - 1;
-    x[1] = x_val;
-    x[2] = x_val + 1;
-    i = 0;
-    while (i < 3)
-    {
-        j = 0;
-        while(j < 3)
-        {
-            if (y[i] > 0 && x[j] > 0 && y[i] < data->map.columns - 1 && x[j] < data->map.rows - 2)
-            {
-                if(data->map.map[y[i]][x[j]] != '1' && data->map.map[y[i]][x[j]] != ' ')
-                {
-                    fprintf(stderr, "Not valid,");
-                    return (1);
-                }
-            }
-            j++;
-        }
-        i++;
-    }
-    return (0);
+	y[0] = y_val - 1;
+	y[1] = y_val;
+	y[2] = y_val + 1;
+	x[0] = x_val - 1;
+	x[1] = x_val;
+	x[2] = x_val + 1;
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 3)
+		{
+			if (y[i] > 0 && x[j] > 0 && y[i] < data->map.columns - 1 && x[j] < data->map.rows - 2)
+			{
+				if (data->map.map[y[i]][x[j]] != '1' && data->map.map[y[i]][x[j]] != ' ')
+				{
+					fprintf(stderr, "Not valid,");
+					return (1);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
 
-int	are_inner_borders_valid(t_data *data)
+int are_inner_borders_valid(t_data *data)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
 
 	y = 0;
 	while (data->map.map[y] != NULL)
@@ -86,7 +86,7 @@ int	are_inner_borders_valid(t_data *data)
 		x = 0;
 		while (data->map.map[y][x] != '\0' && data->map.map[y][x] != '\n')
 		{
-            if (data->map.map[y][x] == ' ' && are_spaces_valid(data, y, x))
+			if (data->map.map[y][x] == ' ' && are_spaces_valid(data, y, x))
 				return (1);
 			x++;
 		}
@@ -97,8 +97,8 @@ int	are_inner_borders_valid(t_data *data)
 
 int is_map_valid(t_data *data)
 {
-    if (are_outer_borders_valid(data) || are_inner_borders_valid(data))
-        return (1);
-    fprintf(stderr, "Valid,\n");
-    return (0);
+	if (are_outer_borders_valid(data) || are_inner_borders_valid(data))
+		return (1);
+	fprintf(stderr, "Valid,\n");
+	return (0);
 }

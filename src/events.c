@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/22 23:25:24 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:17:24 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,16 @@ int update_game(int key, t_data *data)
 	else if (exit_left(key, data) || rotate_view(key, data))
 		;
 	return (0);
+}
+
+void check_events(t_data *data)
+{
+	if (data->pressed_key > -1 && data->pressed_key2 != data->pressed_key)
+	{
+		update_game(data->pressed_key, data);
+	}
+	if (data->pressed_key2 > -1 && data->pressed_key2 != data->pressed_key)
+	{
+		update_game(data->pressed_key2, data);
+	}
 }
