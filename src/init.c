@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 19:31:51 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/24 00:16:13 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int fill_perimeter(char *filename, t_data *data)
 		i++;
 	}
 	data->map.map[i] = NULL;
-
 	return (0);
 }
 

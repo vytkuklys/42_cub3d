@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 19:46:19 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/23 23:48:05 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ typedef struct s_img
 	int endian;
 	int width;
 	int height;
+	char *west_path;
+	char *east_path;
+	char *north_path;
+	char *south_path;
+	int floor_rgb[3];
+	int ceiling_rgb[3];
 	t_textures textures;
 } t_img;
 
@@ -148,8 +154,8 @@ void my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int draw_minimap(t_data *data);
 int init_textures(t_data *data);
 int draw_west_wall(t_img *img, int x, int start, int end);
-int test2(int key, t_data *data);
-int test(int key, t_data *data);
+int key_press(int key, t_data *data);
+int key_release(int key, t_data *data);
 int update_game(int key, t_data *data);
 int createRGB(int r, int g, int b);
 int draw_ground(t_data *data, int x, int from);
@@ -158,5 +164,6 @@ int get_ray_data(t_data *data, int x);
 void draw_walls(t_wall *wall, t_img *img, int x);
 void get_wall_data(t_data *data);
 void check_events(t_data *data);
+int	exit_maze(t_data *data, int flag);
 
 #endif

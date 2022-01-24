@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 19:29:57 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/23 22:10:56 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int are_spaces_valid(t_data *data, int y_val, int x_val)
 			{
 				if (data->map.map[y[i]][x[j]] != '1' && data->map.map[y[i]][x[j]] != ' ')
 				{
-					fprintf(stderr, "Not valid,");
 					return (1);
 				}
 			}
@@ -79,8 +78,10 @@ int are_inner_borders_valid(t_data *data)
 {
 	int x;
 	int y;
+	int flag;
 
 	y = 0;
+	flag = 0;
 	while (data->map.map[y] != NULL)
 	{
 		x = 0;
@@ -88,17 +89,26 @@ int are_inner_borders_valid(t_data *data)
 		{
 			if (data->map.map[y][x] == ' ' && are_spaces_valid(data, y, x))
 				return (1);
+			else if (!strchr(" 01SNWE", data->map.map[y][x]))
+				return (1);
+			else if (strchr("SNWE", data->map.map[y][x]) && flag++ > 0)
+				return (1);
 			x++;
 		}
 		y++;
 	}
+	if (!flag)
+		return (1);
 	return (0);
 }
 
 int is_map_valid(t_data *data)
 {
 	if (are_outer_borders_valid(data) || are_inner_borders_valid(data))
+	{
+		fprintf(stderr, "Not valid,");
 		return (1);
+	}
 	fprintf(stderr, "Valid,\n");
 	return (0);
 }

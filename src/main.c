@@ -57,7 +57,7 @@ int worldMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 4, 0, 0, 0, 0, 5, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 4, 0, 4, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 4, 0, 4, 4, 4, 4, 4, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
@@ -114,11 +114,11 @@ int main(void)
 	t_data data;
 
 	init_data(&data);
-	init_map("maps/test.cub", &data);
+	init_map("maps/new.cub", &data);
 	is_map_valid(&data);
 	mlx_loop_hook(data.mlx_ptr, draw_game, &data);
-	mlx_hook(data.mlx_win, 2, 1L << 0, test, &data);
-	mlx_hook(data.mlx_win, 3, 1L << 0, test2, &data);
-	// mlx_hook(data.mlx_win, 2, 1L << 0, update_game, &data);
+	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
+	mlx_hook(data.mlx_win, 3, 1L << 0, key_release, &data);
+	mlx_hook(data.mlx_win, 17, 1L << 17, exit_maze, &data);
 	mlx_loop(data.mlx_ptr);
 }

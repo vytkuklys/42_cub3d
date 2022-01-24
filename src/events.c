@@ -6,13 +6,21 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 19:17:24 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/23 20:44:20 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int test(int key, t_data *data)
+int	exit_maze(t_data *data, int flag)
+{
+	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+	if (flag)
+		exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
+}
+
+int key_press(int key, t_data *data)
 {
 	if (data->pressed_key == -1 && data->pressed_key2 != key)
 		data->pressed_key = key;
@@ -22,7 +30,7 @@ int test(int key, t_data *data)
 	}
 	return (1);
 }
-int test2(int key, t_data *data)
+int key_release(int key, t_data *data)
 {
 	if (data->pressed_key == key)
 	{
