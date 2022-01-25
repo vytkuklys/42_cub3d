@@ -69,21 +69,34 @@ void my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void init_img(t_img *img)
+{
+	img->north_path = NULL;
+	img->south_path = NULL;
+	img->west_path = NULL;
+	img->east_path = NULL;
+	img->ceiling_rgb[0] = -1;
+	img->floor_rgb[0] = -1;
+}
+
 void init_data(t_data *data)
 {
 	data->width = 1024;
 	data->height = 512;
 	data->mlx_ptr = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3d");
-	data->p_x = 22;
-	data->p_y = 10;
+	data->p_x = 22.4;
+	data->p_y = 10.5;
 	data->plane_x = 0;
-	data->plane_y = 0.66;
+	data->plane_y = 0.71;
 	data->dir_x = -1;
 	data->dir_y = 0;
 	data->pressed_key = -1;
 	data->pressed_key2 = -1;
+	data->tmp_str = NULL;
+	data->map.map = NULL;
 	init_textures(data);
+	init_img(&data->img);
 }
 
 int draw_game(t_data *data)
@@ -114,8 +127,10 @@ int main(void)
 	t_data data;
 
 	init_data(&data);
-	init_map("maps/new.cub", &data);
-	is_map_valid(&data);
+	if (init_map("maps/fuller.cub", &data))
+		return (1);
+	if (is_map_valid(&data))
+		return (1);
 	mlx_loop_hook(data.mlx_ptr, draw_game, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
 	mlx_hook(data.mlx_win, 3, 1L << 0, key_release, &data);

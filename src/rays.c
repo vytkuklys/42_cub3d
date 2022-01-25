@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/24 01:03:08 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/25 00:26:53 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int get_ray_data(t_data *data, int x)
 	ray->dir_y = data->dir_y + data->plane_y * ray->camera;
 	ray->delta_x = (ray->dir_x == 0) ? 1e30 : fabs(1 / ray->dir_x);
 	ray->delta_y = (ray->dir_y == 0) ? 1e30 : fabs(1 / ray->dir_y);
-	ray->length = count_ray_length(data);
 	set_cardinal_direction(data, &data->ray);
+	ray->length = count_ray_length(data);
 	return (0);
 }
