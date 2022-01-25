@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 23:48:05 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/25 00:52:45 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 
 #define WIDTH 1024
 #define HEIGHT 512
+
+#define TOTAL_ELEMENTS 6
 
 typedef struct s_textures
 {
@@ -133,6 +135,7 @@ typedef struct s_data
 	int pressed_key2;
 	int width;
 	int height;
+	char *tmp_str;
 	t_img img;
 	t_map map;
 	t_ray ray;
@@ -164,6 +167,9 @@ int get_ray_data(t_data *data, int x);
 void draw_walls(t_wall *wall, t_img *img, int x);
 void get_wall_data(t_data *data);
 void check_events(t_data *data);
-int	exit_maze(t_data *data, int flag);
+int exit_maze(t_data *data, int flag);
+int are_elements_valid(t_img *img, char *filename);
+int ft_strlen_2d(char **s);
+char *ft_free_2d_array(char ***arr, unsigned int allocated);
 
 #endif
