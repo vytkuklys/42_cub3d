@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 21:42:42 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/26 19:36:59 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,18 @@ void draw_walls(t_wall *wall, t_img *img, int x)
 	}
 }
 
-int draw_sky(t_data *data, int x, int up_to)
+int draw_ceiling(t_data *data, int x, int up_to)
 {
 	int i;
-	int color = createRGB(105, 105, 105); //has to be replaced
+	int red;
+	int green;
+	int blue;
+	int color;
 
+	red = data->img.ceiling_rgb[0];
+	green = data->img.ceiling_rgb[1];
+	blue = data->img.ceiling_rgb[2];
+	color = createRGB(red, green, blue);
 	i = 0;
 	while (i < up_to && i < data->height)
 	{
@@ -51,11 +58,18 @@ int draw_sky(t_data *data, int x, int up_to)
 	return (0);
 }
 
-int draw_ground(t_data *data, int x, int from)
+int draw_floor(t_data *data, int x, int from)
 {
 	int i;
-	int color = createRGB(195, 195, 195); //has to be replaced
+	int red;
+	int green;
+	int blue;
+	int color;
 
+	red = data->img.floor_rgb[0];
+	green = data->img.floor_rgb[1];
+	blue = data->img.floor_rgb[2];
+	color = createRGB(red, green, blue);
 	i = from;
 	while (i < data->height)
 	{

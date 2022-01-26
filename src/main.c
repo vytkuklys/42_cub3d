@@ -86,7 +86,7 @@ void init_data(t_data *data)
 	data->mlx_ptr = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3d");
 	data->p_x = 22.4;
-	data->p_y = 10.5;
+	data->p_y = 10;
 	data->plane_x = 0;
 	data->plane_y = 0.71;
 	data->dir_x = -1;
@@ -112,8 +112,8 @@ int draw_game(t_data *data)
 		get_ray_data(data, x);
 		get_wall_data(data);
 		draw_walls(&data->wall, &data->img, x);
-		draw_sky(data, x, data->wall.top);
-		draw_ground(data, x, data->wall.bottom);
+		draw_ceiling(data, x, data->wall.top);
+		draw_floor(data, x, data->wall.bottom);
 		x++;
 	}
 	draw_minimap(data);

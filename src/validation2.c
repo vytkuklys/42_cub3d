@@ -21,7 +21,7 @@ int get_number(char *el)
 	minus = 1;
 	while (*el && ft_strchr(" \t\r", *el))
 		el++;
-	if (*el == '+' || *el == '-')
+	if (*el == '-')
 	{
 		el++;
 		minus = -1;
@@ -64,13 +64,12 @@ int is_rgb_valid(char **split, int tmp[3])
 {
 	int i;
 
-	i = 0;
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 	{
 		tmp[i] = get_number(split[i]);
 		if (tmp[i] < 0 || tmp[i] > 255)
 			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -180,13 +179,9 @@ int are_elements_valid(t_img *img, char *filename)
 	while (count < TOTAL_ELEMENTS)
 	{
 		line = get_next_line(fd);
-		if (!line)
-		{
-			return (-1);
-		}
-		else if (*line != '\n' && !is_element_valid(img, line))
+		if (line && *line != '\n' && !is_element_valid(img, line))
 			count++;
-		else if (*line != '\n')
+		else if (!line || *line != '\n')
 		{
 			free(line);
 			close(fd);
