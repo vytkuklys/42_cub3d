@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
+#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 12:13:12 by jludt             #+#    #+#              #
-#    Updated: 2022/01/25 00:57:26 by vkuklys          ###   ########.fr        #
+#    Updated: 2022/01/26 22:14:28 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name of the program
-NAME = raycast_visualizer
+NAME = cub3D
 
 # Color codes
 RESET	= \033[0m
@@ -48,12 +48,12 @@ LNK  = -L $(LIBFT_DIR) -lft -L $(MINLBX_DIR) \
 # all rule
 all: obj $(LIBFT) $(MINLBX) $(NAME)
 	@printf "\n\n"
-	@echo "$(GREEN)                        _/                        _/"$(X)
-	@echo "$(GREEN)                       _/        _/_/_/          _/ "$(X)
-	@echo "$(GREEN)    _/_/_/  _/    _/  _/_/_/          _/    _/_/_/  "$(X)
+	@echo "$(GREEN)                        _/                          "$(X)
+	@echo "$(GREEN)                       _/        _/_/_/    _/_/_/   "$(X)
+	@echo "$(GREEN)    _/_/_/  _/    _/  _/_/_/          _/  _/    _/  "$(X)
 	@echo "$(GREEN) _/        _/    _/  _/    _/    _/_/    _/    _/   "$(X)
 	@echo "$(GREEN)_/        _/    _/  _/    _/        _/  _/    _/    "$(X)
-	@echo "$(GREEN) _/_/_/    _/_/_/  _/_/_/    _/_/_/      _/_/_/     "$(X)
+	@echo "$(GREEN) _/_/_/    _/_/_/  _/_/_/    _/_/_/    _/_/_/       "$(X)
 	@printf "\n\n"
 
 obj:
