@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:22:53 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/23 20:30:06 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/27 17:16:52 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int againSameMap[MAPWIDTH][MAPHEIGHT] =
+int againSameMap[MAPWIDTH][MAPHEIGHT] = //needs to be removed
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -39,10 +39,11 @@ int againSameMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-int draw_25px(t_img *img, int x, int y, int color)
+int	draw_25px(t_img *img, int x, int y, int color) //think about turning it into void
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < 5)
 	{
@@ -54,13 +55,14 @@ int draw_25px(t_img *img, int x, int y, int color)
 		}
 		i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
-int draw_player(t_data *data)
+int	draw_player(t_data *data) //think about turning it into void
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < 3)
 	{
@@ -72,16 +74,16 @@ int draw_player(t_data *data)
 		}
 		i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
-int draw_minimap(t_data *data)
+int	draw_minimap(t_data *data) //think about turning it into void
 {
-	int rows = data->map.rows;
-	int columns = data->map.columns;
-	int i;
-	int j;
-	int color;
+	int	rows = data->map.rows;
+	int	columns = data->map.columns;
+	int	i;
+	int	j;
+	int	color;
 
 	rows = 24;
 	columns = 24;
@@ -101,5 +103,5 @@ int draw_minimap(t_data *data)
 		i++;
 	}
 	draw_player(data);
-	return (0);
+	return (EXIT_SUCCESS);
 }

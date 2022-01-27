@@ -5,26 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/18 18:05:33 by julian            #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:05 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/15 11:43:26 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 19:10:10 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** The memset() function writes len bytes of value
-** c (converted to an unsigned char) to the string b.
-** of the memory area pointed to by b with the constant byte c.
-** The memset() function returns its first argument.
-*/
-
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	unsigned char	*new;
+	char	*buf;
 
-	new = b;
-	while (len--)
-		*new++ = c;
-	return (b);
+	buf = s;
+	while (n > 0)
+	{
+		*buf = c;
+		buf++;
+		n--;
+	}
+	return (s);
 }

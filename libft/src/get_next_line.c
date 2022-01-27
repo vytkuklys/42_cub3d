@@ -5,120 +5,110 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/30 15:42:32 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:57:05 by tblaase          ###   ########.fr       */
+/*   Created: 2021/08/03 17:52:55 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 20:05:25 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-static char	*get_temp(char *temp_old, int len_line)
+void	*ft_calloc_gnl(size_t nelem, size_t elsize)
+/*
+** standard libft function
+*/
 {
-	char	*temp_new;
-	int		j;
-	int		k;
-	int		l;
-
-	if (temp_old[len_line] == '\0')
-		k = len_line;
-	else
-		k = len_line + 1;
-	j = 0;
-	l = k;
-	while (temp_old[k++] != '\0')
-		j++;
-	temp_new = (char *)malloc(sizeof(char) * j + 1);
-	if (temp_new == NULL)
-		return (NULL);
-	j = 0;
-	while (temp_old[l] != '\0')
-		temp_new[j++] = temp_old[l++];
-	temp_new[j] = '\0';
-	free(temp_old);
-	return (temp_new);
-}
-
-static char	*get_line(char *text)
-{
-	char	*line;
-	int		i;
+	char			*ptr;
+	unsigned int	i;
+	size_t			x;
 
 	i = 0;
-	while (text[i] != '\n' && text[i] != '\0')
-		i++;
-	line = (char *)malloc(sizeof(char) * i + 1);
-	if (line == NULL)
-		return (NULL);
-	i = 0;
-	while (text[i] != '\n' && text[i] != '\0')
+	x = nelem * elsize;
+	ptr = (char *)malloc(x);
+	if (ptr == NULL)
+		return (0);
+	while (i < x)
 	{
-		line[i] = text[i];
+		ptr[i] = 0;
 		i++;
 	}
-	line[i] = '\0';
+	return (ptr);
+}
+
+char	*ft_update_nl_gnl(char **next_line, int position)
+/*
+** updates *next_line to the not returned remainder of *next_line
+*/
+{
+	char	*tmp;
+	int		len;
+
+	len = ft_strlen_gnl(*next_line) - position;
+	tmp = ft_strndup_gnl(*next_line + position, len);
+	ft_free_gnl(next_line);
+	*next_line = tmp;
+	return (*next_line);
+}
+
+char	*ft_output_gnl(char **next_line, int position, int bytes)
+/*
+** error managment in first if statement
+** stores every character of *next_line until '/n' or '/0' into line
+** calls ft_update_nl if '/n' is found
+** line is a allocated string
+*/
+{
+	char	*line;
+
+	if (((bytes == 0 || bytes == -1) && !*next_line) || position == -5)
+	{
+		if (*next_line)
+			return (*next_line);
+		return (NULL);
+	}
+	line = NULL;
+	if (position == -1)
+		position = ft_strlen_gnl(*next_line);
+	else
+		position++;
+	line = ft_strndup_gnl(*next_line, position);
+	if (position == ft_strlen_gnl(*next_line))
+		ft_free_gnl(next_line);
+	else
+		*next_line = ft_update_nl_gnl(next_line, position);
 	return (line);
 }
 
-static char	*free_temp(char **temp)
-{
-	free(*temp);
-	*temp = NULL;
-	return (NULL);
-}
-
-static char	*output(char *text)
-{
-	char		*line;
-	static char	*temp;
-
-	if (temp == NULL)
-		temp = ft_calloc(1, 1);
-	if (temp == NULL)
-		return (NULL);
-	if (ft_strlen(text) > 0)
-		temp = ft_strjoin(temp, text);
-	free(text);
-	if (ft_strlen(temp) == 0)
-		return (free_temp(&temp));
-	line = get_line(temp);
-	if (temp[ft_strlen(line)] == '\n')
-	{
-		temp = get_temp(temp, ft_strlen(line));
-		return (ft_strjoin(line, "\n"));
-	}
-	else
-	{
-		free(temp);
-		temp = NULL;
-		return (line);
-	}
-}
-
 char	*get_next_line(int fd)
+/*
+** reads into buff and hands the whole buff to next_line
+** until '/n' is found, end of file is reached or error in read
+** next_line: stores everything from the past reads that was never returned
+** buff: where read read's to
+** position: stores the position of '/n', will be -1 if no '/n' found and -5 if next_line == NULL
+** bytes: stores the output of read
+*/
 {
-	char		*buffer;
-	char		*text;
-	int			buff_size;
+	static char	*next_line;
+	char		*buff;
+	int			position;
+	int			bytes;
 
-	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	text = ft_calloc(1, 1);
-	if (text == NULL || buffer == NULL || BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 10240)
 		return (NULL);
-	buff_size = read(fd, buffer, BUFFER_SIZE);
-	while (buff_size > 0)
+	buff = NULL;
+	position = ft_strchr_gnl(next_line, '\n', 0);
+	while (position == -1 && position != -5)
 	{
-		buffer[buff_size] = '\0';
-		if (ft_strchr(buffer, '\n'))
-		{
-			text = ft_strjoin(text, buffer);
+		buff = ft_calloc_gnl(BUFFER_SIZE + 1, 1);
+		if (buff == NULL)
+			return (NULL);
+		bytes = read(fd, buff, BUFFER_SIZE);
+		if (bytes == 0 || bytes == -1)
 			break ;
-		}
-		else
-		{
-			text = ft_strjoin(text, buffer);
-			buff_size = read(fd, buffer, BUFFER_SIZE);
-		}
+		next_line = ft_strnjoin_gnl(next_line, buff, bytes);
+		position = ft_strchr_gnl(next_line, '\n', 1);
+		ft_free_gnl(&buff);
 	}
-	free(buffer);
-	return (output(text));
+	ft_free_gnl(&buff);
+	return (ft_output_gnl(&next_line, position, bytes));
 }

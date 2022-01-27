@@ -5,32 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 10:54:07 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:33 by tblaase          ###   ########.fr       */
+/*   Created: 2021/07/02 14:09:13 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:45:49 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Iterates the list ’lst’ and applies the function’f’
-** to the content of each element.
-** parameters:
-** lst - The adress of a pointer to an element.
-** f - The adress of the function used to iterate on the list.
-** return value: None
-*/
-
+/* will iterate through lst and use function f on every element */
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	t_list	*tmp;
-
-	tmp = lst;
-	if (lst == NULL || f == NULL)
-		return ;
-	while (tmp != NULL)
+	if (lst != NULL && f != NULL)
 	{
-		f(tmp->content);
-		tmp = tmp->next;
+		while (lst != NULL)
+		{
+			f(lst->content);
+			lst = lst->next;
+		}
 	}
 }

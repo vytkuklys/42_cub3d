@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 13:42:03 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/27 16:57:11 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,12 @@ int	get_south_pixels(t_img *img)
 	return (0);
 }
 
+int	error_texture(char *false_texture)
+{
+	printf("There was a problem with the texture located at %s.\n", false_texture);
+	return (EXIT_FAILURE);
+}
+
 int	init_textures(t_data *data)
 {
 	int		width;
@@ -114,7 +120,22 @@ int	init_textures(t_data *data)
 	t_img	*img;
 
 	img = &data->img;
+//this will reaplace all the stuff below
+	// int	i;
 
+	// i = 0;
+	// img->textures.tex_addr = ft_calloc(7, sizeof(char *));
+	// while (i < 6)
+	// {
+	// 	img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr, img->tex_paths[i], &width, &height);
+	// 	if (img->textures.tex_ptr == NULL)
+	// 		return (error_texture(img->tex_paths[i]));
+	// 	img->textures.tex_addr[i] = mlx_get_data_addr(img->textures.tex_ptr, &img->bpp, &img->sl, &img->endian);
+	// 	free(img->textures.tex_ptr);
+	// 	img->textures.tex_ptr = NULL;
+	// 	i++;
+	// }
+//
 	img->textures.east_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "images/2.xpm", &width, &height); //img path has to be replaced
 	img->textures.east_addr = mlx_get_data_addr(img->textures.east_ptr, &img->bpp, &img->sl, &img->endian);
 	get_east_pixels(img);

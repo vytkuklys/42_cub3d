@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 13:41:25 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/27 19:48:03 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <errno.h>
 # include <stdbool.h>
 # include "../mlx/mlx.h"
-# include "../libft/libft.h"
+# include "../libft/include/libft.h"
 
 # define WALL_DISTANCE 0.3
 # define MAPWIDTH 24
@@ -54,6 +54,9 @@ typedef struct s_textures
 	int west_wall[64][64];
 	int north_wall[64][64];
 	int south_wall[64][64];
+	void *tex_ptr;
+	char **tex_addr;
+// all of the stuff below should not be needed anymore
 	void *east_ptr;
 	void *west_ptr;
 	void *north_ptr;
@@ -77,10 +80,14 @@ typedef struct s_img
 	int endian;
 	int width;
 	int height;
+//
+	char **tex_paths;
+//
 	char *west_path;
 	char *east_path;
 	char *north_path;
 	char *south_path;
+//
 	int floor_rgb[3];
 	int ceiling_rgb[3];
 	t_textures textures;

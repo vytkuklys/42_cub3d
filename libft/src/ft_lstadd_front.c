@@ -5,22 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 15:34:33 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:24 by tblaase          ###   ########.fr       */
+/*   Created: 2021/07/02 13:49:08 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:45:40 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Adds the element ’new’ at the beginning of the list.
-** parameters:
-** lst - The address of a pointer to the first link of a list.
-** new - The address of a pointer to the element to be
-**       added to the list.
-** return value: none
-*/
-
+/* adds new to the front of lst */
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	new->next = *lst;

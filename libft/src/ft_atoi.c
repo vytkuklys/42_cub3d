@@ -3,34 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/16 15:34:53 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/24 00:40:30 by vkuklys          ###   ########.fr       */
+/*   Created: 2021/06/18 14:05:57 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:44:25 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/libft.h"
+
+/* finds the first integer of a string and returns it as int */
 int	ft_atoi(const char *str)
 {
+	int	c;
 	int	i;
-	int	sign;
-	int	number;
+	int	x;
 
 	i = 0;
-	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+	c = 1;
+	x = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\r' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f')
 		i++;
-	sign = 1;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sign = -1;
+			c = -1;
 		i++;
 	}
-	number = 0;
-	while (str[i] >= '0' && str[i] <= '9')
+	while (str[i] >= 48 && str[i] <= 57)
 	{
-		number = number * 10 + str[i] - 48;
+		x = x * 10 + (str[i] - 48);
 		i++;
 	}
-	return (number * sign);
+	return (x * c);
 }

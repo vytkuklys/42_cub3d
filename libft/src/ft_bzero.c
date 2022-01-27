@@ -5,25 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/19 12:41:06 by julian            #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:02 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/18 16:35:32 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:44:30 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** The bzero() function writes n zeroed bytes to the string s.
-** If n is zero, bzero() does nothing.
-** to that area.
-** return value: none
-*/
-
+/* sets every byte of s to NULL */
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*null;
+	unsigned int	i;
+	unsigned char	*c;
 
-	null = s;
-	while (n--)
-		*null++ = '\0';
+	i = 0;
+	c = (unsigned char *)s;
+	while (i < n)
+	{
+		c[i] = '\0';
+		i++;
+	}
 }

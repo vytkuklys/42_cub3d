@@ -5,31 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/20 18:32:55 by julian            #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:22 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/17 14:04:41 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:46:52 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** The strchr() function returns a pointer to the first occurrence
-** of the character c in the string s.
-** return value:
-** a pointer to the matched character or NULL if the character is not found.
-** the terminating null byte is considered part of the string, so that if c is
-** specified as '\0', these functions return a pointer to the terminator.
-*/
-
+/* will return a pointer to the position of first appearance of c in s
+** will return a pointer to NULL if not found */
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s != '\0')
-	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == c)
-		return ((char *)s);
-	return (NULL);
+	char	a;
+	int		i;
+
+	if (!s)
+		return (NULL);
+	a = c;
+	i = 0;
+	while (s && s[i] != '\0' && s[i] != a)
+		i++;
+	if (s[i] == a)
+		return ((char *)(s + i));
+	else
+		return (NULL);
 }

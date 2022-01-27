@@ -5,30 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 16:13:20 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:45 by tblaase          ###   ########.fr       */
+/*   Created: 2021/07/02 13:51:49 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:46:01 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-Counts the number of elements in a list.
-parameters:
-** lst - The beginning of the list.
-** return value: Length of the list.
-*/
-
+/* returns the size of a list as int */
 int	ft_lstsize(t_list *lst)
 {
-	t_list	*tmp;
+	t_list	*current;
 	int		i;
 
-	tmp = lst;
 	i = 0;
-	while (tmp != NULL)
+	current = lst;
+	while (current != NULL)
 	{
-		tmp = tmp->next;
+		current = current->next;
 		i++;
 	}
 	return (i);

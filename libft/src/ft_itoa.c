@@ -5,104 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/24 14:40:52 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:18 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/25 15:03:24 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:45:28 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Allocates (with malloc(3)) and returns a string
-** representing the integer received as an argument.
-** Negative numbers must be handled.
-** parameters:
-** n - the integer to convert.
-** return value:
-** The string representing the integer. NULL if the
-** allocation fails.
-*/
-
-static char	*positiv(int n, int len, char *dest)
+static void	ft_standard(char *str, int i, int n)
 {
-	dest[len] = '\0';
-	len--;
-	while (len)
+	if (n < 0)
 	{
-		dest[len--] = '0' + n % 10;
-		n = n / 10;
+		str[0] = 45;
+		n = n * -1;
 	}
-	dest[len] = '0' + n % 10;
-	return (dest);
+	str[i] = '\0';
+	i--;
+	ft_putnbr(n, str, i);
 }
 
-static char	*min_int(char *dest)
-{
-	dest[0] = '-';
-	dest[1] = '2';
-	dest[2] = '1';
-	dest[3] = '4';
-	dest[4] = '7';
-	dest[5] = '4';
-	dest[6] = '8';
-	dest[7] = '3';
-	dest[8] = '6';
-	dest[9] = '4';
-	dest[10] = '8';
-	dest[11] = '\0';
-	return (dest);
-}
-
-static char	*get_number(int n, int len, char *dest)
-{
-	if (n >= 0)
-		dest = positiv(n, len, dest);
-	else
-	{
-		if (n == -2147483648)
-		{
-			dest = min_int(dest);
-			return (dest);
-		}
-		else
-			dest[++len] = '\0';
-		n = n * (-1);
-		len--;
-		while (len)
-		{
-			dest[len--] = '0' + n % 10;
-			n = n / 10;
-		}
-		dest[len] = '-';
-	}
-	return (dest);
-}
-
+/* turns an int into a string */
 char	*ft_itoa(int n)
 {
-	int		number;
-	int		len_n;
-	char	*s_int;
-	int		sign;
+	char	*str;
+	int		i;
 
-	sign = 1;
-	if (n < 0)
-		sign = -1;
-	number = n;
-	len_n = 0;
-	if (n == 0)
-		len_n = 1;
-	while (number != 0)
-	{
-		number = number / 10;
-		len_n++;
-	}
-	if (n >= 0)
-		s_int = malloc(sizeof(char) * len_n + 1);
+	i = ft_intlen(n);
+	if (n == -2147483648)
+		str = ft_strdup("-2147483648");
 	else
-		s_int = malloc(sizeof(char) * len_n + 2);
-	if (s_int == NULL)
-		return (NULL);
-	s_int = get_number(n, len_n, s_int);
-	return (s_int);
+	{
+		if (n < 0)
+			i++;
+		str = malloc(i + 1);
+		if (!str)
+			return (NULL);
+		ft_standard(str, i, n);
+	}
+	return (str);
 }

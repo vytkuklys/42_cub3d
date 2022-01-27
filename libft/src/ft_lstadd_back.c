@@ -5,33 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 10:12:54 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:21 by tblaase          ###   ########.fr       */
+/*   Created: 2021/07/02 13:58:34 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:45:37 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Adds the element ’new’ at the end of the list.
-** parameters:
-** lst - The address of a pointer to the first link of a list.
-** new - The address of a pointer to the element to be added to the list.
-** return value: none
-*/
-
+/* adds new to the back of lst */
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*tmp;
+	t_list	*current;
 
-	tmp = *lst;
-	if (lst == NULL || new == NULL)
-		return ;
 	if (*lst == NULL)
-	{
 		*lst = new;
-		return ;
+	else
+	{
+		current = *lst;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
 	}
-	tmp = ft_lstlast(tmp);
-	tmp->next = new;
 }

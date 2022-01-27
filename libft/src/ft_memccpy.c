@@ -5,37 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/19 15:07:14 by julian            #+#    #+#             */
-/*   Updated: 2022/01/20 14:55:48 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/19 08:54:29 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:46:05 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** The memccpy() function copies no more than n bytes from memory
-** area src to memory area dest,
-** stopping when the character c is found.
-** If the memory areas overlap, the results are undefined.
-** return value:
-** a pointer to the next character in dest after c,
-** or NULL if c was not found in the first n characters of src.
-*/
-
-void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char	*cache_dest;
-	unsigned char	*cache_src;
+	unsigned char		a;
+	unsigned int		i;
+	unsigned char		*cdst;
+	unsigned const char	*csrc;
 
-	cache_dest = (unsigned char *)dest;
-	cache_src = (unsigned char *)src;
-	while (n--)
+	i = 0;
+	a = c;
+	cdst = (unsigned char *)dst;
+	csrc = (unsigned const char *)src;
+	while (i < n)
 	{
-		*cache_dest = *cache_src;
-		if (*cache_src == (unsigned char)c)
-			return (++cache_dest);
-		cache_src++;
-		cache_dest++;
+		cdst[i] = csrc[i];
+		if (a == cdst[i])
+			return (dst + i + 1);
+		i++;
 	}
-	return (NULL);
+	return (0);
 }

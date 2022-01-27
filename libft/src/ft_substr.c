@@ -5,42 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/23 14:29:00 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:57 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/21 18:37:26 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:47:42 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Allocates (with malloc(3)) and returns a substring from the string ’s’.
-** The substring begins at index ’start’ and is of maximum size ’len’.
-** parameters:
-** s		- The string from which to create the substring.
-** start	- The start index of the substring in the string ’s’.
-** len		- The maximum length of the substring.
-** return value:
-** The substring. NULL if the allocation fails.
-*/
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+/* will create a string with length len from position start of s */
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	size_t			i;
-	char			*s_sub;
-	unsigned int	j;
+	char				*c;
+	unsigned int		i;
 
-	if (s == 0)
-		return (0);
-	j = ft_strlen(s);
-	s_sub = (char *)malloc((sizeof(*s) * len) + 1);
-	if (s_sub == NULL)
+	if (!s)
 		return (NULL);
 	i = 0;
-	while (i < len && s[i] != '\0' && start < j)
+	c = malloc(len + 1);
+	if (!c)
+		return (NULL);
+	if (ft_strlen(s) < start)
 	{
-		s_sub[i] = s[start + i];
-		i++;
+		c[i] = '\0';
+		return (c);
 	}
-	s_sub[i] = '\0';
-	return (s_sub);
+	while (i < len)
+	{
+		c[i] = s[start];
+		i++;
+		start ++;
+	}
+	c[i] = '\0';
+	return (c);
 }

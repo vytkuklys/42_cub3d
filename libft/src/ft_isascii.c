@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jludt <jludt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/16 14:23:08 by jludt             #+#    #+#             */
-/*   Updated: 2021/06/22 11:24:39 by jludt            ###   ########.fr       */
+/*   Created: 2021/06/16 11:39:17 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:45:09 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/libft.h"
+
+/* checks if an int is part of ascii */
 int	ft_isascii(int c)
 {
-	if (c < 0 || c > 127)
-		return (0);
-	else
+	if (c >= 0 && c <= 127)
 		return (1);
+	else
+		return (0);
 }

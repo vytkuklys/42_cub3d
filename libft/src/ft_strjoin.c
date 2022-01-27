@@ -5,47 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/23 16:09:43 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:29 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/22 10:35:44 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 19:38:53 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Allocates (with malloc(3)) and returns a new string,
-** which is the result of the concatenation of ’s1’ and ’s2’.
-** parameters:
-** s1 - The prefix string.
-** s2 - The suffix string.
-** return value:
-** The new string. NULL if the allocation fails.
-*/
-
-char	*ft_strjoin(char const *s1, char const *s2)
+/* will append s2 to s1
+** will do nothing if s2 is NULL
+** will free s1 */
+char	*ft_strjoin(char *s1, const char *s2)
 {
-	char	*s_join;
-	int		len_s1;
-	int		len_s2;
+	char	*c;
 	int		i;
-	int		j;
+	int		i2;
 
-	if (s1 == 0 || s2 == 0)
+	if (!s2)
 		return (0);
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	s_join = (char *)malloc(sizeof(*s1) * (len_s1 + len_s2) + 1);
-	if (s_join == NULL)
-		return (NULL);
 	i = 0;
+	i2 = 0;
+	c = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (c == '\0')
+		return (0);
 	while (s1[i] != '\0')
 	{
-		s_join[i] = s1[i];
+		c[i] = s1[i];
 		i++;
 	}
-	j = 0;
-	while (s2[j] != '\0')
-		s_join[i++] = s2[j++];
-	s_join[i] = '\0';
-	return (s_join);
+	while (s2[i2] != '\0')
+	{
+		c[i] = s2[i2];
+		i++;
+		i2++;
+	}
+	c[i] = '\0';
+	ft_free_str(&s1);
+	return (c);
 }

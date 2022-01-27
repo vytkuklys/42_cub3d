@@ -5,36 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/21 14:27:43 by julian            #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:25 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/21 17:55:54 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:46:58 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** The strdup() function allocates sufficient memory for a copy of the
-** string s1, does the copy, and returns a pointer to it.
-** The pointer may subsequently be used as an argument to the function free(3).
-** return value:
-** On success, the strdup() function returns a pointer to the duplicated
-** string. It returns NULL if insufficient memory was available, with errno
-** set to indicate the cause of the error.
-*/
-
+/* will malloc for the given string and return adress to that string */
 char	*ft_strdup(const char *s1)
 {
-	char	*duplicate;
-	char	*cache;
-	int		s_len;
+	int		i;
+	char	*s;
 
-	s_len = ft_strlen(s1);
-	duplicate = (char *)malloc((sizeof(*s1) * s_len) + 1);
-	if (duplicate == NULL)
+	if (!s1)
 		return (NULL);
-	cache = duplicate;
-	while (*s1 != '\0')
-		*cache++ = *s1++;
-	*cache = '\0';
-	return (duplicate);
+	i = 0;
+	s = malloc(ft_strlen(s1) + 1);
+	if (!s)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
 }

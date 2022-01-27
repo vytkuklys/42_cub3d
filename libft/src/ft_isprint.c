@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jludt <jludt@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/16 13:57:42 by jludt             #+#    #+#             */
-/*   Updated: 2021/06/22 11:25:36 by jludt            ###   ########.fr       */
+/*   Created: 2021/06/16 11:21:39 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:45:24 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/libft.h"
+
+/* checks if int represents a printable ascii */
 int	ft_isprint(int c)
 {
-	if (c < 32 || c > 126)
-		return (0);
-	else
+	if (c >= 32 && c <= 126)
 		return (1);
+	else
+		return (0);
 }

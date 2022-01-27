@@ -5,83 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/24 12:37:23 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:20 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/23 13:46:19 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:46:47 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Allocates (with malloc(3)) and returns an array of strings obtained by
-** splitting ’s’ using the character ’c’ as a delimiter. The array must be
-** ended by a NULL pointer.
-** parameters:
-** s - The string to be split.
-** c - The delimiter character.
-** return value:
-** The array of new strings resulting from the split.
-** NULL if the allocation fails.
-*/
-
-static int	num_split(char const *s, char c, int i)
+/* finds the next occurance of char c */
+static int	ft_find_c(const char *s, char c, int i)
 {
-	int	split;
-
-	split = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c && s[i + 1] != c && s[i + 1] != '\0')
-			split++;
+	while (s[i] && s[i] != c)
 		i++;
-	}
-	return (split);
+	return (i);
 }
 
-static char	**do_split(char	**s_array, char const *s, char c, int i)
+/* count the number of "words" within the given string */
+static unsigned int	ft_count_words(const char *s, char c)
 {
-	int		j;
-	int		k;
-	int		s_num;
+	int	str_nbr;
+	int	i;
 
-	s_num = 0;
-	while (s[i] != '\0')
-	{
-		j = 0;
-		while (s[i + j] != c && s[i + j] != '\0')
-			j++;
-		s_array[s_num] = malloc(sizeof(char) * j + 1);
-		if (s_array[s_num] == NULL)
-			return (NULL);
-		j = i + j;
-		k = 0;
-		while (i < j)
-			s_array[s_num][k++] = s[i++];
-		s_array[s_num][k] = '\0';
-		s_num++;
-		while (s[i] != '\0' && s[i] == c)
-			i++;
-	}
-	s_array[s_num] = NULL;
-	return (s_array);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**s_array;
-	int		i;
-
-	if (s == 0)
+	if (!s)
 		return (0);
+	str_nbr = 0;
 	i = 0;
-	while (s[i] != '\0' && s[i] == c)
+	while (s[i] && s[i] == c)
 		i++;
-	s_array = malloc(sizeof(char *) * (num_split(s, c, i) + 2));
-	if (s_array == NULL)
+	while (s[i])
+	{
+		if (s[i] == c)
+		{
+			str_nbr++;
+			while (s[i] && s[i] == c)
+				i++;
+			continue ;
+		}
+		i++;
+	}
+	if (s[i - 1] != c)
+		str_nbr++;
+	return (str_nbr);
+}
+
+/* will write the single "words" into the char **mainstr */
+static void	ft_write_words(const char *s, char c, char **mainstr,
+	unsigned int b)
+{
+	unsigned int	a;
+	unsigned int	i;
+	size_t			z;
+
+	i = 0;
+	a = 0;
+	z = 0;
+	while (a < b)
+	{
+		i = z + i;
+		while (s[i] && s[i] == c)
+			i++;
+		z = ft_find_c(s, c, i) - i;
+		mainstr[a] = (char *)ft_substr(s, i, z);
+		a++;
+	}
+	mainstr[a] = NULL;
+}
+
+/* will split into single strings after every delimiter c */
+char	**ft_split(const char *s, char c)
+{
+	char			**mainstr;
+	unsigned int	b;
+
+	if (!s)
 		return (NULL);
-	i = 0;
-	while (s[i] != '\0' && s[i] == c)
-		i++;
-	s_array = do_split(s_array, s, c, i);
-	return (s_array);
+	b = ft_count_words(s, c);
+	mainstr = (char **)malloc(b * sizeof(char *) + 1 * sizeof(char *));
+	if (!mainstr)
+		return (NULL);
+	ft_write_words(s, c, mainstr, b);
+	return (mainstr);
 }

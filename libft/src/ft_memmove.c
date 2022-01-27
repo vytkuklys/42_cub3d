@@ -5,33 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/19 17:19:46 by julian            #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:02 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/19 09:16:26 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:46:18 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-
-/*
-** The memmove() function copies len bytes from string src to string dst.
-** The two strings may overlap;
-** the copy is always done in a non-destructive manner.
-** return value: the original value of dst
-*/
+#include "../include/libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*cache_dst;
-	unsigned char	*cache_src;
+	size_t	i;
 
-	cache_dst = (unsigned char *)dst;
-	cache_src = (unsigned char *)src;
-	if (cache_src < cache_dst)
+	if (!dst && !src)
+		return (0);
+	i = 0;
+	if (dst <= src)
 	{
-		while (len--)
-			cache_dst[len] = cache_src[len];
+		while (i < len)
+		{
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			i++;
+		}
 	}
-	else
-		ft_memcpy(cache_dst, cache_src, len);
+	else if (dst > src)
+	{
+		i = len;
+		while (i > 0)
+		{
+			((unsigned char *)dst)[i - 1] = ((unsigned char *)src)[i - 1];
+			i--;
+		}
+	}
 	return (dst);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/25 00:26:53 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/27 17:17:50 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int sameWorldMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-void set_cardinal_direction(t_data *data, t_ray *ray)
+void	set_cardinal_direction(t_data *data, t_ray *ray)
 {
 	if (ray->dir_x < 0)
 	{
@@ -65,13 +65,13 @@ void set_cardinal_direction(t_data *data, t_ray *ray)
 		ray->side_dist_y = ((int)data->p_y + 1.0 - data->p_y) * ray->delta_y;
 		data->wall.horizontal = EAST;
 	}
-} 
+}
 
-void find_a_wall(t_data *data, t_ray *ray)
+void	find_a_wall(t_data *data, t_ray *ray)
 {
-	int wall;
-	int x;
-	int y;
+	int	wall;
+	int	x;
+	int	y;
 
 	x = (int)data->p_x;
 	y = (int)data->p_y;
@@ -95,10 +95,10 @@ void find_a_wall(t_data *data, t_ray *ray)
 	}
 }
 
-double count_ray_length(t_data *data)
+double	count_ray_length(t_data *data)
 {
-	t_ray *ray;
-	double length;
+	t_ray	*ray;
+	double	length;
 
 	find_a_wall(data, &data->ray);
 	ray = &data->ray;
@@ -119,9 +119,9 @@ double count_ray_length(t_data *data)
 	return (length);
 }
 
-int get_ray_data(t_data *data, int x)
+int	get_ray_data(t_data *data, int x) //think about turning it into void
 {
-	t_ray *ray;
+	t_ray	*ray;
 
 	ray = &data->ray;
 	ray->camera = 2 * x / (double)data->width - 1;
@@ -131,5 +131,5 @@ int get_ray_data(t_data *data, int x)
 	ray->delta_y = (ray->dir_y == 0) ? 1e30 : fabs(1 / ray->dir_y);
 	set_cardinal_direction(data, &data->ray);
 	ray->length = count_ray_length(data);
-	return (0);
+	return (EXIT_SUCCESS);
 }

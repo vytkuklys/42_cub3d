@@ -5,39 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/25 12:58:55 by jludt             #+#    #+#             */
-/*   Updated: 2022/01/20 14:56:41 by tblaase          ###   ########.fr       */
+/*   Created: 2021/06/25 10:15:38 by tblaase           #+#    #+#             */
+/*   Updated: 2022/01/27 18:47:16 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../include/libft.h"
 
-/*
-** Applies the function ’f’ to each character of thestring ’s’ to create a
-** new string (with malloc(3)) resulting from successive applications of ’f’.
-** parameters:
-** s - The string on which to iterate.
-** (*f) - The function to apply to each character.
-** return value:
-** The string created from the successive applications of ’f’'
-** Returns NULL if the allocation fails.
-*/
-
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(const char *s, char (*f) (unsigned int, char))
 {
-	char	*s_new;
-	int		i;
+	unsigned int	i;
+	char			*res;
 
-	if (s == 0 || f == 0)
+	if (!s)
 		return (0);
-	s_new = ft_strdup(s);
-	if (s_new == NULL)
-		return (NULL);
 	i = 0;
-	while (s_new[i] != '\0')
+	res = malloc(ft_strlen(s) + 1);
+	if (res == '\0' || s == '\0' || f == '\0')
+		return (0);
+	while (s[i] != '\0')
 	{
-		s_new[i] = f(i, s_new[i]);
+		res[i] = (*f)(i, s[i]);
 		i++;
 	}
-	return (s_new);
+	res[i] = '\0';
+	return (res);
 }
