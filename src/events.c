@@ -22,6 +22,10 @@ int	exit_maze(t_data *data, int flag)
 
 int key_press(int key, t_data *data)
 {
+	if (key != MOVE_DOWN && key != MOVE_UP && key != MOVE_LEFT
+		&& key != MOVE_RIGHT && key != ROTATE_LEFT && key != ROTATE_RIGHT
+		&& key != ESCAPE)
+		return (EXIT_SUCCESS);
 	if (data->pressed_key == -1 && data->pressed_key2 != key)
 		data->pressed_key = key;
 	else if (data->pressed_key != key)

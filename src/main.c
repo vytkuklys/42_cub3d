@@ -101,7 +101,9 @@ void init_data(t_data *data)
 
 int draw_game(t_data *data)
 {
-	int x;
+	int			x;
+	static int	left;
+	static bool	up;
 
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.sl, &data->img.endian);
@@ -118,6 +120,19 @@ int draw_game(t_data *data)
 	}
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img_ptr, 0, 0);
+	if (left == - 30)
+		up = true;
+	else if (left == 30)
+		up = false;
+	if (up == true && (data->pressed_key != -1 || data->pressed_key2 != -1))
+		left += 2;
+	else if (data->pressed_key != -1 || data->pressed_key2 != -1)
+		left -= 2;
+	if (data->pressed_key == -1 && data->pressed_key2)
+		mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.left_hand, 0, left + 30);
+	else
+		mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.left_hand, 0, left + 30);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.right_hand, 0, left * -1 + 30);
 	mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
 	return 0;
 }

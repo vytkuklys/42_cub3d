@@ -64,6 +64,10 @@ typedef struct s_textures
 	char *east_addr;
 	char *south_addr;
 	char *north_addr;
+	void *right_hand;
+	void *left_hand;
+	char *right_hand_addr;
+	char *left_hand_addr;
 } t_textures;
 
 typedef struct s_img
