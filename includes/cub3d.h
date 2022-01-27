@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 13:37:36 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/27 13:41:25 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,8 @@ int		key_press(int key, t_data *data);
 int		key_release(int key, t_data *data);
 int		update_game(int key, t_data *data);
 int		createRGB(int r, int g, int b);
-int		draw_ground(t_data *data, int x, int from);
-int		draw_sky(t_data *data, int x, int up_to);
+int		draw_floor(t_data *data, int x, int from);
+int		draw_ceiling(t_data *data, int x, int up_to);
 int		get_ray_data(t_data *data, int x);
 void	draw_walls(t_wall *wall, t_img *img, int x);
 void	get_wall_data(t_data *data);

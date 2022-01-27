@@ -92,8 +92,8 @@ int draw_game(t_data *data)
 		get_ray_data(data, x);
 		get_wall_data(data);
 		draw_walls(&data->wall, &data->img, x);
-		draw_sky(data, x, data->wall.top);
-		draw_ground(data, x, data->wall.bottom);
+		draw_ceiling(data, x, data->wall.top);
+		draw_floor(data, x, data->wall.bottom);
 		x++;
 	}
 	draw_minimap(data);
