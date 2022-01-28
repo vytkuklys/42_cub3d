@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 14:57:03 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/27 20:43:37 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,17 @@ int	exit_maze(t_data *data, int flag)
 	exit(EXIT_FAILURE);
 }
 
-int	key_press(int key, t_data *data)
+int key_press(int key, t_data *data)
 {
-	if (key != MOVE_DOWN && key != MOVE_UP && key != MOVE_LEFT
-		&& key != MOVE_RIGHT && key != ROTATE_LEFT && key != ROTATE_RIGHT
-		&& key != ESCAPE)
-		return (EXIT_SUCCESS);
 	if (data->pressed_key == -1 && data->pressed_key2 != key)
 		data->pressed_key = key;
 	else if (data->pressed_key != key)
 	{
 		data->pressed_key2 = key;
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
-
-int	key_release(int key, t_data *data)
+int key_release(int key, t_data *data)
 {
 	if (data->pressed_key == key)
 	{
@@ -48,22 +43,19 @@ int	key_release(int key, t_data *data)
 	return (key);
 }
 
-int	rotate_view(int key, t_data *data)
+int rotate_view(int key, t_data *data)
 {
-	double	old_dir;
-	double	old_plane;
+	double old_dir;
+	double old_plane;
 
 	if (key == ROTATE_RIGHT)
 	{
 		old_dir = data->dir_x;
-		data->dir_x
-			= data->dir_x * cos(-ROTATION) - data->dir_y * sin(-ROTATION);
+		data->dir_x = data->dir_x * cos(-ROTATION) - data->dir_y * sin(-ROTATION);
 		data->dir_y = old_dir * sin(-ROTATION) + data->dir_y * cos(-ROTATION);
 		old_plane = data->plane_x;
-		data->plane_x
-			= data->plane_x * cos(-ROTATION) - data->plane_y * sin(-ROTATION);
-		data->plane_y
-			= old_plane * sin(-ROTATION) + data->plane_y * cos(-ROTATION);
+		data->plane_x = data->plane_x * cos(-ROTATION) - data->plane_y * sin(-ROTATION);
+		data->plane_y = old_plane * sin(-ROTATION) + data->plane_y * cos(-ROTATION);
 	}
 	else if (key == ROTATE_LEFT)
 	{
@@ -71,15 +63,13 @@ int	rotate_view(int key, t_data *data)
 		data->dir_x = data->dir_x * cos(ROTATION) - data->dir_y * sin(ROTATION);
 		data->dir_y = old_dir * sin(ROTATION) + data->dir_y * cos(ROTATION);
 		old_plane = data->plane_x;
-		data->plane_x
-			= data->plane_x * cos(ROTATION) - data->plane_y * sin(ROTATION);
-		data->plane_y
-			= old_plane * sin(ROTATION) + data->plane_y * cos(ROTATION);
+		data->plane_x = data->plane_x * cos(ROTATION) - data->plane_y * sin(ROTATION);
+		data->plane_y = old_plane * sin(ROTATION) + data->plane_y * cos(ROTATION);
 	}
 	return (0);
 }
 
-int	exit_left(int key, t_data *data)
+int exit_left(int key, t_data *data)
 {
 	if (key == MOVE_LEFT)
 	{
@@ -96,8 +86,11 @@ int	exit_left(int key, t_data *data)
 	return (0);
 }
 
-int	update_game(int key, t_data *data)
+int update_game(int key, t_data *data)
 {
+		// fprintf(stderr, "%f - %f\n", data->dir_x, data->dir_y);
+		// fprintf(stderr, "%f - %f\n", data->plane_x, data->plane_y);
+
 	if (key == MOVE_UP)
 	{
 		if (!is_x_forwards_wall(data))
@@ -124,7 +117,7 @@ int	update_game(int key, t_data *data)
 	return (0);
 }
 
-void	check_events(t_data *data)
+void check_events(t_data *data)
 {
 	if (data->pressed_key > -1 && data->pressed_key2 != data->pressed_key)
 	{

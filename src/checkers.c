@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:37:08 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 00:37:58 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/28 04:13:30 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int sameMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -39,53 +39,16 @@ int sameMap[MAPWIDTH][MAPHEIGHT] =
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-// int is_in_circle(float x, float y, circle *circle)
-// {
-// 	float distance;
-// 	float distance_sqrt;
-
-// 	distance_sqrt = sqrtf(sq_dist(x, y, circle->x, circle->y));
-// 	distance = distance_sqrt - circle->radius;
-// 	if (distance <= 0.00000000)
-// 	{
-// 		if (distance <= -1.00000000)
-// 			return (1); // Inside
-// 		return (2);		// Border
-// 	}
-// 	return (0);
-// }
-
-int is_x_forwards_wall(t_data *data)
+int is_corner_backwards(float x, float y)
 {
-	int y;
-	int x;
-	// int x_dist;
-	// float tmp;
-	int x1;
-	int y1;
+	float x1;
+	float y1;
 
-	x1 = (int)data->p_x - 1;
-	y1 = (int)data->p_y - 1;
-
-		float tmp = data->p_y - (int)data->p_y;
-		float tmp2 = data->p_x - (int)data->p_x;
-	fprintf(stderr, "%f - %f, val: %d\n", tmp, tmp2, sameMap[x1][y1]);
-	if (tmp < 0.15 && tmp2 < 0.15 && sameMap[x1][y1])
-	{
-			data->p_x -= 0.01;
-			data->p_y += 0.01;
-			return (true);
-	}
-	if (data->dir_x > 0)
-		y = (int)((data->p_x + data->dir_x * SPEED) + WALL_DISTANCE);
-	else
-		y = (int)((data->p_x + data->dir_x * SPEED) - WALL_DISTANCE);
-	x = (int)(data->p_y);
-	if (sameMap[y][x] == false)
-	{
-		return (false);
-	}
-	return (true);
+	x1 = x - (int)x;
+	y1 = y - (int)y;
+	if (y1 == 0 && x1 != 0 && x1 > 0.9)
+		return (0);
+	return (1);
 }
 
 int is_y_forwards_wall(t_data *data)
@@ -98,7 +61,32 @@ int is_y_forwards_wall(t_data *data)
 	else
 		y = (int)(data->p_y + data->dir_y * SPEED - WALL_DISTANCE);
 	x = (int)(data->p_x);
+	if (data->p_x - (int)data->p_x == 0 && ((sameMap[x - 1][y] && sqrt(pow(data->p_x - (int)data->p_x, 2) + pow(data->p_y - (int)data->p_y, 2)) < CORNER_DISTANCE) || (sameMap[x + 1][y] && sqrt(pow(1 - (data->p_x - (int)data->p_x), 2) + pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
+	{
+		return (true);
+	}
 	if (sameMap[x][y] == false)
+	{
+		return (false);
+	}
+	return (true);
+}
+
+int is_x_forwards_wall(t_data *data)
+{
+	int y;
+	int x;
+
+	if (data->dir_x > 0)
+		y = (int)((data->p_x + data->dir_x * SPEED) + WALL_DISTANCE);
+	else
+		y = (int)((data->p_x + data->dir_x * SPEED) - WALL_DISTANCE);
+	x = (int)(data->p_y);
+	if (data->p_y - (int)data->p_y == 0 && ((sameMap[y][x - 1] && sqrt(pow(data->p_x - (int)data->p_x, 2) + pow(data->p_y - (int)data->p_y, 2)) < CORNER_DISTANCE) || (sameMap[y][x + 1] && sqrt(pow((data->p_x - (int)data->p_x), 2) + pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
+	{
+		return (true);
+	}
+	if (sameMap[y][x] == false)
 	{
 		return (false);
 	}
@@ -115,6 +103,10 @@ int is_x_backwards_wall(t_data *data)
 	else
 		y = (int)(data->p_x - data->dir_x * SPEED + WALL_DISTANCE);
 	x = (int)(data->p_y);
+	if (data->p_y - (int)data->p_y == 0 && ((sameMap[y][x - 1] && sqrt(pow(1 - (data->p_x - (int)data->p_x), 2) + pow(data->p_y - (int)data->p_y, 2)) < CORNER_DISTANCE) || (sameMap[y][x + 1] && sqrt(pow(1 - (data->p_x - (int)data->p_x), 2) + pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
+	{
+		return (true);
+	}
 	if (sameMap[y][x] == false)
 	{
 		return (false);
@@ -132,10 +124,10 @@ int is_y_backwards_wall(t_data *data)
 	else
 		y = (int)(data->p_y - data->dir_y * SPEED + WALL_DISTANCE);
 	x = (int)(data->p_x);
+	if ((data->p_x - (int)data->p_x) == 0 && ((sameMap[x - 1][y] && sqrt(pow(data->p_x - (int)data->p_x, 2) + pow(data->p_y - (int)data->p_y, 2)) < 0.05) || (sameMap[x + 1][y] && sqrt(pow(1 - (data->p_x - (int)data->p_x), 2) + pow((data->p_y - (int)data->p_y), 2)) < 0.05)))
+		return (true);
 	if (sameMap[x][y] == false)
-	{
 		return (false);
-	}
 	return (true);
 }
 
@@ -166,6 +158,8 @@ int is_y_right_wall(t_data *data)
 	else
 		y = (int)(data->p_y + WALL_DISTANCE);
 	x = (int)(data->p_x + data->dir_x * SPEED);
+	if (data->p_x - (int)data->p_x == 0 && sameMap[x + 1][y] && sqrt(pow(data->p_x - (int)data->p_x, 2) + pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)
+		return (true);
 	if (sameMap[x][y] == false)
 	{
 		return (false);
@@ -200,9 +194,9 @@ int is_y_left_wall(t_data *data)
 	else
 		y = (int)(data->p_y - WALL_DISTANCE);
 	x = (int)(data->p_x + data->dir_x * SPEED);
+	if (data->p_x - (int)data->p_x == 0 && sameMap[x + 1][y] && sqrt(pow((data->p_x - (int)data->p_x), 2) + pow((data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)
+		return (true);
 	if (sameMap[x][y] == false)
-	{
 		return (false);
-	}
 	return (true);
 }

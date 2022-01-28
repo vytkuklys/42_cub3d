@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:22:53 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 17:16:52 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/28 04:19:40 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int againSameMap[MAPWIDTH][MAPHEIGHT] = //needs to be removed
+int againSameMap[MAPWIDTH][MAPHEIGHT] =
 	{
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -24,7 +24,7 @@ int againSameMap[MAPWIDTH][MAPHEIGHT] = //needs to be removed
 		{1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -38,12 +38,10 @@ int againSameMap[MAPWIDTH][MAPHEIGHT] = //needs to be removed
 		{1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-
-int	draw_25px(t_img *img, int x, int y, int color) //think about turning it into void
+int draw_25px(t_img *img, int x, int y, int color)
 {
-	int	i;
-	int	j;
-
+	int i;
+	int j;
 	i = 0;
 	while (i < 5)
 	{
@@ -55,14 +53,13 @@ int	draw_25px(t_img *img, int x, int y, int color) //think about turning it into
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
-int	draw_player(t_data *data) //think about turning it into void
+int draw_player(t_data *data)
 {
-	int	i;
-	int	j;
-
+	int i;
+	int j;
 	i = 0;
 	while (i < 3)
 	{
@@ -74,16 +71,16 @@ int	draw_player(t_data *data) //think about turning it into void
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
-int	draw_minimap(t_data *data) //think about turning it into void
+int draw_minimap(t_data *data)
 {
-	int	rows = data->map.rows;
-	int	columns = data->map.columns;
-	int	i;
-	int	j;
-	int	color;
+	int rows = data->map.rows;
+	int columns = data->map.columns;
+	int i;
+	int j;
+	int color;
 
 	rows = 24;
 	columns = 24;
@@ -95,6 +92,8 @@ int	draw_minimap(t_data *data) //think about turning it into void
 		{
 			if (againSameMap[j][i] == false)
 				color = 0xf0f8ff;
+			else if (againSameMap[j][i] == 11)
+				color = 0x00FF00;
 			else
 				color = 0x1E90FF;
 			draw_25px(&data->img, i, j, color);
@@ -103,5 +102,5 @@ int	draw_minimap(t_data *data) //think about turning it into void
 		i++;
 	}
 	draw_player(data);
-	return (EXIT_SUCCESS);
+	return (0);
 }

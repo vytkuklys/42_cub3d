@@ -1,21 +1,22 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   validation2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 17:11:49 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/23 22:51:25 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	get_number(char *el)
+int get_number(char *el)
 {
-	int	num;
-	int	minus;
+	int num;
+	int minus;
 
 	minus = 1;
 	while (*el && ft_strchr(" \t\r", *el))
@@ -39,97 +40,88 @@ int	get_number(char *el)
 	return (num * minus);
 }
 
-int	set_floor_color(t_img *img, int tmp[3]) //think about turning it into void
+int set_floor_color(t_img *img, int tmp[3])
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < 3)
 		img->floor_rgb[i] = tmp[i];
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
-int	set_ceiling_color(t_img *img, int tmp[3]) //think about turning it into void
+int set_ceiling_color(t_img *img, int tmp[3])
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < 3)
 		img->ceiling_rgb[i] = tmp[i];
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
-int	is_rgb_valid(char **split, int tmp[3])
+int is_rgb_valid(char **split, int tmp[3])
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < 3)
 	{
 		tmp[i] = get_number(split[i]);
 		if (tmp[i] < 0 || tmp[i] > 255)
-			return (EXIT_FAILURE);
+			return (1);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
-int	is_color_valid(t_img *img, char *el, char flag)
+int is_color_valid(t_img *img, char *el, char flag)
 {
-	char	**split;
-	int		tmp[3];
+	char **split;
+	int tmp[3];
 
 	split = ft_split(el, ',');
 	if (split == NULL || ft_strlen_2d(split) != 3 || el[ft_strlen(el) - 1] == ',')
 	{
 		ft_free_2d_array(&split, ft_strlen_2d(split));
-		return (EXIT_FAILURE);
+		return (1);
 	}
 	if ((flag != 'F' && flag != 'C') || (flag == 'C' && img->ceiling_rgb[0] != -1)
 		|| (flag == 'F' && img->floor_rgb[0] != -1) || is_rgb_valid(split, tmp))
 		{
 		ft_free_2d_array(&split, ft_strlen_2d(split));
-		return (EXIT_FAILURE);
+		return (1);
 		}
 	if (flag == 'F')
 		set_floor_color(img, tmp);
 	else
 		set_ceiling_color(img, tmp);
 	ft_free_2d_array(&split, ft_strlen_2d(split));
-	return (EXIT_SUCCESS);
+	return (0);
 }
 
 int set_path(t_img *img, char *path, char flag)
 {
-// maybe we can pass all paths in the right order to this function and do it with a while loop to make it safer and cleaner
-	if (flag == 'W' && img->tex_paths[WEST] == NULL)
+	if (flag == 'W' && !img->west_path)
 	{
-		img->tex_paths[WEST] = ft_strdup(path);
-		if (img->tex_paths[WEST] == NULL)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+		img->west_path = ft_strdup(path);
+		return (0);
 	}
-	else if (flag == 'E' && img->tex_paths[EAST] == NULL)
+	else if (flag == 'E' && !img->east_path)
 	{
-		img->tex_paths[EAST] = ft_strdup(path);
-		if (img->tex_paths[EAST] == NULL)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+		img->east_path = ft_strdup(path);
+		return (0);
 	}
-	else if (flag == 'S' && img->tex_paths[SOUTH] == NULL)
+	else if (flag == 'S' && !img->south_path)
 	{
-		img->tex_paths[SOUTH] = ft_strdup(path);
-		if (img->tex_paths[SOUTH] == NULL)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+		img->south_path = ft_strdup(path);
+		return (0);
 	}
-	else if (flag == 'N' && img->tex_paths[NORTH] == NULL)
+	else if (flag == 'N' && !img->north_path)
 	{
-		img->tex_paths[NORTH] = ft_strdup(path);
-		if (img->tex_paths[NORTH] == NULL)
-			return (EXIT_FAILURE);
-		return (EXIT_SUCCESS);
+		img->north_path = ft_strdup(path);
+		return (0);
 	}
-	return (EXIT_FAILURE);
+	return (1);
 }
 
 int is_path_valid(t_img *img, char *el, char flag)
@@ -167,10 +159,10 @@ int is_element_valid(t_img *img, char *el)
 	tmp[2] = '\0';
 
 	if ((*el == ' ') && ft_strnstr("NOSOWEEA", tmp, 9) && !is_path_valid(img, el, tmp[0]))
-	    return (EXIT_SUCCESS);
+	    return (0);
 	if (ft_strnstr("F C ", tmp, 5) && !is_color_valid(img, el, tmp[0]))
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
+		return (0);
+	return (1);
 }
 
 int are_elements_valid(t_img *img, char *filename)

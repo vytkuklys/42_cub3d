@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:39:17 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/27 17:18:32 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/25 00:53:55 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	createRGB(int r, int g, int b)
+int createRGB(int r, int g, int b)
 {
-	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
 int	ft_strlen_2d(char **s)
