@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/25 00:53:44 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/29 02:00:25 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 
 // 1. Outer most borders need to be space or 1
 // 2. Each space has to be surounded (vertically, diagonally, horizontally) by space or 1
+
+int set_player_position(int y, int x, t_data *data)
+{
+	data->p_x = y + 0.5;
+	data->p_y = x + 0.5;
+	set_player_direction(data, data->map.map[y][x]);
+	data->map.map[y][x] = '0';
+	return (1);
+}
 
 int are_outer_borders_valid(t_data *data)
 {
@@ -91,7 +100,7 @@ int are_inner_borders_valid(t_data *data)
 				return (1);
 			else if (!strchr(" 01SNWE", data->map.map[y][x]))
 				return (1);
-			else if (strchr("SNWE", data->map.map[y][x]) && flag++ > 0)
+			else if (strchr("SNWE", data->map.map[y][x]) && set_player_position(y, x, data) && flag++ > 0)
 				return (1);
 			x++;
 		}

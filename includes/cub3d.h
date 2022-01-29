@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/28 04:11:42 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/29 01:58:48 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 #define CORNER_DISTANCE 0.25
 #define WALL_DISTANCE 0.3
 
-#define SCREENWIDTH 640
-#define SCREENHEIGHT 480
 #define MAPWIDTH 24
 #define MAPHEIGHT 24
 #define MOVE_LEFT 0
@@ -125,6 +123,17 @@ typedef struct s_wall
 	int door;
 } t_wall;
 
+typedef struct s_controls
+{
+	int up;
+	int down;
+	int left;
+	int right;
+	int rotate_left;
+	int rotate_right;
+	int escape;
+} t_controls;
+
 typedef struct s_data
 {
 	int worldMap[64];
@@ -147,6 +156,7 @@ typedef struct s_data
 	t_map map;
 	t_ray ray;
 	t_wall wall;
+	t_controls controls;
 } t_data;
 
 int get_columns(char *filename, t_data *data);
@@ -178,5 +188,7 @@ int exit_maze(t_data *data, int flag);
 int are_elements_valid(t_img *img, char *filename);
 int ft_strlen_2d(char **s);
 char *ft_free_2d_array(char ***arr, unsigned int allocated);
+int get_color(char c);
+int set_player_direction(t_data *data, char direction);
 
 #endif

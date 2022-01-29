@@ -6,7 +6,7 @@
 #    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 12:13:12 by jludt             #+#    #+#              #
-#    Updated: 2022/01/25 00:57:26 by vkuklys          ###   ########.fr        #
+#    Updated: 2022/01/29 01:59:18 by vkuklys          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT_DIR = ./libft/
 MINLBX_DIR = ./mlx/
 
 # Source files and object files
-SRC_FILES = main.c init.c validation.c checkers.c minimap.c textures.c walls.c events.c draw.c utils.c rays.c validation2.c
+SRC_FILES = main.c init.c validation.c checkers.c minimap.c textures.c walls.c events.c draw.c utils.c rays.c validation2.c setters.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths
