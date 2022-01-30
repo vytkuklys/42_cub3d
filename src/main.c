@@ -66,10 +66,8 @@ void init_controls(t_controls *controls)
 
 void init_data(t_data *data)
 {
-	data->width = 1024;
-	data->height = 512;
 	data->mlx_ptr = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx_ptr, data->width, data->height, "Cub3d");
+	data->mlx_win = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "Cub3d");
 	data->p_x = 4;
 	data->p_y = 7;
 	data->plane_x = 0;
@@ -81,24 +79,30 @@ void init_data(t_data *data)
 	init_textures(data);
 	init_img(&data->img);
 	init_controls(&data->controls);
+	init_door(&data->door);
 }
 
 int draw_game(t_data *data)
 {
 	int x;
 
-	data->img.img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
+	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.sl, &data->img.endian);
 	check_events(data);
 	x = 0;
 	usleep(3750);
-	while (x < data->width)
+	while (x < WIDTH)
 	{
 		get_ray_data(data, x);
 		get_wall_data(data);
 		draw_walls(&data->wall, &data->img, x);
 		draw_ceiling(data, x, data->wall.top);
 		draw_floor(data, x, data->wall.bottom);
+		if (data->door.found)
+		{
+			get_door_data(data, &data->door);
+			draw_doors(&data->wall, &data->img, x);
+		}
 		x++;
 	}
 	draw_minimap(data);

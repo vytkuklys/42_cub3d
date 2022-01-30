@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 01:52:10 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/30 05:20:43 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ void draw_walls(t_wall *wall, t_img *img, int x)
 	}
 }
 
+void draw_doors(t_wall *wall, t_img *img, int x)
+{
+	int wall_y;
+	int pixel;
+	int y;
+
+	y = wall->top;
+	while (y < wall->bottom)
+	{
+		wall_y = (int)wall->position & (64 - 1);
+		wall->position += wall->step;
+		pixel = img->textures.gates[wall->x][wall_y];
+		my_mlx_pixel_put(img, x, y, pixel);
+		y++;
+	}
+}
+
 int draw_ceiling(t_data *data, int x, int up_to)
 {
 	int i;
@@ -52,7 +69,7 @@ int draw_ceiling(t_data *data, int x, int up_to)
 	blue = data->img.ceiling_rgb[2];
 	color = createRGB(red, green, blue);
 	i = 0;
-	while (i < up_to && i < data->height)
+	while (i < up_to && i < HEIGHT)
 	{
 		my_mlx_pixel_put(&data->img, x, i, color);
 		i++;
@@ -73,7 +90,7 @@ int draw_floor(t_data *data, int x, int from)
 	blue = data->img.floor_rgb[2];
 	color = createRGB(red, green, blue);
 	i = from;
-	while (i < data->height)
+	while (i < HEIGHT)
 	{
 		my_mlx_pixel_put(&data->img, x, i, color);
 		i++;

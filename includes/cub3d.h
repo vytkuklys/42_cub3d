@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 00:50:27 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/30 05:15:15 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,17 @@ typedef struct s_controls
 	int escape;
 } t_controls;
 
+typedef struct s_door
+{
+	bool found;
+	int open[2];
+	double dir_x;
+	double dir_y;
+	double length;
+	int side;
+	int x;
+} t_door;
+
 typedef struct s_data
 {
 	int worldMap[64];
@@ -150,15 +161,12 @@ typedef struct s_data
 	float delta_y;
 	void *mlx_ptr;
 	void *mlx_win;
-	int pressed_key;
-	int pressed_key2;
-	int width;
-	int height;
 	char *tmp_str;
 	t_img img;
 	t_map map;
 	t_ray ray;
 	t_wall wall;
+	t_door door;
 	t_controls controls;
 } t_data;
 
@@ -194,5 +202,12 @@ char *ft_free_2d_array(char ***arr, unsigned int allocated);
 int get_minimap_color(t_data *data, int x, int y);
 int get_color(char c);
 int set_player_direction(t_data *data, char direction);
+double count_ray_length(t_data *data);
+void get_door_data(t_data *data, t_door *door);
+void set_door_data(t_data *data, int x);
+void draw_doors(t_wall *wall, t_img *img, int x);
+void init_door(t_door *door);
+int open_door(t_data *data);
+int close_door(t_data *data);
 
 #endif

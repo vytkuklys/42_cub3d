@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 01:51:44 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/30 02:54:19 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void set_cardinal_direction(t_data *data, t_ray *ray)
 	}
 } 
 
-void find_a_wall(t_data *data, t_ray *ray)
+void find_a_wall(t_data *data, t_ray *ray, int px)
 {
 	int wall;
 	int x;
@@ -64,10 +64,8 @@ void find_a_wall(t_data *data, t_ray *ray)
 			ray->side = 1;
 		}
 		if (data->map.map[x][y] == '2')
-		{
-			data->wall.door = 1;
-		}
-		if (data->map.map[x][y] != '0')
+			set_door_data(data, px);
+		if (data->map.map[x][y] != '0' && data->map.map[x][y] != '2')
 			wall = true;
 	}
 }
@@ -77,7 +75,6 @@ double count_ray_length(t_data *data)
 	t_ray *ray;
 	double length;
 
-	find_a_wall(data, &data->ray);
 	ray = &data->ray;
 	if (ray->side == 0)
 	{
@@ -100,14 +97,16 @@ int get_ray_data(t_data *data, int x)
 {
 	t_ray *ray;
 
+	data->door.found = false;
 	data->wall.door = 0;
 	ray = &data->ray;
-	ray->camera = 2 * x / (double)data->width - 1;
+	ray->camera = 2 * x / (double)WIDTH - 1;
 	ray->dir_x = data->dir_x + data->plane_x * ray->camera;
 	ray->dir_y = data->dir_y + data->plane_y * ray->camera;
 	ray->delta_x = (ray->dir_x == 0) ? 1e30 : fabs(1 / ray->dir_x);
 	ray->delta_y = (ray->dir_y == 0) ? 1e30 : fabs(1 / ray->dir_y);
 	set_cardinal_direction(data, &data->ray);
+	find_a_wall(data, &data->ray, x);
 	ray->length = count_ray_length(data);
 	return (0);
 }
