@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/29 00:32:35 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/29 02:17:05 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ int exit_maze(t_data *data, int flag)
 
 int key_press(int key, t_data *data)
 {
-	// if (data->pressed_key == -1 && data->pressed_key2 != key)
-	// 	data->pressed_key = key;
-	// else if (data->pressed_key != key)
-	// {
-	// 	data->pressed_key2 = key;
-	// }
 	if (key == MOVE_UP)
 		data->controls.up = MOVE_UP;
 	else if (key == MOVE_DOWN)
@@ -46,14 +40,6 @@ int key_press(int key, t_data *data)
 }
 int key_release(int key, t_data *data)
 {
-	// if (data->pressed_key == key)
-	// {
-	// 	data->pressed_key = -1;
-	// }
-	// if (data->pressed_key2 == key)
-	// {
-	// 	data->pressed_key2 = -1;
-	// }
 	if (key == MOVE_UP)
 		data->controls.up = -1;
 	else if (key == MOVE_DOWN)
@@ -116,9 +102,6 @@ int exit_left(int key, t_data *data)
 
 int update_game(int key, t_data *data)
 {
-	// fprintf(stderr, "%f - %f\n", data->dir_x, data->dir_y);
-	// fprintf(stderr, "%f - %f\n", data->plane_x, data->plane_y);
-
 	if (key == MOVE_UP)
 	{
 		if (!is_x_forwards_wall(data))
@@ -147,14 +130,6 @@ int update_game(int key, t_data *data)
 
 void check_events(t_data *data)
 {
-	// if (data->pressed_key > -1 && data->pressed_key2 != data->pressed_key)
-	// {
-	// 	update_game(data->pressed_key, data);
-	// }
-	// if (data->pressed_key2 > -1 && data->pressed_key2 != data->pressed_key)
-	// {
-	// 	update_game(data->pressed_key2, data);
-	// }
 	if (data->controls.up == MOVE_UP)
 		update_game(MOVE_UP, data);
 	if (data->controls.down == MOVE_DOWN)

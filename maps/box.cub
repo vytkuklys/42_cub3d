@@ -1,0 +1,13 @@
+WE ./maps/new.cub
+EA ./maps/test.cub
+
+F  240,        240,      240
+
+C     50        ,50      ,50
+
+SO                    ./maps/test.cub
+NO  ./maps/test.cub
+
+111
+1N1
+111

@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/29 01:58:48 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/30 00:50:27 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 #define ESCAPE 53
 
 #define FRAMES 0.012
-#define SPEED FRAMES * 3.5
+#define SPEED FRAMES * 3.25
 #define ROTATION FRAMES * 2.75
 
 #define NORTH 0
@@ -48,6 +48,9 @@
 
 #define WIDTH 1024
 #define HEIGHT 512
+
+#define MINIMAP_MAX 1533
+#define PARTIAL_MINIMAP 1
 
 #define TOTAL_ELEMENTS 6
 
@@ -188,6 +191,7 @@ int exit_maze(t_data *data, int flag);
 int are_elements_valid(t_img *img, char *filename);
 int ft_strlen_2d(char **s);
 char *ft_free_2d_array(char ***arr, unsigned int allocated);
+int get_minimap_color(t_data *data, int x, int y);
 int get_color(char c);
 int set_player_direction(t_data *data, char direction);
 
