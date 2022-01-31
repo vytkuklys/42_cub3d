@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 18:44:17 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 21:18:56 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define CORNER_DISTANCE 0.25
 # define WALL_DISTANCE 0.3
 
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
+// # define MAPWIDTH 24
+// # define MAPHEIGHT 24
 # define MOVE_LEFT 0
 # define MOVE_RIGHT 2
 # define MOVE_DOWN 1
@@ -62,8 +62,8 @@ typedef struct s_textures
 	int		south_wall[64][64];
 	int		gates[64][64];
 	void	*tex_ptr;
-	char	**tex_addr;
-// all of the stuff below should not be needed anymore
+	char	*tex_addr;
+	// all of the stuff below should not be needed anymore
 	void	*east_ptr;
 	void	*west_ptr;
 	void	*north_ptr;
@@ -74,10 +74,9 @@ typedef struct s_textures
 	char	*east_addr;
 	char	*south_addr;
 	char	*north_addr;
+	//
 	void	*right_hand;
 	void	*left_hand;
-	char	*right_hand_addr;
-	char	*left_hand_addr;
 }				t_textures;
 
 typedef enum e_tex
@@ -101,7 +100,7 @@ typedef struct s_img
 	int			width;
 	int			height;
 	//
-	char		**tex_paths;
+	char		*tex_paths[8];
 	//
 	char		*west_path;
 	char		*east_path;
@@ -176,7 +175,7 @@ typedef struct s_door
 
 typedef struct s_data
 {
-	int			worldMap[64];
+	// int			worldMap[64];
 	float		p_x;
 	float		p_y;
 	double		plane_x;

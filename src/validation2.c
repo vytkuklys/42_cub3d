@@ -99,7 +99,7 @@ int is_color_valid(t_img *img, char *el, char flag)
 	return (0);
 }
 
-int set_path(t_img *img, char *path, char flag)
+int set_path(t_img *img, char *path, char flag)//set path to img->tex_paths correspondingly to enum numbers
 {
 	if (flag == 'W' && !img->west_path)
 	{

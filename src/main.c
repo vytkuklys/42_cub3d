@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 20:29:27 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 21:32:35 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,19 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	init_img(t_img *img)
 {
-	//
-	img->tex_paths = ft_calloc(TOTAL_ELEMENTS + 1, sizeof(char *));
-	// if (img->tex_paths == NULL)
-	// 	return (error_init_img());
-	img->tex_paths[4] = ft_strdup("images/left_hand.xpm");
-	img->tex_paths[5] = ft_strdup("images/right_hand.xpm");
-	//
+	img->tex_paths[left_hand] = ft_strdup("images/left_hand.xpm");
+	// if (img->tex_paths[left_hand] == NULL)
+		// return (clean_exit)
+	img->tex_paths[right_hand] = ft_strdup("images/right_hand.xpm");
+	// if (img->tex_paths[left_hand] == NULL)
+		// return (clean_exit)
+	img->tex_paths[7] = NULL;
+	// remove those
 	img->north_path = NULL;
 	img->south_path = NULL;
 	img->west_path = NULL;
 	img->east_path = NULL;
+	//
 	img->ceiling_rgb[0] = -1;
 	img->floor_rgb[0] = -1;
 }
@@ -62,8 +64,8 @@ void	init_data(t_data *data)
 	data->tmp_str = NULL;
 	data->map.map = NULL;
 	data->wall.type = '\0';
-	init_textures(data);
 	init_img(&data->img);
+	init_textures(data);
 	init_controls(&data->controls);
 	init_door(&data->door);
 }
@@ -75,11 +77,26 @@ bool	is_movement(t_data *data)
 	return (false);
 }
 
+void	animate_hands(t_data *data)
+{
+	static int	left;
+	static bool	up;
+
+	if (left == - 30)
+		up = true;
+	else if (left == 30)
+		up = false;
+	if (up == true && is_movement(data) == true)
+		left += 2;
+	else if (is_movement(data) == true)
+		left -= 2;
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.left_hand, 0, left + 30);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.right_hand, 0, left * -1 + 30);
+}
+
 int	draw_game(t_data *data)//think about void
 {
 	int			x;
-	static int	left;
-	static bool	up;
 
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
@@ -101,18 +118,7 @@ int	draw_game(t_data *data)//think about void
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
 		data->img.img_ptr, 0, 0);
-	if (left == - 30)
-		up = true;
-	else if (left == 30)
-		up = false;
-	if (up == true && is_movement(data) == true)
-		left += 2;
-	else if (is_movement(data) == true)
-		left -= 2;
-	// mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.tex_addr[left_hand], 0, left + 30);
-	// mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.tex_addr[right_hand], 0, left + 30);
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.left_hand, 0, left + 30);
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.right_hand, 0, left * -1 + 30);
+	animate_hands(data);
 	mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
 	return (0);
 }
