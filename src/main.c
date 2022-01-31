@@ -68,9 +68,18 @@ void	init_data(t_data *data)
 	init_door(&data->door);
 }
 
+bool	is_movement(t_data *data)
+{
+	if (data->controls.down != -1 || data->controls.left != -1 || data->controls.right != -1 || data->controls.up != -1)
+		return (true);
+	return (false);
+}
+
 int	draw_game(t_data *data)//think about void
 {
 	int	x;
+	static int	left;
+	static bool	up;
 
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
@@ -92,6 +101,18 @@ int	draw_game(t_data *data)//think about void
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
 		data->img.img_ptr, 0, 0);
+	if (left == - 30)
+		up = true;
+	else if (left == 30)
+		up = false;
+	if (up == true && is_movement(data) == true)
+		left += 2;
+	else if (is_movement(data) == true)
+		left -= 2;
+	// mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.tex_addr[left_hand], 0, left + 30);
+	// mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.tex_addr[right_hand], 0, left + 30);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.left_hand, 0, left + 30);
+	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.textures.right_hand, 0, left * -1 + 30);
 	mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
 	return (0);
 }

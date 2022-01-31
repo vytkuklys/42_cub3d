@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 14:01:08 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:44:17 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,23 @@ typedef struct s_textures
 	char	*east_addr;
 	char	*south_addr;
 	char	*north_addr;
+	void	*right_hand;
+	void	*left_hand;
+	char	*right_hand_addr;
+	char	*left_hand_addr;
 }				t_textures;
 
+typedef enum e_tex
+{
+	// preparation to implement tex_addr array of textures
+	north = 0,
+	east = 1,
+	west = 2,
+	south = 3,
+	door = 4,
+	left_hand = 5,
+	right_hand = 6,
+}			t_tex;
 typedef struct s_img
 {
 	void		*img_ptr;
