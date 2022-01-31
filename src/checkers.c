@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 17:37:08 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 13:42:27 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:54:03 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,13 @@ int	is_y_forwards_wall(t_data *data)
 	door_bumps = 0;
 	if (data->p_x - (int)data->p_x == 0 && ((data->map.map[x - 1][y] != '0'
 			&& (1 - (data->p_y - (int)data->p_y) < CORNER_DISTANCE))
-		|| (data->map.map[x - 1][y] != '0'
-		&& (data->p_y - (int)data->p_y) < CORNER_DISTANCE)
-		|| (data->map.map[x + 1][y] != '0' && sqrt(pow(1 - (data->p_x - (int)data->p_x), 2)
-			+ pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
-	{
+		|| (data->map.map[x - 1][y] != '0' && (data->p_y - (int)data->p_y)
+		< CORNER_DISTANCE) || (data->map.map[x + 1][y] != '0'
+		&& sqrt(pow(1 - (data->p_x - (int)data->p_x), 2)
+		+ pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
 		return (true);
-	}
 	if (data->map.map[x][y] == '0')
-	{
 		return (false);
-	}
 	return (true);
 }
 
@@ -64,16 +60,13 @@ int	is_x_forwards_wall(t_data *data)
 	door_bump = 0;
 	if (data->p_y - (int)data->p_y == 0 && ((data->map.map[y][x - 1] != '0'
 			&& 1 - (data->p_x - (int)data->p_x) < CORNER_DISTANCE)
-		|| (data->map.map[y][x - 1] != '0' && (data->p_x - (int)data->p_x) < CORNER_DISTANCE)
-		|| (data->map.map[y][x + 1] != '0' && sqrt(pow((data->p_x - (int)data->p_x), 2)
+		|| (data->map.map[y][x - 1] != '0' && (data->p_x - (int)data->p_x)
+		< CORNER_DISTANCE) || (data->map.map[y][x + 1] != '0'
+		&& sqrt(pow((data->p_x - (int)data->p_x), 2)
 		+ pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
-	{
 		return (true);
-	}
 	if (data->map.map[y][x] == '0')
-	{
 		return (false);
-	}
 	return (true);
 }
 
@@ -88,10 +81,11 @@ int	is_x_backwards_wall(t_data *data)
 		y = (int)(data->p_x - data->dir_x * SPEED + WALL_DISTANCE);
 	x = (int)(data->p_y);
 	if (data->p_y - (int)data->p_y == 0 && ((data->map.map[y][x - 1] != '0'
-			&& sqrt(pow(1 - (data->p_x - (int)data->p_x), 2)
-		+ pow(data->p_y - (int)data->p_y, 2)) < CORNER_DISTANCE)
-		|| (data->map.map[y][x - 1] != '0' && sqrt(pow((data->p_x - (int)data->p_x), 2)
-		+ pow(data->p_y - (int)data->p_y, 2)) < CORNER_DISTANCE)))
+			&& sqrt(pow(1 - (data->p_x - (int)data->p_x), 2) + pow(data->p_y
+					- (int)data->p_y, 2)) < CORNER_DISTANCE)
+		|| (data->map.map[y][x - 1] != '0' && sqrt(pow((data->p_x
+					- (int)data->p_x), 2) + pow(data->p_y
+				- (int)data->p_y, 2)) < CORNER_DISTANCE)))
 	{
 		return (true);
 	}
@@ -113,12 +107,14 @@ int	is_y_backwards_wall(t_data *data)
 		y = (int)(data->p_y - data->dir_y * SPEED + WALL_DISTANCE);
 	x = (int)(data->p_x);
 	if ((data->p_x - (int)data->p_x) == 0 && ((data->map.map[x - 1][y] != '0'
-			&& sqrt(pow(data->p_x - (int)data->p_x, 2)
-		+ pow(data->p_y - (int)data->p_y, 2)) < CORNER_DISTANCE)
-		|| (data->map.map[x - 1][y] != '0' && sqrt(pow(data->p_x - (int)data->p_x, 2)
-		+ pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)
-		|| (data->map.map[x + 1][y] != '0' && sqrt(pow(1 - (data->p_x - (int)data->p_x), 2)
-		+ pow((data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)))
+			&& sqrt(pow(data->p_x - (int)data->p_x, 2) + pow(data->p_y
+					- (int)data->p_y, 2)) < CORNER_DISTANCE)
+		|| (data->map.map[x - 1][y] != '0' && sqrt(pow(data->p_x
+				- (int)data->p_x, 2) + pow(1 - (data->p_y
+					- (int)data->p_y), 2)) < CORNER_DISTANCE)
+		|| (data->map.map[x + 1][y] != '0' && sqrt(pow(1 - (data->p_x
+	- (int)data->p_x), 2) + pow((data->p_y - (int)data->p_y), 2))
+	< CORNER_DISTANCE)))
 		return (true);
 	if (data->map.map[x][y] == '0')
 		return (false);
@@ -147,14 +143,10 @@ int	is_x_right_wall(t_data *data)
 		if (data->p_y - (int)data->p_y == 0 && data->map.map[y][x - 1] != '0'
 				&& sqrt(pow((data->p_x - (int)data->p_x), 2)
 			+ pow((data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)
-		{
 			return (true);
-		}
 	}
 	if (data->map.map[y][x] == '0')
-	{
 		return (false);
-	}
 	return (true);
 }
 
@@ -183,9 +175,7 @@ int	is_y_right_wall(t_data *data)
 			return (true);
 	}
 	if (data->map.map[x][y] == '0')
-	{
 		return (false);
-	}
 	return (true);
 }
 
@@ -211,14 +201,10 @@ int	is_x_left_wall(t_data *data)
 		if (data->p_y - (int)data->p_y == 0 && data->map.map[y][x - 1] != '0'
 				&& sqrt(pow(1 - (data->p_x - (int)data->p_x), 2)
 			+ pow((data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)
-		{
 			return (true);
-		}
 	}
 	if (data->map.map[y][x] == '0')
-	{
 		return (false);
-	}
 	return (true);
 }
 
@@ -241,7 +227,9 @@ int	is_y_left_wall(t_data *data)
 	}
 	else
 	{
-		if (data->p_x - (int)data->p_x == 0 && data->map.map[x - 1][y] != '0' && sqrt(pow((data->p_x - (int)data->p_x), 2) + pow(1 - (data->p_y - (int)data->p_y), 2)) < CORNER_DISTANCE)
+		if (data->p_x - (int)data->p_x == 0 && data->map.map[x - 1][y] != '0'
+			&& sqrt(pow((data->p_x - (int)data->p_x), 2) + pow(1 - (data->p_y
+				- (int)data->p_y), 2)) < CORNER_DISTANCE)
 			return (true);
 	}
 	if (data->map.map[x][y] == '0')

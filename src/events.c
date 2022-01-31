@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 13:48:38 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:43:54 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	key_press(int key, t_data *data)//think about void
 		data->controls.escape = ESCAPE;
 	return (EXIT_SUCCESS);
 }
+
 int	key_release(int key, t_data *data)//think about void
 {
 	if (key == MOVE_UP)
