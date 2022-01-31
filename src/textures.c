@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 18:41:11 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 19:38:19 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,6 @@ int init_textures(t_data *data)//add protection
 	img->textures.left_hand = mlx_xpm_file_to_image(data->mlx_ptr, "images/left_hand.xpm", &width, &height);
 	img->textures.left_hand_addr = mlx_get_data_addr(img->textures.left_hand, &img->bpp, &img->sl, &img->endian);
 	img->textures.right_hand = mlx_xpm_file_to_image(data->mlx_ptr, "images/right_hand.xpm", &width, &height);
-	img->textures.left_hand_addr = mlx_get_data_addr(img->textures.right_hand, &img->bpp, &img->sl, &img->endian);
+	img->textures.right_hand_addr = mlx_get_data_addr(img->textures.right_hand, &img->bpp, &img->sl, &img->endian);
 	return (EXIT_SUCCESS);
 }
