@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 11:10:45 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:47:39 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:52:25 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_start(const char *s1, const char *set)
 {
 	unsigned int	c;
-	unsigned int	i;
+	int				i;
 
 	c = 0;
 	i = 0;

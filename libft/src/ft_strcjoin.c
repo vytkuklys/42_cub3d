@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 16:13:38 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:46:55 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:40:47 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	*ft_strcjoin(const char *s1, const char *s2, char divider)
 	i = 0;
 	i2 = 0;
 	c = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
-	if (c == '\0')
-		return (0);
+	if (c == NULL)
+		return (NULL);
 	while (s1[i] != '\0')
 	{
 		c[i] = s1[i];
