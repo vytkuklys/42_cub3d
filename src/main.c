@@ -1,14 +1,14 @@
-// // /* ************************************************************************** */
-// // /*                                                                            */
-// // /*                                                        :::      ::::::::   */
-// // /*   main.c                                             :+:      :+:    :+:   */
-// // /*                                                    +:+ +:+         +:+     */
-// // /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
-// // /*                                                +#+#+#+#+#+   +#+           */
-// // /*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
-// // /*   Updated: 2022/01/19 17:09:09 by vkuklys          ###   ########.fr       */
-// // /*                                                                            */
-// // /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
+/*   Updated: 2022/01/31 20:09:07 by tblaase          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <time.h>
@@ -77,7 +77,7 @@ bool	is_movement(t_data *data)
 
 int	draw_game(t_data *data)//think about void
 {
-	int	x;
+	int			x;
 	static int	left;
 	static bool	up;
 
@@ -135,14 +135,19 @@ int	test(int x, int y, t_data *data) // mouse hook
 	return (y);
 }
 
+bool	error_input(void)
+{
+	ft_putstr_fd("wrong number of arguments!\n", 2);
+	return (EXIT_FAILURE);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	(void)argc;//implement the use argc and argv
-	(void)argv;
-	// if (argc != 2)
-	// 	return (error_input());
+	(void)argv;//implement the use argc and argv
+	if (argc != 2)
+		return (error_input());
 	init_data(&data);
 	if (init_map("maps/doors.cub", &data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
