@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 05:15:15 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 06:15:38 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_wall
 	int horizontal;
 	int direction;
 	int door;
+	char type;
 } t_wall;
 
 typedef struct s_controls
@@ -140,12 +141,15 @@ typedef struct s_controls
 typedef struct s_door
 {
 	bool found;
-	int open[2];
+	int open_s_n[2];
+	int open_e_w[2];
 	double dir_x;
 	double dir_y;
 	double length;
 	int side;
 	int x;
+	struct s_door *next;
+	struct s_door *prev;
 } t_door;
 
 typedef struct s_data
@@ -207,7 +211,12 @@ void get_door_data(t_data *data, t_door *door);
 void set_door_data(t_data *data, int x);
 void draw_doors(t_wall *wall, t_img *img, int x);
 void init_door(t_door *door);
-int open_door(t_data *data);
-int close_door(t_data *data);
+int open_south_north_door(t_data *data);
+int close_south_north_door(t_data *data);
+int close_east_west_door(t_data *data);
+int open_east_west_door(t_data *data);
+t_door	*ft_door_lstlast(t_door *lst);
+int	ft_door_lstsize(t_door *lst);
+void prepare_door_drawing(t_data *data, int x);
 
 #endif

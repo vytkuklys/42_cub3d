@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 01:34:46 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 07:49:18 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int are_inner_borders_valid(t_data *data)
 	int y;
 	int flag;
 
-	fprintf(stderr, "?");
 	y = 0;
 	flag = 0;
 	while (data->map.map[y] != NULL)

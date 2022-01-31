@@ -76,6 +76,7 @@ void init_data(t_data *data)
 	data->dir_y = 0;
 	data->tmp_str = NULL;
 	data->map.map = NULL;
+	data->wall.type = '\0';
 	init_textures(data);
 	init_img(&data->img);
 	init_controls(&data->controls);
@@ -99,16 +100,31 @@ int draw_game(t_data *data)
 		draw_ceiling(data, x, data->wall.top);
 		draw_floor(data, x, data->wall.bottom);
 		if (data->door.found)
-		{
-			get_door_data(data, &data->door);
-			draw_doors(&data->wall, &data->img, x);
-		}
+			prepare_door_drawing(data, x);
 		x++;
 	}
 	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img_ptr, 0, 0);
 	mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
  	return 0;
+}
+
+int test(int x, int y, t_data *data) // mouse hook
+{
+	static int prev;
+	int current;
+
+	current = x;
+	if (current > prev)
+	{
+		update_game(ROTATE_RIGHT, data);
+	}
+	else if (current < prev)
+	{
+		update_game(ROTATE_LEFT, data);
+	}
+	prev = current;
+	return y;
 }
 
 int main(void)
@@ -121,8 +137,10 @@ int main(void)
 	if (is_map_valid(&data))
 		return (1);
 	mlx_loop_hook(data.mlx_ptr, draw_game, &data);
+	mlx_hook(data.mlx_win, 6, 1L<<0, test, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 0, key_press, &data);
 	mlx_hook(data.mlx_win, 3, 1L << 0, key_release, &data);
 	mlx_hook(data.mlx_win, 17, 1L << 17, exit_maze, &data);
 	mlx_loop(data.mlx_ptr);
+
 }

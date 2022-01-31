@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:39:17 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 00:48:47 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 05:56:46 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int get_minimap_color(t_data *data, int x, int y)
 	c = data->map.map[y][x];
 	if (c == '0')
 		return 0xf0f8ff;
-	else if (c == '1')
+	else if (c == '1' || c == '3')
 		return 0x1E90FF;
 	else if (c == ' ' || c == '\0')
 		return 0x000000;
@@ -44,7 +44,7 @@ int get_color(char c)
 		color = 0xf0f8ff;
 	else if (c == '2')
 		color = 0x00FF00;
-	else if (c == '1')
+	else if (c == '1' || c == '3')
 		color = 0x1E90FF;
 	else
 		color = 0;
@@ -79,4 +79,33 @@ char *ft_free_2d_array(char ***arr, unsigned int allocated)
 	free(*arr);
 	*arr = NULL;
 	return (NULL);
+}
+
+t_door	*ft_door_lstlast(t_door *lst)
+{
+	t_door	*tmp;
+
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		if (tmp->next == NULL)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
+int	ft_door_lstsize(t_door *lst)
+{
+	t_door	*tmp;
+	int		i;
+
+	tmp = lst;
+	i = 0;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }

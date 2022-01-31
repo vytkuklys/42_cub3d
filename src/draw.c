@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 05:20:43 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 07:48:45 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void draw_walls(t_wall *wall, t_img *img, int x)
 	{
 		wall_y = (int)wall->position & (64 - 1);
 		wall->position += wall->step;
-		if (wall->door)
+		if (wall->type == EAST && wall->door && (wall->direction == SOUTH || wall->direction == NORTH))
+			pixel = img->textures.gates[wall->x][wall_y];
+		else if (wall->type == SOUTH && wall->door && (wall->direction == EAST || wall->direction == WEST))
 			pixel = img->textures.gates[wall->x][wall_y];
 		else if (wall->direction == EAST)
 			pixel = img->textures.east_wall[wall->x][wall_y];

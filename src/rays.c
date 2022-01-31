@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 02:54:19 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 07:36:34 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void set_cardinal_direction(t_data *data, t_ray *ray)
 	}
 } 
 
+
 void find_a_wall(t_data *data, t_ray *ray, int px)
 {
 	int wall;
@@ -62,6 +63,10 @@ void find_a_wall(t_data *data, t_ray *ray, int px)
 			ray->side_dist_y += ray->delta_y;
 			y += ray->step_y;
 			ray->side = 1;
+		}
+		if (data->map.map[x][y] == '3' && (((data->wall.horizontal == EAST && data->map.map[x][y - 2] == '3') || (data->wall.horizontal == WEST && data->map.map[x][y + 2] == '3')) || ((data->wall.vertical == SOUTH && data->map.map[x - 2][y] == '3') || (data->wall.vertical == NORTH && data->map.map[x + 2][y] == '3'))))
+		{
+			data->wall.door = 1;
 		}
 		if (data->map.map[x][y] == '2')
 			set_door_data(data, px);
