@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 02:46:55 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:48:38 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
-int exit_maze(t_data *data, int flag)
+int	exit_maze(t_data *data, int flag)
 {
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	if (flag)
@@ -20,7 +20,7 @@ int exit_maze(t_data *data, int flag)
 	exit(EXIT_FAILURE);
 }
 
-int key_press(int key, t_data *data)
+int	key_press(int key, t_data *data)//think about void
 {
 	if (key == MOVE_UP)
 		data->controls.up = MOVE_UP;
@@ -38,7 +38,7 @@ int key_press(int key, t_data *data)
 		data->controls.escape = ESCAPE;
 	return (EXIT_SUCCESS);
 }
-int key_release(int key, t_data *data)
+int	key_release(int key, t_data *data)//think about void
 {
 	if (key == MOVE_UP)
 		data->controls.up = -1;
@@ -57,19 +57,22 @@ int key_release(int key, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int rotate_view(int key, t_data *data)
+int	rotate_view(int key, t_data *data)//think about void
 {
-	double old_dir;
-	double old_plane;
+	double	old_dir;
+	double	old_plane;
 
 	if (key == ROTATE_RIGHT)
 	{
 		old_dir = data->dir_x;
-		data->dir_x = data->dir_x * cos(-ROTATION) - data->dir_y * sin(-ROTATION);
+		data->dir_x = data->dir_x * cos(-ROTATION) - data->dir_y
+			* sin(-ROTATION);
 		data->dir_y = old_dir * sin(-ROTATION) + data->dir_y * cos(-ROTATION);
 		old_plane = data->plane_x;
-		data->plane_x = data->plane_x * cos(-ROTATION) - data->plane_y * sin(-ROTATION);
-		data->plane_y = old_plane * sin(-ROTATION) + data->plane_y * cos(-ROTATION);
+		data->plane_x = data->plane_x * cos(-ROTATION) - data->plane_y
+			* sin(-ROTATION);
+		data->plane_y = old_plane * sin(-ROTATION) + data->plane_y
+			* cos(-ROTATION);
 	}
 	else if (key == ROTATE_LEFT)
 	{
@@ -77,13 +80,15 @@ int rotate_view(int key, t_data *data)
 		data->dir_x = data->dir_x * cos(ROTATION) - data->dir_y * sin(ROTATION);
 		data->dir_y = old_dir * sin(ROTATION) + data->dir_y * cos(ROTATION);
 		old_plane = data->plane_x;
-		data->plane_x = data->plane_x * cos(ROTATION) - data->plane_y * sin(ROTATION);
-		data->plane_y = old_plane * sin(ROTATION) + data->plane_y * cos(ROTATION);
+		data->plane_x = data->plane_x * cos(ROTATION) - data->plane_y
+			* sin(ROTATION);
+		data->plane_y = old_plane * sin(ROTATION) + data->plane_y
+			* cos(ROTATION);
 	}
 	return (0);
 }
 
-int exit_left(int key, t_data *data)
+int	exit_left(int key, t_data *data)
 {
 	if (key == MOVE_LEFT)
 	{
@@ -100,7 +105,7 @@ int exit_left(int key, t_data *data)
 	return (0);
 }
 
-int update_game(int key, t_data *data)
+int	update_game(int key, t_data *data)//think about void
 {
 	if (key == MOVE_UP)
 	{
@@ -123,12 +128,12 @@ int update_game(int key, t_data *data)
 		if (!is_y_right_wall(data))
 			data->p_y -= data->dir_x * SPEED;
 	}
-	else if (exit_left(key, data) || rotate_view(key, data))
+	else if (exit_left(key, data) || rotate_view(key, data))//what is missing here?
 		;
 	return (0);
 }
 
-void check_events(t_data *data)
+void	check_events(t_data *data)
 {
 	if (data->controls.up == MOVE_UP)
 		update_game(MOVE_UP, data);

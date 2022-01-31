@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 07:49:18 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:57:28 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
 // 2 rules of map validation:
 
@@ -116,8 +116,8 @@ int is_map_valid(t_data *data)
 	if (are_outer_borders_valid(data) || are_inner_borders_valid(data))
 	{
 		fprintf(stderr, "Not valid,");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	fprintf(stderr, "Valid,\n");
-	return (0);
+	return (EXIT_SUCCESS);
 }

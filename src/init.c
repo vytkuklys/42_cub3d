@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/25 01:41:54 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:57:15 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
-int get_perimeter(int fd, t_data *data)
+int	get_perimeter(int fd, t_data *data)//think about void
 {
-	char *line;
+	char	*line;
 
 	line = get_next_line(fd);
 	data->map.columns = 0;
@@ -41,10 +41,10 @@ int get_perimeter(int fd, t_data *data)
 	return (0);
 }
 
-int fill_row(char **map, char *line, int rows)
+int	fill_row(char **map, char *line, int rows)//think about void
 {
-	char *tmp;
-	int j;
+	char	*tmp;
+	int		j;
 
 	tmp = *map;
 	j = 0;
@@ -62,9 +62,9 @@ int fill_row(char **map, char *line, int rows)
 	return (0);
 }
 
-int fill_perimeter(int fd, t_data *data)
+int	fill_perimeter(int fd, t_data *data)
 {
-	int i;
+	int	i;
 
 	data->map.map = (char **)malloc((data->map.columns + 1) * sizeof(char *));
 	if (!data->map.map)
@@ -91,10 +91,10 @@ int fill_perimeter(int fd, t_data *data)
 	return (0);
 }
 
-int skip_to_map(t_data *data, char *filename)
+int	skip_to_map(t_data *data, char *filename)//think about unsigned int
 {
-	int fd;
-	int count;
+	int	fd;
+	int	count;
 
 	fd = open(filename, O_RDONLY);
 	count = 0;
@@ -112,31 +112,31 @@ int skip_to_map(t_data *data, char *filename)
 	return (fd);
 }
 
-int init_map(char *filename, t_data *data)
+int	init_map(char *filename, t_data *data)
 {
-	int fd;
+	int	fd;
 
 	fd = are_elements_valid(&data->img, filename);
 	if (fd == -1)
 	{
 		fprintf(stderr, "Invalid elements");
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	if (get_perimeter(fd, data))
 	{
 		fprintf(stderr, "Map problems");
 		close(fd);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	close(fd);
 	fd = skip_to_map(data, filename);
 	if (fd == -1)
-		return (1);
+		return (EXIT_FAILURE);
 	if (fill_perimeter(fd, data))
 	{
 		close(fd);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	close(fd);
-	return (0);
+	return (EXIT_SUCCESS);
 }

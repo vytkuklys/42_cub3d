@@ -3,28 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 07:48:45 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:45:41 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
-void draw_walls(t_wall *wall, t_img *img, int x)
+void	draw_walls(t_wall *wall, t_img *img, int x)
 {
-	int wall_y;
-	int pixel;
-	int y;
+	int	wall_y;
+	int	pixel;
+	int	y;
+
 	y = wall->top;
 	while (y < wall->bottom)
 	{
 		wall_y = (int)wall->position & (64 - 1);
 		wall->position += wall->step;
-		if (wall->type == EAST && wall->door && (wall->direction == SOUTH || wall->direction == NORTH))
+		if (wall->type == EAST && wall->door && (wall->direction == SOUTH
+				|| wall->direction == NORTH))
 			pixel = img->textures.gates[wall->x][wall_y];
-		else if (wall->type == SOUTH && wall->door && (wall->direction == EAST || wall->direction == WEST))
+		else if (wall->type == SOUTH && wall->door && (wall->direction == EAST
+				|| wall->direction == WEST))
 			pixel = img->textures.gates[wall->x][wall_y];
 		else if (wall->direction == EAST)
 			pixel = img->textures.east_wall[wall->x][wall_y];
@@ -41,11 +44,11 @@ void draw_walls(t_wall *wall, t_img *img, int x)
 	}
 }
 
-void draw_doors(t_wall *wall, t_img *img, int x)
+void	draw_doors(t_wall *wall, t_img *img, int x)
 {
-	int wall_y;
-	int pixel;
-	int y;
+	int	wall_y;
+	int	pixel;
+	int	y;
 
 	y = wall->top;
 	while (y < wall->bottom)
@@ -58,13 +61,13 @@ void draw_doors(t_wall *wall, t_img *img, int x)
 	}
 }
 
-int draw_ceiling(t_data *data, int x, int up_to)
+int	draw_ceiling(t_data *data, int x, int up_to)
 {
-	int i;
-	int red;
-	int green;
-	int blue;
-	int color;
+	int	i;
+	int	red;
+	int	green;
+	int	blue;
+	int	color;
 
 	red = data->img.ceiling_rgb[0];
 	green = data->img.ceiling_rgb[1];
@@ -79,13 +82,13 @@ int draw_ceiling(t_data *data, int x, int up_to)
 	return (0);
 }
 
-int draw_floor(t_data *data, int x, int from)
+int	draw_floor(t_data *data, int x, int from)
 {
-	int i;
-	int red;
-	int green;
-	int blue;
-	int color;
+	int	i;
+	int	red;
+	int	green;
+	int	blue;
+	int	color;
 
 	red = data->img.floor_rgb[0];
 	green = data->img.floor_rgb[1];

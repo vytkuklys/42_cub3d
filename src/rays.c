@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 07:36:34 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:24:34 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
 void set_cardinal_direction(t_data *data, t_ray *ray)
 {
@@ -38,7 +38,7 @@ void set_cardinal_direction(t_data *data, t_ray *ray)
 		ray->side_dist_y = ((int)data->p_y + 1.0 - data->p_y) * ray->delta_y;
 		data->wall.horizontal = EAST;
 	}
-} 
+}
 
 
 void find_a_wall(t_data *data, t_ray *ray, int px)

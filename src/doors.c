@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 01:50:07 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 06:05:55 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:44:30 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
-void get_door_data(t_data *data, t_door *door)
+void	get_door_data(t_data *data, t_door *door)
 {
-	t_wall *wall;
-	int line_height;
-	double hit_point;
+	t_wall	*wall;
+	int		line_height;
+	double	hit_point;
 
 	wall = &data->wall;
 	line_height = (int)(HEIGHT / door->length);
@@ -32,18 +32,20 @@ void get_door_data(t_data *data, t_door *door)
 		hit_point = data->p_x + door->length * door->dir_x;
 	hit_point -= floor((hit_point));
 	wall->x = (int)(hit_point * (double)(64));
-	if ((door->side == 0 && door->dir_x > 0) || (door->side == 1 && door->dir_y < 0))
+	if ((door->side == 0 && door->dir_x > 0)
+		|| (door->side == 1 && door->dir_y < 0))
 		wall->x = 64 - wall->x - 1;
 	wall->step = (1.0 * 64 / line_height) * 0.75;
-	wall->position = (wall->top - 0 - HEIGHT / 2 + line_height / 1.5) * wall->step;
+	wall->position = (wall->top - 0 - HEIGHT / 2
+			+ line_height / 1.5) * wall->step;
 }
 
-void prepare_door_drawing(t_data *data, int x)
+void	prepare_door_drawing(t_data *data, int x)
 {
-	t_door *door;
-	t_door *last;
-	t_door *prev;
-	int size;
+	t_door	*door;
+	t_door	*last;
+	t_door	*prev;
+	int		size;
 
 	door = &data->door;
 	size = ft_door_lstsize(door);
@@ -61,9 +63,9 @@ void prepare_door_drawing(t_data *data, int x)
 	draw_doors(&data->wall, &data->img, x);
 }
 
-void set_door_data(t_data *data, int x)
+void	set_door_data(t_data *data, int x)
 {
-	t_door *tmp;
+	t_door	*tmp;
 
 	if (data->door.found) // in case one rays goes through more than one door
 	{
@@ -87,7 +89,7 @@ void set_door_data(t_data *data, int x)
 	data->door.dir_y = data->ray.dir_y;
 }
 
-void init_door(t_door *door)
+void	init_door(t_door *door)
 {
 	door->found = false;
 	door->open_s_n[0] = -1;
@@ -103,7 +105,7 @@ void init_door(t_door *door)
 	door->prev = NULL;
 }
 
-int close_south_north_door(t_data *data)
+int	close_south_north_door(t_data *data)
 {
 	int x;
 
@@ -125,9 +127,9 @@ int close_south_north_door(t_data *data)
 	return (EXIT_FAILURE);
 }
 
-int close_east_west_door(t_data *data)
+int	close_east_west_door(t_data *data)
 {
-	int y;
+	int	y;
 
 	y = data->door.open_e_w[1];
 	if (y == -1)
@@ -147,10 +149,10 @@ int close_east_west_door(t_data *data)
 	return (EXIT_FAILURE);
 }
 
-int open_south_north_door(t_data *data)
+int	open_south_north_door(t_data *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	if (close_south_north_door(data) == EXIT_FAILURE)
 	{
@@ -174,10 +176,10 @@ int open_south_north_door(t_data *data)
 	return (1);
 }
 
-int open_east_west_door(t_data *data)
+int	open_east_west_door(t_data *data)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	if (close_east_west_door(data) == EXIT_FAILURE)
 	{

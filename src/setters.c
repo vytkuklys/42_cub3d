@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 01:49:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/30 01:17:45 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:24:39 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../include/cub3d.h"
 
 void set_player_to_north(t_data *data)
 {
