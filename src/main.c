@@ -6,14 +6,13 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 20:21:46 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/01/31 20:29:27 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <time.h>
 
-// just a test
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
