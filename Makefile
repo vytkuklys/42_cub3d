@@ -3,92 +3,107 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
+#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/08/11 12:13:12 by jludt             #+#    #+#              #
-#    Updated: 2022/01/30 02:49:22 by vkuklys          ###   ########.fr        #
+#    Created: 2022/01/31 15:54:32 by tblaase           #+#    #+#              #
+#    Updated: 2022/01/31 15:57:38 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Name of the program
-NAME = raycast_visualizer
+NAME		=	cub3D
 
-# Color codes
-RESET	= \033[0m
-GREEN	= \033[32m
-YELLOW	= \033[33m
-BLUE	= \033[34m
-RED		= \033[31m
-UP		= \033[A
+CC			=	gcc
 
-# Compiling flags
-FLAGS = -Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror
 
-# Folders
-SRC_DIR = ./src/
-OBJ_DIR = ./obj/
-INC_DIR = ./includes/
-LIBFT_DIR = ./libft/
-MINLBX_DIR = ./mlx/
+# directories
+SRC_DIR		=	src/
+OBJ_DIR		=	obj/
+INC_DIR		=	include/
+LIBFT_DIR	=	libft/
+LIBMLX_DIR	=	mlx/
 
-# Source files and object files
-SRC_FILES = main.c init.c validation.c checkers.c minimap.c textures.c walls.c events.c draw.c utils.c rays.c validation2.c setters.c doors.c
-OBJ_FILES = $(SRC_FILES:.c=.o)
+# controll codes
+RESET		=	\033[0m
+GREEN		=	\033[32m
+YELLOW		=	\033[33m
+BLUE		=	\033[34m
+RED			=	\033[31m
+UP			=	\033[A
+CUT			=	\033[K
 
-# Paths
-SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
-LIBFT = $(addprefix $(LIBFT_DIR), libft.a)
-MINLBX	= $(addprefix $(MINLBX_DIR), libmlx.a)
+# source files
+SRC_FILES	=	main.c \
+				init.c validation.c checkers.c minimap.c textures.c walls.c events.c \
+				draw.c utils.c rays.c validation2.c setters.c doors.c
 
-# Libft and Minilibx linkers
-LNK  = -L $(LIBFT_DIR) -lft -L $(MINLBX_DIR) \
-			-lmlx -framework OpenGL -framework AppKit
+# object files
+OBJ_FILES	=	$(SRC_FILES:.c=.o)
+
+# paths
+SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
+OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
+LIBFT		=	$(addprefix $(LIBFT_DIR), libft.a)
+LIBMLX		=	$(addprefix $(LIBMLX_DIR), libmlx.a)
+
+# libft and mlx linkers
+LNK			=	-L $(LIBFT_DIR) -lft -L $(LIBMLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 # all rule
-all: obj $(LIBFT) $(MINLBX) $(NAME)
-	@printf "\n\n"
-	@echo "$(GREEN)                        _/                        _/"$(X)
-	@echo "$(GREEN)                       _/        _/_/_/          _/ "$(X)
-	@echo "$(GREEN)    _/_/_/  _/    _/  _/_/_/          _/    _/_/_/  "$(X)
-	@echo "$(GREEN) _/        _/    _/  _/    _/    _/_/    _/    _/   "$(X)
-	@echo "$(GREEN)_/        _/    _/  _/    _/        _/  _/    _/    "$(X)
-	@echo "$(GREEN) _/_/_/    _/_/_/  _/_/_/    _/_/_/      _/_/_/     "$(X)
-	@printf "\n\n"
+all: $(LIBFT) $(LIBMLX) $(NAME)
+	@printf "\n"
+	@echo "$(GREEN)                     $(RESET)"
+	@echo "$(GREEN)         _   ___ ___ $(RESET)"
+	@echo "$(GREEN) ___ _ _| |_|_  |   |$(RESET)"
+	@echo "$(GREEN)|  _| | | . |_  | | |$(RESET)"
+	@echo "$(GREEN)|___|___|___|___|___|$(RESET)"
+	@echo "$(GREEN)                     $(RESET)"
+	@printf "\n"
 
-obj:
-	@mkdir -p $(OBJ_DIR)
+# compile cub3D
+$(NAME): $(OBJ)
+	@echo "$(YELLOW)Compiling $(NAME)...$(RESET)"
+	@$(CC) $(OBJ) $(LNK) -lm -o $(NAME)
+	@echo "$(GREEN)Compiled $(NAME) successfully.$(RESET)"
+
+# compile objects
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c
-	@gcc $(FLAGS) -I $(MINLBX_DIR) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(YELLOW)Compiling [$@]...$(RESET)"
+	@$(CC) $(FLAGS) -I $(LIBMLX_DIR) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
+	@printf "$(UP)$(CUT)"
+	@echo "$(GREEN)Finished [$@]$(RESET)"
+	@printf "$(UP)$(CUT)"
+
+# compile libft
 $(LIBFT):
 	@echo "$(YELLOW)Compiling $(LIBFT_DIR) library...$(RESET)"
 	@make -C $(LIBFT_DIR)
-$(MINLBX):
-	@echo "$(YELLOW)Compiling $(MINLBX_DIR) library...$(RESET)"
-	@make -C $(MINLBX_DIR)
 
-# Compiling
-$(NAME): $(OBJ)
-#	@printf "$(UP)"
-	@echo "$(YELLOW)Compiling $(NAME)...$(RESET)"
-	@gcc $(OBJ) $(LNK) -lm -o $(NAME)
-	@echo "$(GREEN)Compiled $(NAME) successfully.$(RESET)"
+# compile mlx
+$(LIBMLX):
+	@echo "$(YELLOW)Compiling $(LIBMLX_DIR) library...$(RESET)"
+	@make -C $(LIBMLX_DIR)
 
 # clean rule
 clean:
-	@make -C $(MINLBX_DIR) clean
 	@make -C $(LIBFT_DIR) clean
+	@make -C $(LIBMLX_DIR) clean
 	@if [ -d "$(OBJ_DIR)" ]; then \
 			rm -rf $(OBJ_DIR); \
-			echo "$(BLUE)***   Deleting all objects from cub3d...   ***$(RESET)"; else \
-			echo "No objects to remove from cub3d."; \
+			echo "$(BLUE)Deleting all objects from /cub3d...$(RESET)"; else \
+			echo "No objects to remove from /cub3D."; \
 	fi;
 
 # fclean rule
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
-	@echo "$(BLUE)***   Deleting $(NAME) from cub3d...   ***$(RESET)"
-	@rm -f $(NAME)
+	@make -C $(LIBMLX_DIR) fclean
+	@if [ -f "$(NAME)" ]; then \
+		rm -f $(NAME); \
+		echo "$(BLUE)Deleting $(NAME) from /cub3d...$(RESET)"; else \
+		echo "No Executable to remove from /cub3D."; \
+	fi;
 
 # re rule
 re: fclean all
