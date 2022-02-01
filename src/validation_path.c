@@ -102,7 +102,6 @@ int	are_elements_valid(t_img *img, char *filename)
 		else if ((!line || *line != '\n') && write(2, "Invalid map\n", 13))
 		{
 			free(line);
-			line = NULL;
 			close(fd);
 			return (-1);
 		}

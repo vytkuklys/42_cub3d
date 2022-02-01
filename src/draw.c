@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 05:54:33 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:33:07 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,16 @@ int	draw_game(t_data *data)
 	int	x;
 
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	if (data->img.img_ptr == NULL)
+		return (EXIT_FAILURE);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
 			&data->img.sl, &data->img.endian);
+	if (data->img.addr == NULL)
+	{
+		free(data->img.img_ptr);
+		data->img.img_ptr = NULL;// mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);?? test if needed
+		return (EXIT_FAILURE);
+	}
 	check_events(data);
 	x = 0;
 	usleep(3750);
@@ -114,5 +122,5 @@ int	draw_game(t_data *data)
 		data->img.img_ptr, 0, 0);
 	animate_hands(data);
 	mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
-	return (0);
+	return (EXIT_SUCCESS);
 }

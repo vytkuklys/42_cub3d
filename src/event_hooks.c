@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_hooks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 04:34:51 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 04:40:20 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:34:09 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 int	exit_maze(t_data *data, int flag)
 {
+	// free(data->img.addr);data->img.addr=NULL;//should be done by destroy_img
+	// free(data->mlx_win);free(data->mlx_ptr);data->mlx_win=NULL;data->mlx_ptr=NULL;// check if needed
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
+	data->mlx_win=NULL;
+	data->mlx_ptr=NULL;
 	free_all(data, 0);
-	if (flag)
+	if (flag) // is this really set up the right way round?
 		exit(EXIT_SUCCESS);
 	exit(EXIT_FAILURE);
 }

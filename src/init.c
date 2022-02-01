@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 04:14:21 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:38:28 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ int	init_img(t_img *img)
 	while (++i < TOTAL_PATHS)
 		img->tex_paths[i] = NULL;
 	img->tex_paths[door] = ft_strdup("images/5.xpm");
-	if (img->tex_paths[door] == NULL)
+	if (img->tex_paths[door] == NULL)//check for leaks
 		return (EXIT_FAILURE);
 	img->tex_paths[left_hand] = ft_strdup("images/left_hand.xpm");
-	img->tex_paths[right_hand] = ft_strdup("images/right_hand.xpm");
-	if (img->tex_paths[door] == NULL || img->tex_paths[left_hand] == NULL
-		|| img->tex_paths[right_hand] == NULL)
-	{
+	if (img->tex_paths[left_hand] == NULL)//check for leaks
 		return (EXIT_FAILURE);
-	}
+	img->tex_paths[right_hand] = ft_strdup("images/right_hand.xpm");
+	if (img->tex_paths[right_hand] == NULL)//check for leaks
+		return (EXIT_FAILURE);
 	img->ceiling_rgb[0] = -1;
 	img->floor_rgb[0] = -1;
 	return (EXIT_SUCCESS);
@@ -73,7 +72,7 @@ int	init_data(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
 		return (EXIT_FAILURE);
-	data->mlx_win = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "Cub3d");
+	data->mlx_win = data->mlx_win = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "Cub3d");
 	if (data->mlx_win == NULL)
 		return (EXIT_FAILURE);
 	data->p_x = 4;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:39:17 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 04:57:53 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:16:02 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->sl + x * (img->bpp / 8));
+	dst = img->addr + (y * img->sl + x * (img->bpp / 8)); //what if img->addr is NULL??
 	*(unsigned int *)dst = color;
 }
 
@@ -80,7 +80,7 @@ int	my_mlx_pixel_get(t_img *img, int x, int y)
 	int		color;
 	char	*dst;
 
-	dst = img->textures.tex_addr + (y * img->sl + x * (img->bpp / 8));
+	dst = img->textures.tex_addr + (y * img->sl + x * (img->bpp / 8)); //what if img->textures.tex_addr is NULL??
 	color = *(unsigned int *)dst;
 	return (color);
 }

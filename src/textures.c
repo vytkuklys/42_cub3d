@@ -43,6 +43,7 @@ int	init_hand_textures(t_data *data)
 }
 
 // freeing tex_ptr causes infinite loop or seg fault
+// yes, because the pointer is used every time a new frame gets rendered
 
 int	init_textures(t_data *data)
 {
@@ -57,8 +58,12 @@ int	init_textures(t_data *data)
 	{
 		img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
 				img->tex_paths[i], &width, &height);//before using the tex_paths they need to be checked if valid xpm, segfaults with box.cub map and fuller.cub
+		if (img->textures.tex_ptr == NULL)
+			return (EXIT_FAILURE);
 		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr,
 				&img->bpp, &img->sl, &img->endian);
+		free(img->textures.tex_ptr);
+		img->textures.tex_ptr = NULL;
 		if (img->textures.tex_addr == NULL)
 			return (EXIT_FAILURE);
 		call_pixels_function(img, i);
