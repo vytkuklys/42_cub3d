@@ -50,11 +50,27 @@ char	*ft_free_2d_array(char ***arr, unsigned int allocated)
 	return (NULL);
 }
 
+void	free_doors(t_door **door)
+{
+	t_door	*next;
+
+	while (true)
+	{
+		next = (*door)->next;
+		free(*door);
+		*door = next;
+		if (*door == NULL)
+			break ;
+		(*door)->prev = NULL;
+	}
+}
+
 int	free_all(t_data *data, int flag)
 {
 	free_texture_paths(&data->img);
 	ft_free_2d_array(&data->map.map, data->map.columns);
 	if (flag)
 		ft_putstr_fd("Error\n", 2);
+	free_doors(&data->door);
 	return (EXIT_SUCCESS);
 }

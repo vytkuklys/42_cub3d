@@ -109,7 +109,7 @@ int	get_ray_data(t_data *data, int x)
 {
 	t_ray	*ray;
 
-	data->door.found = false;
+	data->door->found = false;
 	data->wall.door = 0;
 	ray = &data->ray;
 	ray->camera = 2 * x / (double)WIDTH - 1;

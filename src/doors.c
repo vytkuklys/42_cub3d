@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 01:50:07 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 04:24:23 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 17:46:19 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	prepare_door_drawing(t_data *data, int x)
 	t_door	*prev;
 	int		size;
 
-	door = &data->door;
+	door = data->door;
 	size = ft_door_lstsize(door);
 	while (size-- > 1)
 	{
-		last = ft_door_lstlast(&data->door);
+		last = ft_door_lstlast(data->door);
 		get_door_data(data, last);
 		draw_doors(&data->wall, &data->img, x);
 		prev = last->prev;
@@ -88,7 +88,7 @@ void	prepare_door_drawing(t_data *data, int x)
 		prev->next = NULL;
 		last = NULL;
 	}
-	get_door_data(data, &data->door);
+	get_door_data(data, data->door);
 	draw_doors(&data->wall, &data->img, x);
 }
 
@@ -96,7 +96,7 @@ void	set_door_data(t_data *data, int x)
 {
 	t_door	*tmp;
 
-	if (data->door.found)
+	if (data->door->found)
 	{
 		tmp = (t_door *)ft_calloc(1, sizeof(t_door));
 		if (tmp == NULL && write(2, "Memory allocation\n", 19))
@@ -108,14 +108,14 @@ void	set_door_data(t_data *data, int x)
 		tmp->dir_x = data->ray.dir_x;
 		tmp->dir_y = data->ray.dir_y;
 		tmp->next = NULL;
-		tmp->prev = ft_door_lstlast(&data->door);
-		ft_door_lstlast(&data->door)->next = tmp;
+		tmp->prev = ft_door_lstlast(data->door);
+		ft_door_lstlast(data->door)->next = tmp;
 		return ;
 	}
-	data->door.found = true;
-	data->door.length = count_ray_length(data);
-	data->door.x = x;
-	data->door.side = data->ray.side;
-	data->door.dir_x = data->ray.dir_x;
-	data->door.dir_y = data->ray.dir_y;
+	data->door->found = true;
+	data->door->length = count_ray_length(data);
+	data->door->x = x;
+	data->door->side = data->ray.side;
+	data->door->dir_x = data->ray.dir_x;
+	data->door->dir_y = data->ray.dir_y;
 }

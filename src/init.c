@@ -20,6 +20,8 @@ int	init_img(t_img *img)
 	while (++i < TOTAL_PATHS)
 		img->tex_paths[i] = NULL;
 	img->tex_paths[door] = ft_strdup("images/5.xpm");
+	if (img->tex_paths[door] == NULL)
+		return (EXIT_FAILURE);
 	img->tex_paths[left_hand] = ft_strdup("images/left_hand.xpm");
 	img->tex_paths[right_hand] = ft_strdup("images/right_hand.xpm");
 	if (img->tex_paths[door] == NULL || img->tex_paths[left_hand] == NULL
@@ -86,7 +88,7 @@ int	init_data(t_data *data)
 	if (init_img(&data->img) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	init_controls(&data->controls);
-	init_door(&data->door);
+	init_door(data->door);
 	init_map_data(&data->map);
 	return (EXIT_SUCCESS);
 }

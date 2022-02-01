@@ -105,7 +105,7 @@ int	draw_game(t_data *data)
 		draw_walls(&data->wall, &data->img, x);
 		draw_ceiling(data, x, data->wall.top);
 		draw_floor(data, x, data->wall.bottom);
-		if (data->door.found)
+		if (data->door->found)
 			prepare_door_drawing(data, x);
 		x++;
 	}

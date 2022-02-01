@@ -12,6 +12,26 @@
 
 #include "../include/cub3d.h"
 
+void	init_all_empty(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->mlx_ptr = NULL;
+	data->mlx_win = NULL;
+	data->tmp_str = NULL;
+	data->img.img_ptr = NULL;
+	data->img.addr = NULL;
+	while (i < TOTAL_PATHS)
+		data->img.tex_paths[i++] = NULL;
+	data->img.textures.tex_ptr = NULL;
+	data->img.textures.tex_addr = NULL;
+	data->img.textures.right_hand = NULL;
+	data->img.textures.left_hand = NULL;
+	data->map.map = NULL;
+	data->door = (t_door *)ft_calloc(1, sizeof(t_door));
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
