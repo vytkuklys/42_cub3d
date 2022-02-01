@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:38:28 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:49:58 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	init_img(t_img *img)
 	int	i;
 
 	i = -1;
-	while (++i < TOTAL_PATHS)
-		img->tex_paths[i] = NULL;
+	// while (++i < TOTAL_PATHS)
+	// 	img->tex_paths[i] = NULL;
 	img->tex_paths[door] = ft_strdup("images/5.xpm");
 	if (img->tex_paths[door] == NULL)//check for leaks
 		return (EXIT_FAILURE);

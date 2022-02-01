@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:39:18 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:47:24 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	init_all_empty(&data);
 	if (init_data(&data) == EXIT_FAILURE)
-		return (free_all(&data, EXIT_FAILURE));//don't free all stuff, leads to conditional jump because of uninitialised values or add a new function at the start which sets all void * and char * to NULL
+		return (free_all(&data, EXIT_FAILURE));
 	if (init_map(argv[1], &data) == EXIT_FAILURE)
 		return (free_all(&data, EXIT_FAILURE));
 	if (is_map_valid(&data) == EXIT_FAILURE)

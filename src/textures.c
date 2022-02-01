@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:42:28 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:52:10 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	init_textures(t_data *data)
 			return (EXIT_FAILURE);
 		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr,
 				&img->bpp, &img->sl, &img->endian);
-		free(img->textures.tex_ptr);
-		img->textures.tex_ptr = NULL;
+		// free(img->textures.tex_ptr); //freeing this bricks the cub3D?? find out why
+		// img->textures.tex_ptr = NULL;
 		if (img->textures.tex_addr == NULL)
 			return (EXIT_FAILURE);
 		call_pixels_function(img, i);
