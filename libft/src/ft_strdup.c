@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 17:55:54 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:46:58 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:51:51 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ char	*ft_strdup(const char *s1)
 	int		i;
 	char	*s;
 
-	if (!s1)
+	if (s1 == NULL)
 		return (NULL);
 	i = 0;
 	s = malloc(ft_strlen(s1) + 1);
-	if (!s)
+	if (s == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
 	{

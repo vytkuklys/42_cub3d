@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 14:01:45 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 19:06:10 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:44:07 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_count_c(char *str, char c)
 
 	i = 0;
 	x = 0;
-	if (!str)
+	if (str == NULL)
 		return (-1);
 	while (str && str[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/19 08:21:38 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:46:15 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:48:17 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
 
-	if (!dst && !src)
-		return (0);
+	if (dst == NULL && src == NULL)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{

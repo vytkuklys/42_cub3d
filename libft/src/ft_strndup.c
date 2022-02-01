@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:26:22 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:47:22 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:52:32 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strndup(char *input, int n)
 	i = 0;
 	len = n;
 	output = malloc(len + 1);
-	if (!output)
+	if (output == NULL)
 		return (NULL);
 	while (input && input[i] != '\0' && i < n)
 	{

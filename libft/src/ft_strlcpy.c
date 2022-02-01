@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 17:18:43 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:47:10 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:52:12 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	unsigned int	i;
 
-	if (!dst && !src)
+	if (dst == NULL && src == NULL)
 		return (0);
 	i = 0;
 	if (dstsize == 0)

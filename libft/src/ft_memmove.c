@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/19 09:16:26 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:46:18 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:48:39 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t	i;
 
-	if (!dst && !src)
-		return (0);
+	if (dst == NULL && src == NULL)
+		return (NULL);
 	i = 0;
 	if (dst <= src)
 	{

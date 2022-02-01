@@ -6,21 +6,22 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 11:00:28 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:46:43 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:20:56 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-/* writes s to fd */
+/* writes s to fd
+*  can't write to fd=0 */
 void	ft_putstr_fd(char *s, int fd)
 {
 	int		i;
 	char	c;
 
-	if (!s)
+	if (s == NULL)
 		s = "\0";
-	if (!fd)
+	if (fd == 0)
 		fd = 1;
 	i = 0;
 	while (s[i] != '\0')

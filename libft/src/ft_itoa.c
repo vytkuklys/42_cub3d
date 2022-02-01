@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 15:03:24 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 18:45:28 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:44:14 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 		if (n < 0)
 			i++;
 		str = malloc(i + 1);
-		if (!str)
+		if (str == NULL)
 			return (NULL);
 		ft_standard(str, i, n);
 	}

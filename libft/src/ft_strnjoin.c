@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:26:52 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 19:39:36 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:52:54 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strnjoin(char *s1, char *s2, int n)
 	if (s2[i2] == '\0')
 		return (NULL);
 	c = malloc(ft_strlen(s1) + n + 1);
-	if (!c)
+	if (c == NULL)
 		return (NULL);
 	if (s1 != NULL)
 	{

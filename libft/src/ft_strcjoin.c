@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 16:13:38 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/31 18:40:47 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:51:32 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strcjoin(const char *s1, const char *s2, char divider)
 	int		i;
 	int		i2;
 
-	if (!s1 || !s2)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
 	i = 0;
 	i2 = 0;

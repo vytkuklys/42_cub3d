@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:52:53 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 20:04:02 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:21:38 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strlen_gnl(char *s)
 	int	i;
 
 	i = 0;
-	if (!s)
+	if (s == NULL)
 		return (0);
 	while (s && s[i])
 	{
@@ -48,7 +48,7 @@ int	ft_strchr_gnl(char *s, int c, int flag)
 {
 	int	i;
 
-	if (flag == 1 && !s)
+	if (flag == 1 && s == NULL)
 		return (-5);
 	i = 0;
 	while (s && s[i])
@@ -77,7 +77,7 @@ char	*ft_strnjoin_gnl(char *s1, char *s2, int n)
 	if (s2[i2] == '\0')
 		return (NULL);
 	output = malloc(ft_strlen_gnl(s1) + n + 1);
-	if (!output)
+	if (output == NULL)
 		return (NULL);
 	if (s1 != NULL)
 	{
@@ -108,7 +108,7 @@ char	*ft_strndup_gnl(char *input, int n)
 	i = 0;
 	len = n;
 	output = malloc(len + 1);
-	if (!output)
+	if (output == NULL)
 		return (NULL);
 	while (input && input[i] != '\0' && i < n)
 	{

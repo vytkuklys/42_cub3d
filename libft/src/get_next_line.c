@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:52:55 by tblaase           #+#    #+#             */
-/*   Updated: 2022/01/27 20:05:25 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:56:01 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_output_gnl(char **next_line, int position, int bytes)
 {
 	char	*line;
 
-	if (((bytes == 0 || bytes == -1) && !*next_line) || position == -5)
+	if (((bytes == 0 || bytes == -1) && *next_line == NULL) || position == -5)
 	{
 		if (*next_line)
 			return (*next_line);
