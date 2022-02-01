@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 03:40:33 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 16:59:47 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 int	set_path(t_img *img, char *path, char flag)
 {
-	if (flag == 'W' && !img->tex_paths[west])
+	if (flag == 'W' && img->tex_paths[west] == NULL)
 	{
 		img->tex_paths[west] = ft_strdup(path);
 		return (is_null(img->tex_paths[west]));
 	}
-	else if (flag == 'E' && !img->tex_paths[east])
+	else if (flag == 'E' && img->tex_paths[east] == NULL)
 	{
 		img->tex_paths[east] = ft_strdup(path);
 		return (is_null(img->tex_paths[east]));
 	}
-	else if (flag == 'S' && !img->tex_paths[south])
+	else if (flag == 'S' && img->tex_paths[south] == NULL)
 	{
 		img->tex_paths[south] = ft_strdup(path);
 		return (is_null(img->tex_paths[south]));
 	}
-	else if (flag == 'N' && !img->tex_paths[north])
+	else if (flag == 'N' && img->tex_paths[north] == NULL)
 	{
 		img->tex_paths[north] = ft_strdup(path);
 		return (is_null(img->tex_paths[north]));
@@ -53,7 +53,7 @@ int	is_path_valid(t_img *img, char *el, char flag)
 		return (EXIT_FAILURE);
 	}
 	close(fd);
-	if (set_path(img, path, flag))
+	if (set_path(img, path, flag) == EXIT_FAILURE)
 	{
 		free(path);
 		path = NULL;
@@ -70,7 +70,7 @@ int	is_element_valid(t_img *img, char *el)
 
 	while (el && *el && ft_strchr(" \t\r", *el))
 		el++;
-	if (!el || *el == '\0' || ft_strlen(el) < 2)
+	if (el == NULL || *el == '\0' || ft_strlen(el) < 2)
 		return (1);
 	tmp[0] = *el++;
 	tmp[1] = *el++;

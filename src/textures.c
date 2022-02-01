@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 12:25:11 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:42:28 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	init_hand_textures(t_data *data)
 			img->tex_paths[left_hand], &width, &height);
 	img->textures.right_hand = mlx_xpm_file_to_image(data->mlx_ptr,
 			img->tex_paths[right_hand], &width, &height);
-	if (!img->textures.left_hand || !img->textures.right_hand)
+	if (img->textures.left_hand == NULL || img->textures.right_hand == NULL)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

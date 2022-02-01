@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:35:25 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:36:40 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	exit_left(int key, t_data *data)
 {
 	if (key == MOVE_LEFT)
 	{
-		if (!is_x_left_wall(data))
+		if (is_x_left_wall(data) == false)
 			data->p_x -= data->dir_y * SPEED;
-		if (!is_y_left_wall(data))
+		if (is_y_left_wall(data) == false)
 			data->p_y += data->dir_x * SPEED;
 		return (1);
 	}
@@ -71,34 +71,34 @@ int	exit_left(int key, t_data *data)
 		free_all(data, 0);
 		exit(EXIT_SUCCESS);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 void	update_game(int key, t_data *data)
 {
 	if (key == MOVE_UP)
 	{
-		if (!is_x_forwards_wall(data))
+		if (is_x_forwards_wall(data) == false)
 			data->p_x += data->dir_x * SPEED;
-		if (!is_y_forwards_wall(data))
+		if (is_y_forwards_wall(data) == false)
 			data->p_y += (data->dir_y * SPEED);
 	}
 	else if (key == MOVE_DOWN)
 	{
-		if (!is_x_backwards_wall(data))
+		if (is_x_backwards_wall(data) == false)
 			data->p_x -= data->dir_x * SPEED;
-		if (!is_y_backwards_wall(data))
+		if (is_y_backwards_wall(data) == false)
 			data->p_y -= (data->dir_y * SPEED);
 	}
 	else if (key == MOVE_RIGHT)
 	{
-		if (!is_x_right_wall(data))
+		if (is_x_right_wall(data) == false)
 			data->p_x += data->dir_y * SPEED;
-		if (!is_y_right_wall(data))
+		if (is_y_right_wall(data) == false)
 			data->p_y -= data->dir_x * SPEED;
 	}
 	else if (exit_left(key, data) || rotate_view(key, data))
-		;
+		return ;
 }
 
 void	check_events(t_data *data)

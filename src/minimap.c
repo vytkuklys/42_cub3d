@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:22:53 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 03:19:04 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:40:03 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	draw_player(t_data *data, int flag)
 	}
 }
 
-int	draw_partial_minimap(t_data *data)
+int	draw_partial_minimap(t_data *data)//maybe void?
 {
 	int	i;
 	int	j;
@@ -73,7 +73,7 @@ int	draw_partial_minimap(t_data *data)
 		i++;
 	}
 	draw_player(data, PARTIAL_MINIMAP);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	draw_minimap(t_data *data)
@@ -86,8 +86,8 @@ int	draw_minimap(t_data *data)
 
 	rows = data->map.rows;
 	columns = data->map.columns;
-	if (rows * columns >= MINIMAP_MAX && !draw_partial_minimap(data))
-		return (0);
+	if (rows * columns >= MINIMAP_MAX && draw_partial_minimap(data) == EXIT_SUCCESS)
+		return (EXIT_SUCCESS);
 	i = 0;
 	while (i < rows)
 	{

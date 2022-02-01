@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 02:57:12 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 03:17:06 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 17:15:57 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	fill_perimeter(int fd, t_data *data)
 	int	i;
 
 	data->map.map = (char **)ft_calloc((data->map.columns + 1), sizeof(char *));
-	if (!data->map.map)
+	if (data->map.map == NULL)
 	{
 		free(data->tmp_str);
 		return (EXIT_FAILURE);
@@ -102,7 +102,7 @@ int	skip_to_map(t_data *data, char *filename)
 	{
 		free(data->tmp_str);
 		data->tmp_str = get_next_line(fd);
-		if (!data->tmp_str)
+		if (data->tmp_str == NULL)
 		{
 			close(fd);
 			return (-1);
@@ -122,7 +122,8 @@ int	init_map(char *filename, t_data *data)
 	{
 		return (EXIT_FAILURE);
 	}
-	if (init_textures(data) || get_perimeter(fd, data))
+	if (init_textures(data) == EXIT_FAILURE
+		|| get_perimeter(fd, data) == EXIT_FAILURE)
 	{
 		close(fd);
 		return (EXIT_FAILURE);
@@ -131,8 +132,9 @@ int	init_map(char *filename, t_data *data)
 	fd = skip_to_map(data, filename);
 	if (fd == -1 && write(2, "Invalid file\n", 14))
 		return (EXIT_FAILURE);
-	if (fill_perimeter(fd, data) && write(2, "Memory allocation\n", 19))
+	if (fill_perimeter(fd, data) == EXIT_FAILURE)
 	{
+		ft_putstr_fd("Memory allocation failed.\n", 2);
 		close(fd);
 		return (EXIT_FAILURE);
 	}
