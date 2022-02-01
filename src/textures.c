@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 04:56:21 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:25:11 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	init_textures(t_data *data)
 	while (i < 5)
 	{
 		img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
-				img->tex_paths[i], &width, &height);
+				img->tex_paths[i], &width, &height);//before using the tex_paths they need to be checked if valid xpm, segfaults with box.cub map and fuller.cub
 		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr,
 				&img->bpp, &img->sl, &img->endian);
 		if (img->textures.tex_addr == NULL)
