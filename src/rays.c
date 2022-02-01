@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 13:24:34 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 05:39:14 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void set_cardinal_direction(t_data *data, t_ray *ray)
+void	set_cardinal_direction(t_data *data, t_ray *ray)
 {
 	if (ray->dir_x < 0)
 	{
@@ -40,12 +40,26 @@ void set_cardinal_direction(t_data *data, t_ray *ray)
 	}
 }
 
-
-void find_a_wall(t_data *data, t_ray *ray, int px)
+bool	is_wall(t_data *data, int x, int y, int px)
 {
-	int wall;
-	int x;
-	int y;
+	if (data->map.map[x][y] == '3' && (((data->wall.horizontal == EAST
+		&& data->map.map[x][y - 2] == '3')
+		|| (data->wall.horizontal == WEST && data->map.map[x][y + 2] == '3'))
+		|| ((data->wall.vertical == SOUTH && data->map.map[x - 2][y] == '3')
+		|| (data->wall.vertical == NORTH && data->map.map[x + 2][y] == '3'))))
+		data->wall.door = 1;
+	if (data->map.map[x][y] == '2')
+		set_door_data(data, px);
+	if (data->map.map[x][y] != '0' && data->map.map[x][y] != '2')
+		return (true);
+	return (false);
+}
+
+void	find_a_wall(t_data *data, t_ray *ray, int px)
+{
+	int	wall;
+	int	x;
+	int	y;
 
 	x = (int)data->p_x;
 	y = (int)data->p_y;
@@ -64,21 +78,14 @@ void find_a_wall(t_data *data, t_ray *ray, int px)
 			y += ray->step_y;
 			ray->side = 1;
 		}
-		if (data->map.map[x][y] == '3' && (((data->wall.horizontal == EAST && data->map.map[x][y - 2] == '3') || (data->wall.horizontal == WEST && data->map.map[x][y + 2] == '3')) || ((data->wall.vertical == SOUTH && data->map.map[x - 2][y] == '3') || (data->wall.vertical == NORTH && data->map.map[x + 2][y] == '3'))))
-		{
-			data->wall.door = 1;
-		}
-		if (data->map.map[x][y] == '2')
-			set_door_data(data, px);
-		if (data->map.map[x][y] != '0' && data->map.map[x][y] != '2')
-			wall = true;
+		wall = is_wall(data, x, y, px);
 	}
 }
 
-double count_ray_length(t_data *data)
+double	count_ray_length(t_data *data)
 {
-	t_ray *ray;
-	double length;
+	t_ray	*ray;
+	double	length;
 
 	ray = &data->ray;
 	if (ray->side == 0)
@@ -91,16 +98,16 @@ double count_ray_length(t_data *data)
 		data->wall.direction = data->wall.horizontal;
 		length = (ray->side_dist_y - ray->delta_y);
 	}
-	if (length == 0) // segfault fix
+	if (length == 0)
 	{
 		length += 0.01;
 	}
 	return (length);
 }
 
-int get_ray_data(t_data *data, int x)
+int	get_ray_data(t_data *data, int x)
 {
-	t_ray *ray;
+	t_ray	*ray;
 
 	data->door.found = false;
 	data->wall.door = 0;
@@ -108,8 +115,14 @@ int get_ray_data(t_data *data, int x)
 	ray->camera = 2 * x / (double)WIDTH - 1;
 	ray->dir_x = data->dir_x + data->plane_x * ray->camera;
 	ray->dir_y = data->dir_y + data->plane_y * ray->camera;
-	ray->delta_x = (ray->dir_x == 0) ? 1e30 : fabs(1 / ray->dir_x);
-	ray->delta_y = (ray->dir_y == 0) ? 1e30 : fabs(1 / ray->dir_y);
+	if (ray->dir_x == 0)
+		ray->delta_x = 1e30;
+	else
+		ray->delta_x = fabs(1 / ray->dir_x);
+	if (ray->dir_y == 0)
+		ray->delta_y = 1e30;
+	else
+		ray->delta_y = fabs(1 / ray->dir_y);
 	set_cardinal_direction(data, &data->ray);
 	find_a_wall(data, &data->ray, x);
 	ray->length = count_ray_length(data);

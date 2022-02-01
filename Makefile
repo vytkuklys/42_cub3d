@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
+#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 15:54:32 by tblaase           #+#    #+#              #
-#    Updated: 2022/01/31 15:57:38 by tblaase          ###   ########.fr        #
+#    Updated: 2022/02/01 04:49:28 by vkuklys          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,11 @@ CUT			=	\033[K
 
 # source files
 SRC_FILES	=	main.c \
-				init.c validation.c checkers.c minimap.c textures.c walls.c events.c \
-				draw.c utils.c rays.c validation2.c setters.c doors.c
+				init.c validation_map.c minimap.c textures.c walls.c events.c \
+				draw.c utils.c rays.c setters.c doors.c free.c map.c \
+				animations.c wall_collision_y.c wall_collision_x.c \
+				validation_path.c validation_color.c validation_utils.c \
+				doors_utils.c event_hooks.c textures_utils.c
 
 # object files
 OBJ_FILES	=	$(SRC_FILES:.c=.o)

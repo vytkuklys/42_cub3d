@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:22:53 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 13:24:29 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 03:19:04 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int draw_25px(t_img *img, int x, int y, int color)
+void	draw_25px(t_img *img, int x, int y, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < 5)
 	{
@@ -27,13 +28,13 @@ int draw_25px(t_img *img, int x, int y, int color)
 		}
 		i++;
 	}
-	return (0);
 }
 
-int draw_player(t_data *data, int flag)
+void	draw_player(t_data *data, int flag)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
+
 	i = 0;
 	while (i < 3)
 	{
@@ -41,21 +42,22 @@ int draw_player(t_data *data, int flag)
 		while (j < 3)
 		{
 			if (flag == PARTIAL_MINIMAP)
-				my_mlx_pixel_put(&data->img, (10 * 5) + i, (10 * 5) + j, 0xDC143C);
+				my_mlx_pixel_put(&data->img, (10 * 5) + i,
+					(10 * 5) + j, 0xDC143C);
 			else
-				my_mlx_pixel_put(&data->img, (data->p_y * 5) + i, (data->p_x * 5) + j, 0xDC143C);
+				my_mlx_pixel_put(&data->img, (data->p_y * 5) + i,
+					(data->p_x * 5) + j, 0xDC143C);
 			j++;
 		}
 		i++;
 	}
-	return (0);
 }
 
-int draw_partial_minimap(t_data *data)
+int	draw_partial_minimap(t_data *data)
 {
-	int i;
-	int j;
-	int color;
+	int	i;
+	int	j;
+	int	color;
 
 	i = 0;
 	while (i < 20)
@@ -74,13 +76,13 @@ int draw_partial_minimap(t_data *data)
 	return (0);
 }
 
-int draw_minimap(t_data *data)
+int	draw_minimap(t_data *data)
 {
-	int rows;
-	int columns;
-	int i;
-	int j;
-	int color;
+	int	rows;
+	int	columns;
+	int	i;
+	int	j;
+	int	color;
 
 	rows = data->map.rows;
 	columns = data->map.columns;

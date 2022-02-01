@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 01:50:07 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 19:54:30 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:24:23 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+t_door	*ft_door_lstlast(t_door *lst)
+{
+	t_door	*tmp;
+
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		if (tmp->next == NULL)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
+int	ft_door_lstsize(t_door *lst)
+{
+	t_door	*tmp;
+	int		i;
+
+	tmp = lst;
+	i = 0;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
 
 void	get_door_data(t_data *data, t_door *door)
 {
@@ -67,9 +96,11 @@ void	set_door_data(t_data *data, int x)
 {
 	t_door	*tmp;
 
-	if (data->door.found) // in case one rays goes through more than one door
+	if (data->door.found)
 	{
-		tmp = (t_door *)malloc(sizeof(t_door));
+		tmp = (t_door *)ft_calloc(1, sizeof(t_door));
+		if (tmp == NULL && write(2, "Memory allocation\n", 19))
+			exit_maze(data, 0);
 		tmp->found = true;
 		tmp->length = count_ray_length(data);
 		tmp->x = x;
@@ -79,7 +110,7 @@ void	set_door_data(t_data *data, int x)
 		tmp->next = NULL;
 		tmp->prev = ft_door_lstlast(&data->door);
 		ft_door_lstlast(&data->door)->next = tmp;
-		return;
+		return ;
 	}
 	data->door.found = true;
 	data->door.length = count_ray_length(data);
@@ -87,118 +118,4 @@ void	set_door_data(t_data *data, int x)
 	data->door.side = data->ray.side;
 	data->door.dir_x = data->ray.dir_x;
 	data->door.dir_y = data->ray.dir_y;
-}
-
-void	init_door(t_door *door)
-{
-	door->found = false;
-	door->open_s_n[0] = -1;
-	door->open_s_n[1] = -1;
-	door->open_e_w[0] = -1;
-	door->open_e_w[1] = -1;
-	door->length = 0;
-	door->x = 0;
-	door->side = 0;
-	door->dir_x = 0;
-	door->dir_y = 0;
-	door->next = NULL;
-	door->prev = NULL;
-}
-
-int	close_south_north_door(t_data *data)
-{
-	int x;
-
-	x = data->door.open_s_n[0];
-	if (x == -1)
-		return (EXIT_SUCCESS);
-	else
-	{
-		if (data->p_x <= (double)x - 0.3 || data->p_x >= (double)x + 1.3)
-		{
-			data->map.map[data->door.open_s_n[0]][data->door.open_s_n[1]] = '2';
-			data->map.map[data->door.open_s_n[0]][data->door.open_s_n[1] - 1] = '1';
-			data->map.map[data->door.open_s_n[0]][data->door.open_s_n[1] + 1] = '1';
-			data->wall.type = '\0';
-			data->door.open_s_n[0] = -1;
-			data->door.open_s_n[1] = -1;
-		}
-	}
-	return (EXIT_FAILURE);
-}
-
-int	close_east_west_door(t_data *data)
-{
-	int	y;
-
-	y = data->door.open_e_w[1];
-	if (y == -1)
-		return (EXIT_SUCCESS);
-	else
-	{
-		if (data->p_y <= (double)y - 0.3 || data->p_y >= (double)y + 1.3)
-		{
-			data->map.map[data->door.open_e_w[0]][data->door.open_e_w[1]] = '2';
-			data->map.map[data->door.open_e_w[0] - 1][data->door.open_e_w[1]] = '1';
-			data->map.map[data->door.open_e_w[0] + 1][data->door.open_e_w[1]] = '1';
-			data->wall.type = '\0';
-			data->door.open_e_w[0] = -1;
-			data->door.open_e_w[1] = -1;
-		}
-	}
-	return (EXIT_FAILURE);
-}
-
-int	open_south_north_door(t_data *data)
-{
-	int	y;
-	int	x;
-
-	if (close_south_north_door(data) == EXIT_FAILURE)
-	{
-		return (1);
-	}
-	if (data->dir_x > 0)
-		y = (int)((data->p_x + data->dir_x * SPEED) + WALL_DISTANCE);
-	else
-		y = (int)((data->p_x + data->dir_x * SPEED) - WALL_DISTANCE);
-	x = (int)(data->p_y);
-	if (data->map.map[y][x] == '2')
-	{
-		data->door.open_s_n[0] = y;
-		data->door.open_s_n[1] = x;
-		data->map.map[y][x - 1] = '3';
-		data->map.map[y][x + 1] = '3';
-		data->map.map[y][x] = '0';
-		data->wall.type = SOUTH;
-		return (EXIT_SUCCESS);
-	}
-	return (1);
-}
-
-int	open_east_west_door(t_data *data)
-{
-	int	y;
-	int	x;
-
-	if (close_east_west_door(data) == EXIT_FAILURE)
-	{
-		return (1);
-	}
-	if (data->dir_y > 0)
-		y = (int)(data->p_y + data->dir_y * SPEED + WALL_DISTANCE);
-	else
-		y = (int)(data->p_y + data->dir_y * SPEED - WALL_DISTANCE);
-	x = (int)(data->p_x);
-	if (data->map.map[x][y] == '2')
-	{
-		data->door.open_e_w[0] = x;
-		data->door.open_e_w[1] = y;
-		data->map.map[x - 1][y] = '3';
-		data->map.map[x + 1][y] = '3';
-		data->wall.type = EAST;
-		data->map.map[x][y] = '0';
-		return (EXIT_SUCCESS);
-	}
-	return (1);
 }

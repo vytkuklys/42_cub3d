@@ -3,140 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 13:57:15 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:14:21 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	get_perimeter(int fd, t_data *data)//think about void
-{
-	char	*line;
-
-	line = get_next_line(fd);
-	data->map.columns = 0;
-	data->map.rows = 0;
-	while (line)
-	{
-		if (*line == '\n' && data->map.rows)
-		{
-			free(line);
-			return (1);
-		}
-		else if (*line != '\n' && (int)ft_strlen(line) > data->map.rows)
-		{
-			data->map.rows = ft_strlen(line);
-			if (line[data->map.rows - 1] != '\n')
-				data->map.rows++;
-		}
-		if (*line != '\n')
-			data->map.columns++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (0);
-}
-
-int	fill_row(char **map, char *line, int rows)//think about void
-{
-	char	*tmp;
-	int		j;
-
-	tmp = *map;
-	j = 0;
-	while (line != NULL && line[j] != '\0' && line[j] != '\n')
-	{
-		tmp[j] = line[j];
-		j++;
-	}
-	while (j < rows - 1)
-	{
-		tmp[j] = ' ';
-		j++;
-	}
-	tmp[j] = '\0';
-	return (0);
-}
-
-int	fill_perimeter(int fd, t_data *data)
+int	init_img(t_img *img)
 {
 	int	i;
 
-	data->map.map = (char **)malloc((data->map.columns + 1) * sizeof(char *));
-	if (!data->map.map)
+	i = -1;
+	while (++i < TOTAL_PATHS)
+		img->tex_paths[i] = NULL;
+	img->tex_paths[door] = ft_strdup("images/5.xpm");
+	img->tex_paths[left_hand] = ft_strdup("images/left_hand.xpm");
+	img->tex_paths[right_hand] = ft_strdup("images/right_hand.xpm");
+	if (img->tex_paths[door] == NULL || img->tex_paths[left_hand] == NULL
+		|| img->tex_paths[right_hand] == NULL)
 	{
-		free(data->tmp_str);
-		return (1);
+		return (EXIT_FAILURE);
 	}
-	i = 0;
-	while (i < data->map.columns)
-	{
-		if (i > 0)
-			data->tmp_str = get_next_line(fd);
-		data->map.map[i] = (char *)malloc(data->map.rows);
-		if (data->map.map[i] == NULL)
-		{
-			free(data->tmp_str);
-			return (1);
-		}
-		fill_row(&data->map.map[i], data->tmp_str, data->map.rows);
-		free(data->tmp_str);
-		i++;
-	}
-	data->map.map[i] = NULL;
-	return (0);
+	img->ceiling_rgb[0] = -1;
+	img->floor_rgb[0] = -1;
+	return (EXIT_SUCCESS);
 }
 
-int	skip_to_map(t_data *data, char *filename)//think about unsigned int
+void	init_controls(t_controls *controls)
 {
-	int	fd;
-	int	count;
-
-	fd = open(filename, O_RDONLY);
-	count = 0;
-	if (fd == -1)
-		return (-1);
-	while (count < TOTAL_ELEMENTS + 1)
-	{
-		free(data->tmp_str);
-		data->tmp_str = get_next_line(fd);
-		if (!data->tmp_str)
-			return (-1);
-		if (data->tmp_str[0] != '\n')
-			count++;
-	}
-	return (fd);
+	controls->up = -1;
+	controls->left = -1;
+	controls->down = -1;
+	controls->right = -1;
+	controls->escape = -1;
+	controls->rotate_left = -1;
+	controls->rotate_right = -1;
 }
 
-int	init_map(char *filename, t_data *data)
+void	init_map_data(t_map *map)
 {
-	int	fd;
+	map->columns = -1;
+	map->rows = -1;
+	map->map = NULL;
+}
 
-	fd = are_elements_valid(&data->img, filename);
-	if (fd == -1)
-	{
-		fprintf(stderr, "Invalid elements");
+void	init_door(t_door *door)
+{
+	door->found = false;
+	door->open_s_n[0] = -1;
+	door->open_s_n[1] = -1;
+	door->open_e_w[0] = -1;
+	door->open_e_w[1] = -1;
+	door->length = 0;
+	door->x = 0;
+	door->side = 0;
+	door->dir_x = 0;
+	door->dir_y = 0;
+	door->next = NULL;
+	door->prev = NULL;
+}
+
+int	init_data(t_data *data)
+{
+	data->mlx_ptr = mlx_init();
+	if (data->mlx_ptr == NULL)
 		return (EXIT_FAILURE);
-	}
-	if (get_perimeter(fd, data))
-	{
-		fprintf(stderr, "Map problems");
-		close(fd);
+	data->mlx_win = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "Cub3d");
+	if (data->mlx_win == NULL)
 		return (EXIT_FAILURE);
-	}
-	close(fd);
-	fd = skip_to_map(data, filename);
-	if (fd == -1)
+	data->p_x = 4;
+	data->p_y = 7;
+	data->plane_x = 0;
+	data->plane_y = -0.71;
+	data->dir_x = 1;
+	data->dir_y = 0;
+	data->tmp_str = NULL;
+	data->map.map = NULL;
+	data->wall.type = '\0';
+	if (init_img(&data->img) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (fill_perimeter(fd, data))
-	{
-		close(fd);
-		return (EXIT_FAILURE);
-	}
-	close(fd);
+	init_controls(&data->controls);
+	init_door(&data->door);
+	init_map_data(&data->map);
 	return (EXIT_SUCCESS);
 }

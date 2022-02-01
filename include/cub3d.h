@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 21:18:56 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 05:52:56 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # define CORNER_DISTANCE 0.25
 # define WALL_DISTANCE 0.3
 
-// # define MAPWIDTH 24
-// # define MAPHEIGHT 24
 # define MOVE_LEFT 0
 # define MOVE_RIGHT 2
 # define MOVE_DOWN 1
@@ -53,7 +51,7 @@
 # define PARTIAL_MINIMAP 1
 
 # define TOTAL_ELEMENTS 6
-
+# define TOTAL_PATHS 8
 typedef struct s_textures
 {
 	int		east_wall[64][64];
@@ -63,18 +61,6 @@ typedef struct s_textures
 	int		gates[64][64];
 	void	*tex_ptr;
 	char	*tex_addr;
-	// all of the stuff below should not be needed anymore
-	void	*east_ptr;
-	void	*west_ptr;
-	void	*north_ptr;
-	void	*south_ptr;
-	void	*gates_ptr;
-	char	*west_addr;
-	char	*gates_addr;
-	char	*east_addr;
-	char	*south_addr;
-	char	*north_addr;
-	//
 	void	*right_hand;
 	void	*left_hand;
 }				t_textures;
@@ -99,14 +85,7 @@ typedef struct s_img
 	int			endian;
 	int			width;
 	int			height;
-	//
-	char		*tex_paths[8];
-	//
-	char		*west_path;
-	char		*east_path;
-	char		*north_path;
-	char		*south_path;
-	//
+	char		*tex_paths[TOTAL_PATHS];
 	int			floor_rgb[3];
 	int			ceiling_rgb[3];
 	t_textures	textures;
@@ -175,7 +154,6 @@ typedef struct s_door
 
 typedef struct s_data
 {
-	// int			worldMap[64];
 	float		p_x;
 	float		p_y;
 	double		plane_x;
@@ -195,7 +173,6 @@ typedef struct s_data
 	t_controls	controls;
 }				t_data;
 
-int		get_columns(char *filename, t_data *data);
 int		init_map(char *filename, t_data *data);
 int		is_map_valid(t_data *data);
 int		is_x_forwards_wall(t_data *data);
@@ -209,15 +186,11 @@ int		is_y_left_wall(t_data *data);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		draw_minimap(t_data *data);
 int		init_textures(t_data *data);
-int		draw_west_wall(t_img *img, int x, int start, int end);
 int		key_press(int key, t_data *data);
 int		key_release(int key, t_data *data);
-int		update_game(int key, t_data *data);
+void	update_game(int key, t_data *data);
 int		createRGB(int r, int g, int b);
-int		draw_floor(t_data *data, int x, int from);
-int		draw_ceiling(t_data *data, int x, int up_to);
 int		get_ray_data(t_data *data, int x);
-void	draw_walls(t_wall *wall, t_img *img, int x);
 void	get_wall_data(t_data *data);
 void	check_events(t_data *data);
 int		exit_maze(t_data *data, int flag);
@@ -239,5 +212,20 @@ int		open_east_west_door(t_data *data);
 t_door	*ft_door_lstlast(t_door *lst);
 int		ft_door_lstsize(t_door *lst);
 void	prepare_door_drawing(t_data *data, int x);
+int		is_null(char *str);
+int		free_all(t_data *data, int flag);
+int		mouse_hook(int x, int y, t_data *data);
+int		init_data(t_data *data);
+int		draw_game(t_data *data);
+void	animate_hands(t_data *data);
+int		is_color_valid(t_img *img, char *el, char flag);
+void	set_coordinates(int *x, int *y, int x_val, int y_val);
+int		get_pixel(t_wall *wall, t_img *img, int y);
+void	get_east_pixels(t_img *img);
+void	get_west_pixels(t_img *img);
+void	get_south_pixels(t_img *img);
+void	get_north_pixels(t_img *img);
+void	get_door_pixels(t_img *img);
+int		my_mlx_pixel_get(t_img *img, int x, int y);
 
 #endif

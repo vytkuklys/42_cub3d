@@ -3,184 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 21:35:31 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:56:21 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	my_mlx_pixel_get(t_img *img, int x, int y, int direction)
+void	call_pixels_function(t_img *img, int i)
 {
-	int		color;
-	char	*dst;
-
-	if (direction == EAST)
-		dst = img->textures.east_addr + (y * img->sl + x * (img->bpp / 8));
-	else if (direction == WEST)
-		dst = img->textures.west_addr + (y * img->sl + x * (img->bpp / 8));
-	else if (direction == NORTH)
-		dst = img->textures.north_addr + (y * img->sl + x * (img->bpp / 8));
-	else if (direction == SOUTH)
-		dst = img->textures.south_addr + (y * img->sl + x * (img->bpp / 8));
-	else
-		dst = img->textures.gates_addr + (y * img->sl + x * (img->bpp / 8));
-	color = *(unsigned int *)dst;
-	return (color);
+	if (i == north)
+		get_north_pixels(img);
+	else if (i == east)
+		get_east_pixels(img);
+	else if (i == west)
+		get_west_pixels(img);
+	else if (i == south)
+		get_south_pixels(img);
+	else if (i == door)
+		get_door_pixels(img);
 }
 
-int	get_east_pixels(t_img *img)// think about void
+int	init_hand_textures(t_data *data)
 {
-	int	i;
-	int	j;
+	int		width;
+	int		height;
+	t_img	*img;
 
-	i = 0;
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			img->textures.east_wall[i][j] = my_mlx_pixel_get(img, i, j, EAST);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	get_west_pixels(t_img *img)// think about void
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			img->textures.west_wall[i][j] = my_mlx_pixel_get(img, i, j, WEST);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	get_north_pixels(t_img *img)// think about void
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			img->textures.north_wall[i][j] = my_mlx_pixel_get(img, i, j, NORTH);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	get_south_pixels(t_img *img)// think about void
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			img->textures.south_wall[i][j] = my_mlx_pixel_get(img, i, j, SOUTH);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	get_door_pixels(t_img *img)// think about void
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	if (img == NULL)
-		return (1);
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			img->textures.gates[i][j] = my_mlx_pixel_get(img, i, j, DOOR);
-			j++;
-		}
-		i++;
-	}
+	img = &data->img;
+	img->textures.left_hand = mlx_xpm_file_to_image(data->mlx_ptr,
+			img->tex_paths[left_hand], &width, &height);
+	img->textures.right_hand = mlx_xpm_file_to_image(data->mlx_ptr,
+			img->tex_paths[right_hand], &width, &height);
+	if (!img->textures.left_hand || !img->textures.right_hand)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int init_textures(t_data *data)//add protection
+// freeing tex_ptr causes infinite loop or seg fault
+
+int	init_textures(t_data *data)
 {
-	int width;
-	int height;
-	t_img *img;
+	int		width;
+	int		height;
+	t_img	*img;
+	int		i;
 
 	img = &data->img;
-//this will reaplace all the stuff below
-	// int	i;
-
-	// i = 0;
-	// while (i < 5)
-	// {
-	// 	img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr, img->tex_paths[i], &width, &height);
-	// 	if (img->textures.tex_ptr == NULL)
-			// return (error_texture(img->tex_paths[i]));
-	// 	img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr, &img->bpp, &img->sl, &img->endian);
-	// 	free(img->textures.tex_ptr);
-	// 	if (img->textures.tex_addr == NULL)
-			// return (error_texture(NULL);
-	// 	img->textures.tex_ptr = NULL;
-	// if else block to call the correspondant function i.e. get_north_pixels if i == north
-	// 	free(img->tex_addr);
-	// 	img->tex_addr = NULL;
-	// 	i++;
-	// }
-	// maybe do some stuff
-	// return (EXIT_SUCCESS);
-//
-	img->textures.east_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "images/2.xpm", &width, &height); //img path has to be replaced
-	img->textures.east_addr = mlx_get_data_addr(img->textures.east_ptr, &img->bpp, &img->sl, &img->endian);
-	get_east_pixels(img);
-
-	img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "images/1.xpm", &width, &height); //img path has to be replaced
-	img->textures.west_addr = mlx_get_data_addr(img->textures.tex_ptr, &img->bpp, &img->sl, &img->endian);
-	get_west_pixels(img);
-
-	img->textures.south_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "images/3.xpm", &width, &height); //img path has to be replaced
-	img->textures.south_addr = mlx_get_data_addr(img->textures.south_ptr, &img->bpp, &img->sl, &img->endian);
-	get_south_pixels(img);
-
-	img->textures.north_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "images/4.xpm", &width, &height); //img path has to be replaced
-	img->textures.north_addr = mlx_get_data_addr(img->textures.north_ptr, &img->bpp, &img->sl, &img->endian);
-	get_north_pixels(img);
-
-	img->textures.gates_ptr = mlx_xpm_file_to_image(data->mlx_ptr, "images/5.xpm", &width, &height); //img path has to be replaced
-	img->textures.gates_addr = mlx_get_data_addr(img->textures.gates_ptr, &img->bpp, &img->sl, &img->endian);
-	get_door_pixels(img);
-//
-
-	// those need to stay!
-	img->textures.left_hand = mlx_xpm_file_to_image(data->mlx_ptr, img->tex_paths[left_hand], &width, &height);
-	img->textures.right_hand = mlx_xpm_file_to_image(data->mlx_ptr, img->tex_paths[right_hand], &width, &height);
-	//
+	i = 0;
+	while (i < 5)
+	{
+		img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
+				img->tex_paths[i], &width, &height);
+		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr,
+				&img->bpp, &img->sl, &img->endian);
+		if (img->textures.tex_addr == NULL)
+			return (EXIT_FAILURE);
+		call_pixels_function(img, i);
+		free(img->textures.tex_addr);
+		img->textures.tex_addr = NULL;
+		i++;
+	}
+	if (init_hand_textures(data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

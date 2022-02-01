@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 01:49:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/01/31 13:24:39 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/01 03:24:24 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void set_player_to_north(t_data *data)
+void	set_player_to_north(t_data *data)
 {
 	data->plane_x = 0;
 	data->plane_y = 0.71;
@@ -20,7 +20,7 @@ void set_player_to_north(t_data *data)
 	data->dir_y = 0;
 }
 
-void set_player_to_south(t_data *data)
+void	set_player_to_south(t_data *data)
 {
 	data->plane_x = 0;
 	data->plane_y = -0.71;
@@ -28,7 +28,7 @@ void set_player_to_south(t_data *data)
 	data->dir_y = 0;
 }
 
-void set_player_to_east(t_data *data)
+void	set_player_to_east(t_data *data)
 {
 	data->plane_x = 0.71;
 	data->plane_y = 0;
@@ -36,7 +36,7 @@ void set_player_to_east(t_data *data)
 	data->dir_y = 1;
 }
 
-void set_player_to_west(t_data *data)
+void	set_player_to_west(t_data *data)
 {
 	data->plane_x = -0.71;
 	data->plane_y = 0;
@@ -44,7 +44,7 @@ void set_player_to_west(t_data *data)
 	data->dir_y = -1;
 }
 
-int set_player_direction(t_data *data, char direction)
+int	set_player_direction(t_data *data, char direction)
 {
 	if (direction == 'S')
 		set_player_to_south(data);
