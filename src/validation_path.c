@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 19:08:30 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/02 19:35:42 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	are_elements_valid(t_img *img, char *filename)
 	int		count;
 
 	fd = open(filename, O_RDONLY);
-	if (fd == -1 && write(2, "Invalid file\n", 13))
+	if ((fd == -1 || ft_strlen(filename) < 4 || ft_strncmp(&filename[strlen(filename) - 4], ".cub", 4)) && write(2, "Invalid file\n", 13))
 		return (-1);
 	line = NULL;
 	count = 0;
