@@ -1,12 +1,12 @@
-WE ./maps/new.cub
-EA ./maps/test.cub
+WE images/1.xpm
+EA images/2.xpm
 
 F  240,        240,      240
 
 C     50        ,50      ,50
 
-SO                    ./maps/test.cub
-NO  ./maps/test.cub
+SO                    images/3.xpm
+NO  images/4.xpm
 
 111
 1N1
