@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 19:35:06 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:26:18 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,5 +228,6 @@ void	get_south_pixels(t_img *img);
 void	get_north_pixels(t_img *img);
 void	get_door_pixels(t_img *img);
 int		my_mlx_pixel_get(t_img *img, int x, int y);
+int		are_doors_valid(t_data *data, int y, int x);
 
 #endif

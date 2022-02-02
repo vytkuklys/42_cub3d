@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 16:59:47 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 19:35:42 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ int	is_path_valid(t_img *img, char *el, char flag)
 		el++;
 	path = ft_substr(el, 0, ft_strlen(el) - 1);
 	fd = open(path, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || ft_strncmp(&path[strlen(path) - 4], ".xpm", 4))
 	{
+		write(2, "Invalid path\n", 14);
 		free(path);
 		path = NULL;
 		return (EXIT_FAILURE);
@@ -90,7 +91,7 @@ int	are_elements_valid(t_img *img, char *filename)
 	int		count;
 
 	fd = open(filename, O_RDONLY);
-	if (fd == -1 && write(2, "Invalid file\n", 13))
+	if ((fd == -1 || ft_strlen(filename) < 4 || ft_strncmp(&filename[strlen(filename) - 4], ".cub", 4)) && write(2, "Invalid file\n", 13))
 		return (-1);
 	line = NULL;
 	count = 0;
