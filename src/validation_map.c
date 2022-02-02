@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 14:07:01 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:00:42 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int	are_inner_borders_valid(t_data *data)
 		{
 			if (data->map.map[y][x] == ' ' && are_spaces_valid(data, y, x))
 				return (1);
-			else if (!strchr(" 012SNWE", data->map.map[y][x]))//shouldn't it be ft_strchr
+			else if (!ft_strchr(" 012SNWE", data->map.map[y][x]))
 				return (1);
-			else if (strchr("SNWE", data->map.map[y][x])//shouldn't it be ft_strchr
+			else if (ft_strchr("SNWE", data->map.map[y][x])
 				&& set_player_position(y, x, data) && flag++ > 0)
 				return (1);
 			x++;
