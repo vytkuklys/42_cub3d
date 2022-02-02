@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 18:00:42 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:39:20 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,23 @@ int	are_inner_borders_valid(t_data *data)
 	int	y;
 	int	flag;
 
-	y = 0;
+	y = -1;
 	flag = 0;
-	while (data->map.map[y] != NULL)
+	while (data->map.map[++y] != NULL)
 	{
-		x = 0;
-		while (data->map.map[y][x] != '\0' && data->map.map[y][x] != '\n')
+		x = -1;
+		while (data->map.map[y][++x] != '\0' && data->map.map[y][x] != '\n')
 		{
 			if (data->map.map[y][x] == ' ' && are_spaces_valid(data, y, x))
+				return (1);
+			else if (data->map.map[y][x] == '2' && are_doors_valid(data, y, x))
 				return (1);
 			else if (!ft_strchr(" 012SNWE", data->map.map[y][x]))
 				return (1);
 			else if (ft_strchr("SNWE", data->map.map[y][x])
 				&& set_player_position(y, x, data) && flag++ > 0)
 				return (1);
-			x++;
 		}
-		y++;
 	}
 	if (flag == 0)
 		return (1);

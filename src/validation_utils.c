@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 04:06:46 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 04:58:54 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:39:27 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,13 @@ int	ft_strlen_2d(char **s)
 	while (s && s[len] != NULL)
 		len++;
 	return (len);
+}
+
+int	are_doors_valid(t_data *data, int y, int x)
+{
+	if (data->map.map[y + 1][x] == '1' && data->map.map[y - 1][x] == '1')
+		return (0);
+	if (data->map.map[y][x + 1] == '1' && data->map.map[y][x - 1] == '1')
+		return (0);
+	return (1);
 }
