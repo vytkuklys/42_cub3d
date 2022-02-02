@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
+#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 15:54:32 by tblaase           #+#    #+#              #
-#    Updated: 2022/02/01 04:49:28 by vkuklys          ###   ########.fr        #
+#    Updated: 2022/02/02 17:13:44 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,5 +111,11 @@ fclean: clean
 # re rule
 re: fclean all
 
+# added norm check
+norm:
+	@echo $(G)Checking Norminette...$(X)
+	@norminette libft src include | grep Error | egrep --color '.*Error!|$$' || true
+	@echo $(G)Done$(X)
+
 # phony
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re norm
