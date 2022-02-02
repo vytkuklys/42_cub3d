@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 00:01:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 20:24:33 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 21:19:27 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,6 @@ int	free_all(t_data *data, int flag)
 {
 	int	i;
 
-	free(data->mlx_ptr);
-	data->mlx_ptr = NULL;// check if set it to null if freed by mlx_destroy
-	free(data->mlx_win);
-	data->mlx_win = NULL;// check if set it to null if freed by mlx_destroy
-	free(data->img.textures.left_hand);
-	data->img.textures.left_hand = NULL;
-	free(data->img.textures.right_hand);
-	data->img.textures.right_hand = NULL;
 	free_texture_paths(&data->img);
 	ft_free_2d_array(&data->map.map, data->map.columns);
 	if (flag)
@@ -85,7 +77,6 @@ int	free_all(t_data *data, int flag)
 	i = 0;
 	while (data->img.textures.tex_ptr[i] != NULL)
 	{
-		printf("freed tex_ptr[%d]: %p\n", i, data->img.textures.tex_ptr[i]);
 		free(data->img.textures.tex_ptr[i]);
 		data->img.textures.tex_ptr[i] = NULL;
 		i++;
