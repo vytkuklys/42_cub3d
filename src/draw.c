@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:33:07 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 17:56:27 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,17 @@ int	draw_game(t_data *data)
 
 	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	if (data->img.img_ptr == NULL)
-		return (EXIT_FAILURE);
+	{
+		ft_putstr_fd("creating img_ptr failed\n", 2);
+		return (exit_maze(data, EXIT_FAILURE));
+	}
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
 			&data->img.sl, &data->img.endian);
 	if (data->img.addr == NULL)
 	{
-		free(data->img.img_ptr);
-		data->img.img_ptr = NULL;// mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);?? test if needed
-		return (EXIT_FAILURE);
+		mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
+		ft_putstr_fd("creating img.addr failed\n", 2);
+		return (exit_maze(data, EXIT_FAILURE));
 	}
 	check_events(data);
 	x = 0;
