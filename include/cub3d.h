@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 20:26:18 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:09:46 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int		createRGB(int r, int g, int b);
 int		get_ray_data(t_data *data, int x);
 void	get_wall_data(t_data *data);
 void	check_events(t_data *data);
-int		exit_maze(t_data *data, int flag);
+int		exit_maze(t_data *data, int exit_success);
 int		are_elements_valid(t_img *img, char *filename);
 int		ft_strlen_2d(char **s);
 char	*ft_free_2d_array(char ***arr, unsigned int allocated);

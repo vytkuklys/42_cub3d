@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:13:32 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:36:40 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:08:13 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,7 @@ int	exit_left(int key, t_data *data)
 	else if (key == ESCAPE)
 	{
 		mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
-		data->img.img_ptr = NULL;
-		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-		data->mlx_win = NULL;//check if both set NULL are needed
-		data->mlx_ptr = NULL;
-		free_all(data, 0);
-		exit(EXIT_SUCCESS);
+		exit_maze(data, true);
 	}
 	return (EXIT_SUCCESS);
 }

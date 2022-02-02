@@ -6,21 +6,19 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 04:34:51 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:34:09 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:09:17 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	exit_maze(t_data *data, int flag)
+int	exit_maze(t_data *data, int exit_success)
 {
-	// free(data->img.addr);data->img.addr=NULL;//should be done by destroy_img
-	// free(data->mlx_win);free(data->mlx_ptr);data->mlx_win=NULL;data->mlx_ptr=NULL;// check if needed
+	mlx_destroy_image(data->mlx_ptr, data->img.textures.right_hand);
+	mlx_destroy_image(data->mlx_ptr, data->img.textures.left_hand);
 	mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	data->mlx_win=NULL;
-	data->mlx_ptr=NULL;
 	free_all(data, 0);
-	if (flag) // is this really set up the right way round?
+	if (exit_success == true)
 		exit(EXIT_SUCCESS);
 	exit(EXIT_FAILURE);
 }

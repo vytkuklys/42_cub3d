@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 01:50:07 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 17:46:19 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:09:34 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	set_door_data(t_data *data, int x)
 	{
 		tmp = (t_door *)ft_calloc(1, sizeof(t_door));
 		if (tmp == NULL && write(2, "Memory allocation\n", 19))
-			exit_maze(data, 0);
+			exit_maze(data, false);
 		tmp->found = true;
 		tmp->length = count_ray_length(data);
 		tmp->x = x;
