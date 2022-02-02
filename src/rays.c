@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 00:00:33 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 05:39:14 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:20:58 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,35 @@ void	set_cardinal_direction(t_data *data, t_ray *ray)
 	{
 		ray->step_x = -1;
 		ray->side_dist_x = (data->p_x - (int)data->p_x) * ray->delta_x;
-		data->wall.vertical = NORTH;
+		data->wall.vertical = north;
 	}
 	else
 	{
 		ray->step_x = 1;
 		ray->side_dist_x = ((int)data->p_x + 1.0 - data->p_x) * ray->delta_x;
-		data->wall.vertical = SOUTH;
+		data->wall.vertical = south;
 	}
 	if (ray->dir_y < 0)
 	{
 		ray->step_y = -1;
 		ray->side_dist_y = (data->p_y - (int)data->p_y) * ray->delta_y;
-		data->wall.horizontal = WEST;
+		data->wall.horizontal = west;
 	}
 	else
 	{
 		ray->step_y = 1;
 		ray->side_dist_y = ((int)data->p_y + 1.0 - data->p_y) * ray->delta_y;
-		data->wall.horizontal = EAST;
+		data->wall.horizontal = east;
 	}
 }
 
 bool	is_wall(t_data *data, int x, int y, int px)
 {
-	if (data->map.map[x][y] == '3' && (((data->wall.horizontal == EAST
+	if (data->map.map[x][y] == '3' && (((data->wall.horizontal == east
 		&& data->map.map[x][y - 2] == '3')
-		|| (data->wall.horizontal == WEST && data->map.map[x][y + 2] == '3'))
-		|| ((data->wall.vertical == SOUTH && data->map.map[x - 2][y] == '3')
-		|| (data->wall.vertical == NORTH && data->map.map[x + 2][y] == '3'))))
+		|| (data->wall.horizontal == west && data->map.map[x][y + 2] == '3'))
+		|| ((data->wall.vertical == south && data->map.map[x - 2][y] == '3')
+		|| (data->wall.vertical == north && data->map.map[x + 2][y] == '3'))))
 		data->wall.door = 1;
 	if (data->map.map[x][y] == '2')
 		set_door_data(data, px);

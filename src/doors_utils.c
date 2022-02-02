@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 04:18:58 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 17:45:05 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:20:58 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	open_south_north_door(t_data *data)
 		data->map.map[y][x - 1] = '3';
 		data->map.map[y][x + 1] = '3';
 		data->map.map[y][x] = '0';
-		data->wall.type = SOUTH;
+		data->wall.type = south;
 		return (EXIT_SUCCESS);
 	}
 	return (1);
@@ -109,7 +109,7 @@ int	open_east_west_door(t_data *data)
 		data->door->open_e_w[1] = y;
 		data->map.map[x - 1][y] = '3';
 		data->map.map[x + 1][y] = '3';
-		data->wall.type = EAST;
+		data->wall.type = east;
 		data->map.map[x][y] = '0';
 		return (EXIT_SUCCESS);
 	}

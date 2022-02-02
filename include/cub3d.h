@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:11:04 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 19:35:06 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,29 @@
 # include "../mlx/mlx.h"
 # include "../libft/include/libft.h"
 
+// wall/corner min. distance controll
 # define CORNER_DISTANCE 0.25
 # define WALL_DISTANCE 0.3
 
+// movespeed management
+# define FRAMES 0.012
+# define SPEED 0.039
+# define ROTATION 0.033
+
+// windowsize
+// if this is changed, the hands need to be redone
+# define WIDTH 1024
+# define HEIGHT 512
+
+// minimap controlls
+# define MINIMAP_MAX 1533
+# define PARTIAL_MINIMAP 1
+
+// texture elements
+# define TOTAL_ELEMENTS 6
+# define TOTAL_PATHS 8
+
+// keycodes
 # define MOVE_LEFT 0
 # define MOVE_RIGHT 2
 # define MOVE_DOWN 1
@@ -34,24 +54,6 @@
 # define ROTATE_RIGHT 124
 # define ESCAPE 53
 
-# define FRAMES 0.012
-# define SPEED FRAMES * 3.25
-# define ROTATION FRAMES * 2.75
-
-# define NORTH 0
-# define EAST 1
-# define WEST 2
-# define SOUTH 3
-# define DOOR 4
-
-# define WIDTH 1024
-# define HEIGHT 512
-
-# define MINIMAP_MAX 1533
-# define PARTIAL_MINIMAP 1
-
-# define TOTAL_ELEMENTS 6
-# define TOTAL_PATHS 8
 typedef struct s_textures
 {
 	int		east_wall[64][64];
@@ -59,7 +61,7 @@ typedef struct s_textures
 	int		north_wall[64][64];
 	int		south_wall[64][64];
 	int		gates[64][64];
-	void	*tex_ptr;
+	void	*tex_ptr[6];
 	char	*tex_addr;
 	void	*right_hand;
 	void	*left_hand;
@@ -67,7 +69,6 @@ typedef struct s_textures
 
 typedef enum e_tex
 {
-	// preparation to implement tex_addr array of textures
 	north = 0,
 	east = 1,
 	west = 2,

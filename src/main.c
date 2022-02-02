@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:47:24 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 19:35:24 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	init_all_empty(t_data *data)
 	data->img.addr = NULL;
 	while (i < TOTAL_PATHS)
 		data->img.tex_paths[i++] = NULL;
-	data->img.textures.tex_ptr = NULL;
+	i = 0;
+	while (i < 6)
+		data->img.textures.tex_ptr[i++] = NULL;
 	data->img.textures.tex_addr = NULL;
 	data->img.textures.right_hand = NULL;
 	data->img.textures.left_hand = NULL;

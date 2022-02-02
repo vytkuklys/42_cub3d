@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 17:56:27 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:22:13 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_walls(t_wall *wall, t_img *img, int x)
 		wall_y = (int)wall->position & (64 - 1);
 		wall->position += wall->step;
 		pixel = get_pixel(wall, img, wall_y);
-		if (wall->direction != WEST)
+		if (wall->direction != west)
 			pixel = (pixel >> 1) & 8355711;
 		my_mlx_pixel_put(img, x, y, pixel);
 		y++;

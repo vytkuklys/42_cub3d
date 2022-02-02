@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 00:01:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:37:31 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:24:33 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	free_doors(t_door **door)
 
 int	free_all(t_data *data, int flag)
 {
+	int	i;
+
 	free(data->mlx_ptr);
 	data->mlx_ptr = NULL;// check if set it to null if freed by mlx_destroy
 	free(data->mlx_win);
@@ -80,5 +82,13 @@ int	free_all(t_data *data, int flag)
 	if (flag)
 		ft_putstr_fd("Error\n", 2);
 	free_doors(&data->door);
+	i = 0;
+	while (data->img.textures.tex_ptr[i] != NULL)
+	{
+		printf("freed tex_ptr[%d]: %p\n", i, data->img.textures.tex_ptr[i]);
+		free(data->img.textures.tex_ptr[i]);
+		data->img.textures.tex_ptr[i] = NULL;
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }

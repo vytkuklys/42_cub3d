@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:52:10 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:25:05 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,15 @@ int	init_textures(t_data *data)
 	i = 0;
 	while (i < 5)
 	{
-		img->textures.tex_ptr = mlx_xpm_file_to_image(data->mlx_ptr,
+		img->textures.tex_ptr[i] = mlx_xpm_file_to_image(data->mlx_ptr,
 				img->tex_paths[i], &width, &height);//before using the tex_paths they need to be checked if valid xpm, segfaults with box.cub map and fuller.cub
-		if (img->textures.tex_ptr == NULL)
+		if (img->textures.tex_ptr[i] == NULL)
+		{
+			ft_putstr_fd("texture.tex_ptr failed", 2);//remove after testing
 			return (EXIT_FAILURE);
-		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr,
+		}
+		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr[i],
 				&img->bpp, &img->sl, &img->endian);
-		// free(img->textures.tex_ptr); //freeing this bricks the cub3D?? find out why
-		// img->textures.tex_ptr = NULL;
 		if (img->textures.tex_addr == NULL)
 			return (EXIT_FAILURE);
 		call_pixels_function(img, i);

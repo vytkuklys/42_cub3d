@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:39:17 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:16:02 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/02 18:20:58 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ int	get_pixel(t_wall *wall, t_img *img, int y)
 {
 	int	pixel;
 
-	if (wall->type == EAST && wall->door && (wall->direction == SOUTH
-			|| wall->direction == NORTH))
+	if (wall->type == east && wall->door && (wall->direction == south
+			|| wall->direction == north))
 		pixel = img->textures.gates[wall->x][y];
-	else if (wall->type == SOUTH && wall->door && (wall->direction == EAST
-			|| wall->direction == WEST))
+	else if (wall->type == south && wall->door && (wall->direction == east
+			|| wall->direction == west))
 		pixel = img->textures.gates[wall->x][y];
-	else if (wall->direction == EAST)
+	else if (wall->direction == east)
 		pixel = img->textures.east_wall[wall->x][y];
-	else if (wall->direction == WEST)
+	else if (wall->direction == west)
 		pixel = img->textures.west_wall[wall->x][y];
-	else if (wall->direction == NORTH)
+	else if (wall->direction == north)
 		pixel = img->textures.north_wall[wall->x][y];
 	else
 		pixel = img->textures.south_wall[wall->x][y];
