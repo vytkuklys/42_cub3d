@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 02:57:12 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 00:58:40 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:07:15 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	init_map(char *filename, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	if (init_textures(data) == EXIT_FAILURE || get_perimeter(fd, data)
-			== EXIT_FAILURE)
+		== EXIT_FAILURE)
 	{
 		close(fd);
 		return (EXIT_FAILURE);
