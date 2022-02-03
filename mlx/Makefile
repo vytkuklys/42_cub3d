@@ -6,7 +6,7 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 14:08:52 by tblaase           #+#    #+#              #
-#    Updated: 2022/01/31 15:56:51 by tblaase          ###   ########.fr        #
+#    Updated: 2022/02/03 15:19:10 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar -rcs $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "$(GREEN)Finished [$(NAME)]...$(RESET)"
+	@echo "$(GREEN)Finished [$(NAME)]$(RESET)"
 
 # clean rule
 clean:

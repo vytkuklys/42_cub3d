@@ -6,7 +6,7 @@
 #    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 13:57:50 by tblaase           #+#    #+#              #
-#    Updated: 2022/01/31 15:56:54 by tblaase          ###   ########.fr        #
+#    Updated: 2022/02/03 15:19:22 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,7 +115,7 @@ all: $(NAME)
 # compiling it to .a file
 $(NAME): $(OBJ)
 	@ar -crs $(NAME) $(OBJ)
-	@echo "$(GREEN)Finished [$(NAME)]...$(RESET)"
+	@echo "$(GREEN)Finished [$(NAME)]$(RESET)"
 
 # compiling objects
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

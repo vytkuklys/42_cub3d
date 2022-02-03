@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+         #
+#    By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 15:54:32 by tblaase           #+#    #+#              #
-#    Updated: 2022/02/03 01:02:16 by vkuklys          ###   ########.fr        #
+#    Updated: 2022/02/03 15:18:33 by tblaase          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,9 +65,9 @@ all: $(LIBFT) $(LIBMLX) $(NAME)
 
 # compile cub3D
 $(NAME): $(OBJ)
-	@echo "$(YELLOW)Compiling $(NAME)...$(RESET)"
+	@echo "$(YELLOW)Compiling [$(NAME)]...$(RESET)"
 	@$(CC) $(OBJ) $(LNK) -lm -o $(NAME)
-	@echo "$(GREEN)Compiled $(NAME) successfully.$(RESET)"
+	@echo "$(GREEN)Finished [$(NAME)]$(RESET)"
 
 # compile objects
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c
