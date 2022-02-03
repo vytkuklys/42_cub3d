@@ -18,4 +18,4 @@ jobs:
     - name: install norm
       run: python3 -m pip install norminette
     - name: norm
-      run: make norm
+      run: norminette include src libft
