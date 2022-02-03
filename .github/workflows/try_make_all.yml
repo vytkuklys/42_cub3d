@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: try_make_all
 
 on: [push, pull_request]
 
