@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 15:48:02 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:11:50 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int		open_east_west_door(t_data *data);
 int		draw_game(t_data *data);
 int		my_mlx_pixel_get(t_img *img, int x, int y);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		createRGB(int r, int g, int b);
+int		create_rgb(int r, int g, int b);
 double	count_ray_length(t_data *data);
 void	prepare_door_drawing(t_data *data, int x);
 void	draw_doors(t_wall *wall, t_img *img, int x);

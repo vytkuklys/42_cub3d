@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 04:06:46 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 22:36:29 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:11:32 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	createRGB(int r, int g, int b)
+int	create_rgb(int r, int g, int b)
 {
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 00:07:30 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:12:21 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	draw_ceiling(t_data *data, int x, int up_to)
 	red = data->img.ceiling_rgb[0];
 	green = data->img.ceiling_rgb[1];
 	blue = data->img.ceiling_rgb[2];
-	color = createRGB(red, green, blue);
+	color = create_rgb(red, green, blue);
 	i = 0;
 	while (i < up_to && i < HEIGHT)
 	{
@@ -79,7 +79,7 @@ void	draw_floor(t_data *data, int x, int from)
 	red = data->img.floor_rgb[0];
 	green = data->img.floor_rgb[1];
 	blue = data->img.floor_rgb[2];
-	color = createRGB(red, green, blue);
+	color = create_rgb(red, green, blue);
 	i = from;
 	while (i < HEIGHT)
 	{
