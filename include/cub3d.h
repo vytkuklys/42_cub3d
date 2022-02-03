@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 00:07:19 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/03 15:48:02 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct s_door
 	struct s_door	*prev;
 }				t_door;
 
+// main struct that stores all data
 typedef struct s_data
 {
 	float		p_x;
@@ -174,8 +175,49 @@ typedef struct s_data
 	t_controls	controls;
 }				t_data;
 
+// initialisation
 int		init_map(char *filename, t_data *data);
+int		init_textures(t_data *data);
+int		init_data(t_data *data);
+void	init_door(t_door *door);
+void	init_mlx_img(t_data *data);
+
+// validation
 int		is_map_valid(t_data *data);
+int		is_color_valid(t_img *img, char *el, char flag);
+int		are_doors_valid(t_data *data, int y, int x);
+int		are_elements_valid(t_img *img, char *filename);
+int		is_null(char *str);
+
+// getter, setter
+int		get_ray_data(t_data *data, int x);
+void	get_wall_data(t_data *data);
+int		get_minimap_color(t_data *data, int x, int y);
+int		get_color(char c);
+void	get_door_data(t_data *data, t_door *door);
+int		get_pixel(t_wall *wall, t_img *img, int y);
+void	get_east_pixels(t_img *img);
+void	get_west_pixels(t_img *img);
+void	get_south_pixels(t_img *img);
+void	get_north_pixels(t_img *img);
+void	get_door_pixels(t_img *img);
+void	set_door_data(t_data *data, int x);
+void	set_coordinates(int *x, int *y, int x_val, int y_val);
+
+// open and close doors
+int		open_south_north_door(t_data *data);
+int		close_south_north_door(t_data *data);
+int		close_east_west_door(t_data *data);
+int		open_east_west_door(t_data *data);
+
+// draw the image
+int		draw_game(t_data *data);
+int		my_mlx_pixel_get(t_img *img, int x, int y);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int		createRGB(int r, int g, int b);
+double	count_ray_length(t_data *data);
+void	prepare_door_drawing(t_data *data, int x);
+void	draw_doors(t_wall *wall, t_img *img, int x);
 int		is_x_forwards_wall(t_data *data);
 int		is_y_forwards_wall(t_data *data);
 int		is_x_backwards_wall(t_data *data);
@@ -184,51 +226,23 @@ int		is_x_right_wall(t_data *data);
 int		is_y_right_wall(t_data *data);
 int		is_x_left_wall(t_data *data);
 int		is_y_left_wall(t_data *data);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		draw_minimap(t_data *data);
-int		init_textures(t_data *data);
+void	animate_hands(t_data *data);
+
+// input
+void	check_events(t_data *data);
 int		key_press(int key, t_data *data);
 int		key_release(int key, t_data *data);
 void	update_game(int key, t_data *data);
-int		createRGB(int r, int g, int b);
-int		get_ray_data(t_data *data, int x);
-void	get_wall_data(t_data *data);
-void	check_events(t_data *data);
-int		exit_maze(t_data *data, int exit_success);
-int		are_elements_valid(t_img *img, char *filename);
-int		ft_strlen_2d(char **s);
-char	*ft_free_2d_array(char ***arr, unsigned int allocated);
-int		get_minimap_color(t_data *data, int x, int y);
-int		get_color(char c);
+int		mouse_hook(int x, int y, t_data *data);
 int		set_player_direction(t_data *data, char direction);
-double	count_ray_length(t_data *data);
-void	get_door_data(t_data *data, t_door *door);
-void	set_door_data(t_data *data, int x);
-void	draw_doors(t_wall *wall, t_img *img, int x);
-void	init_door(t_door *door);
-int		open_south_north_door(t_data *data);
-int		close_south_north_door(t_data *data);
-int		close_east_west_door(t_data *data);
-int		open_east_west_door(t_data *data);
+
+// free stuff and clean exit
+int		ft_strlen_2d(char **s);
 t_door	*ft_door_lstlast(t_door *lst);
 int		ft_door_lstsize(t_door *lst);
-void	prepare_door_drawing(t_data *data, int x);
-int		is_null(char *str);
 int		free_all(t_data *data, int flag);
-int		mouse_hook(int x, int y, t_data *data);
-int		init_data(t_data *data);
-int		draw_game(t_data *data);
-void	animate_hands(t_data *data);
-int		is_color_valid(t_img *img, char *el, char flag);
-void	set_coordinates(int *x, int *y, int x_val, int y_val);
-int		get_pixel(t_wall *wall, t_img *img, int y);
-void	get_east_pixels(t_img *img);
-void	get_west_pixels(t_img *img);
-void	get_south_pixels(t_img *img);
-void	get_north_pixels(t_img *img);
-void	get_door_pixels(t_img *img);
-int		my_mlx_pixel_get(t_img *img, int x, int y);
-int		are_doors_valid(t_data *data, int y, int x);
-void	init_mlx_img(t_data *data);
+char	*ft_free_2d_array(char ***arr, unsigned int allocated);
+int		exit_maze(t_data *data, int exit_success);
 
 #endif
