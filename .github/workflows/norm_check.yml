@@ -18,4 +18,4 @@ jobs:
     - name: install norm
       run: python3 -m pip install norminette
     - name: norm
-      run: norminette
+      run: make norm
