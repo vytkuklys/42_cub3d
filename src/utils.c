@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:39:17 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 18:20:58 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 15:33:41 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->sl + x * (img->bpp / 8)); //what if img->addr is NULL??
+	dst = img->addr + (y * img->sl + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -80,7 +80,7 @@ int	my_mlx_pixel_get(t_img *img, int x, int y)
 	int		color;
 	char	*dst;
 
-	dst = img->textures.tex_addr + (y * img->sl + x * (img->bpp / 8)); //what if img->textures.tex_addr is NULL??
+	dst = img->textures.tex_addr + (y * img->sl + x * (img->bpp / 8));
 	color = *(unsigned int *)dst;
 	return (color);
 }
