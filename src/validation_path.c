@@ -6,11 +6,32 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 00:52:30 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/03 18:43:10 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	is_xpm_valid(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (line[0] == '"')
+		{
+			if (ft_strncmp(&line[1], "64 64", 5))
+				return (EXIT_FAILURE);
+			else
+				return (EXIT_SUCCESS);
+			break ;
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (EXIT_FAILURE);
+}
 
 int	set_path(t_img *img, char *path, char flag)
 {
@@ -46,7 +67,8 @@ int	is_path_valid(t_img *img, char *el, char flag)
 		el++;
 	path = ft_substr(el, 0, ft_strlen(el) - 1);
 	fd = open(path, O_RDONLY);
-	if (fd == -1 || ft_strncmp(&path[strlen(path) - 4], ".xpm", 4))
+	if (fd == -1 || ft_strncmp(&path[strlen(path) - 4], ".xpm", 4)
+		|| is_xpm_valid(fd))
 	{
 		write(2, "Invalid path\n", 14);
 		free(path);
