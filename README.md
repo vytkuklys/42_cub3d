@@ -70,5 +70,5 @@ Things to enjoy
 [back to **Contents**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#contents)<br>
 
 ### Example
-<img src="readme_additions/example.gif"/><br>
+<img src="readme_additions/example.mov"/><br>
 
