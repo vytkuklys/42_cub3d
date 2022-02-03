@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 18:43:10 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/03 19:04:41 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	is_xpm_valid(int fd)
 			if (ft_strncmp(&line[1], "64 64", 5))
 				return (EXIT_FAILURE);
 			else
+			{
+				close(fd);
 				return (EXIT_SUCCESS);
+			}
 			break ;
 		}
 		free(line);
@@ -73,9 +76,9 @@ int	is_path_valid(t_img *img, char *el, char flag)
 		write(2, "Invalid path\n", 14);
 		free(path);
 		path = NULL;
+		close(fd);
 		return (EXIT_FAILURE);
 	}
-	close(fd);
 	if (set_path(img, path, flag) == EXIT_FAILURE)
 	{
 		free(path);
