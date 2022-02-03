@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 02:57:12 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 17:15:57 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:58:40 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	fill_perimeter(int fd, t_data *data)
 		if (i > 0)
 			data->tmp_str = get_next_line(fd);
 		data->map.map[i] = (char *)ft_calloc(data->map.rows, sizeof(char));
-		if (data->map.map[i] == NULL)
+		if (data->map.map[i] == NULL && write(2, "Memory allocation\n", 19))
 		{
 			free(data->tmp_str);
 			return (EXIT_FAILURE);
@@ -122,15 +122,15 @@ int	init_map(char *filename, t_data *data)
 	{
 		return (EXIT_FAILURE);
 	}
-	if (init_textures(data) == EXIT_FAILURE
-		|| get_perimeter(fd, data) == EXIT_FAILURE)
+	if (init_textures(data) == EXIT_FAILURE || get_perimeter(fd, data)
+			== EXIT_FAILURE)
 	{
 		close(fd);
 		return (EXIT_FAILURE);
 	}
 	close(fd);
 	fd = skip_to_map(data, filename);
-	if (fd == -1 && write(2, "Invalid file\n", 14))
+	if (fd == -1)
 		return (EXIT_FAILURE);
 	if (fill_perimeter(fd, data) == EXIT_FAILURE)
 	{

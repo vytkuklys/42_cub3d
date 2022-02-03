@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 04:06:46 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 18:39:27 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:36:29 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int	are_doors_valid(t_data *data, int y, int x)
 		return (0);
 	if (data->map.map[y][x + 1] == '1' && data->map.map[y][x - 1] == '1')
 		return (0);
+	write(2, "Invalid doors\n", 15);
 	return (1);
 }

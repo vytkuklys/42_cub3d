@@ -6,7 +6,7 @@
 /*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 18:39:20 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/02 22:52:11 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	are_inner_borders_valid(t_data *data)
 				return (1);
 		}
 	}
-	if (flag == 0)
+	if (flag == 0 && write(2, "Invalid player count\n", 22))
 		return (1);
 	return (0);
 }
@@ -106,7 +106,7 @@ int	is_map_valid(t_data *data)
 {
 	if (are_outer_borders_valid(data) || are_inner_borders_valid(data))
 	{
-		write(2, "Invalid map\n", 13);
+		write(2, "Invalid character\n", 19);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

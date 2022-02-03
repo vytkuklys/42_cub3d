@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:40:39 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 19:35:24 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:58:57 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	main(int argc, char **argv)
 	init_all_empty(&data);
 	if (init_data(&data) == EXIT_FAILURE)
 		return (free_all(&data, EXIT_FAILURE));
-	if (init_map(argv[1], &data) == EXIT_FAILURE)
+	if (init_map(argv[1], &data) == EXIT_FAILURE
+		&& write(2, "Invalid map file\n", 18))
 		return (free_all(&data, EXIT_FAILURE));
 	if (is_map_valid(&data) == EXIT_FAILURE)
 		return (free_all(&data, EXIT_FAILURE));
@@ -53,6 +54,5 @@ int	main(int argc, char **argv)
 	mlx_hook(data.mlx_win, 3, 1L << 0, key_release, &data);
 	mlx_hook(data.mlx_win, 17, 1L << 17, exit_maze, &data);
 	mlx_loop(data.mlx_ptr);
-	free_all(&data, 0);//check if needed
 	return (EXIT_SUCCESS);
 }

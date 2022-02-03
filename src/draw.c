@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 23:33:41 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 22:09:28 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:07:30 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,7 @@ int	draw_game(t_data *data)
 {
 	int	x;
 
-	data->img.img_ptr = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
-	if (data->img.img_ptr == NULL)
-	{
-		ft_putstr_fd("creating img_ptr failed\n", 2);
-		return (exit_maze(data, false));
-	}
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
-			&data->img.sl, &data->img.endian);
-	if (data->img.addr == NULL)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->img.img_ptr);
-		ft_putstr_fd("creating img.addr failed\n", 2);
-		return (exit_maze(data, false));
-	}
+	init_mlx_img(data);
 	check_events(data);
 	x = 0;
 	usleep(3750);

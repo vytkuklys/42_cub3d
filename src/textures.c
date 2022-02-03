@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 20:25:05 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:42:15 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ int	init_hand_textures(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-// freeing tex_ptr causes infinite loop or seg fault
-// yes, because the pointer is used every time a new frame gets rendered
-
 int	init_textures(t_data *data)
 {
 	int		width;
@@ -57,12 +54,9 @@ int	init_textures(t_data *data)
 	while (i < 5)
 	{
 		img->textures.tex_ptr[i] = mlx_xpm_file_to_image(data->mlx_ptr,
-				img->tex_paths[i], &width, &height);//before using the tex_paths they need to be checked if valid xpm, segfaults with box.cub map and fuller.cub
-		if (img->textures.tex_ptr[i] == NULL)
-		{
-			ft_putstr_fd("texture.tex_ptr failed", 2);//remove after testing
+				img->tex_paths[i], &width, &height);
+		if (img->textures.tex_ptr[i] == NULL && write(2, "Memory alloc\n", 14))
 			return (EXIT_FAILURE);
-		}
 		img->textures.tex_addr = mlx_get_data_addr(img->textures.tex_ptr[i],
 				&img->bpp, &img->sl, &img->endian);
 		if (img->textures.tex_addr == NULL)

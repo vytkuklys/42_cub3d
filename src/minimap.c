@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 21:22:53 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/01 19:40:03 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/03 00:44:29 by vkuklys          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	draw_player(t_data *data, int flag)
 	}
 }
 
-int	draw_partial_minimap(t_data *data)//maybe void?
+int	draw_partial_minimap(t_data *data)
 {
 	int	i;
 	int	j;
@@ -79,20 +79,20 @@ int	draw_partial_minimap(t_data *data)//maybe void?
 int	draw_minimap(t_data *data)
 {
 	int	rows;
-	int	columns;
+	int	col;
 	int	i;
 	int	j;
 	int	color;
 
 	rows = data->map.rows;
-	columns = data->map.columns;
-	if (rows * columns >= MINIMAP_MAX && draw_partial_minimap(data) == EXIT_SUCCESS)
+	col = data->map.columns;
+	if (rows * col >= MINIMAP_MAX && draw_partial_minimap(data) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
 	i = 0;
 	while (i < rows)
 	{
 		j = 0;
-		while (j < columns)
+		while (j < col)
 		{
 			color = get_color(data->map.map[j][i]);
 			if (color)
