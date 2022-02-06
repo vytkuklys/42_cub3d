@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_color.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 03:32:21 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 22:34:04 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/06 20:57:45 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	is_color_valid(t_img *img, char *el, char flag)
 		== ',')
 	{
 		ft_free_2d_array(&split, ft_strlen_2d(split));
-		write(2, "Invalid color\n", 15);
+		ft_putstr_fd("Invalid color\n", 2);
 		return (1);
 	}
 	if ((flag != 'F' && flag != 'C') || (flag == 'C' && img->ceiling_rgb[0]
@@ -91,7 +91,7 @@ int	is_color_valid(t_img *img, char *el, char flag)
 		|| is_rgb_valid(split, tmp))
 	{
 		ft_free_2d_array(&split, ft_strlen_2d(split));
-		write(2, "Invalid color\n", 15);
+		ft_putstr_fd("Invalid color\n", 2);
 		return (1);
 	}
 	if (flag == 'F')

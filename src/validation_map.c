@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:28:11 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/02 22:52:11 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/06 20:58:09 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	is_map_valid(t_data *data)
 {
 	if (are_outer_borders_valid(data) || are_inner_borders_valid(data))
 	{
-		write(2, "Invalid character\n", 19);
+		ft_putstr_fd("Invalid character\n", 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

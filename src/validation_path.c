@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 22:35:40 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 19:04:41 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/06 20:58:27 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	is_path_valid(t_img *img, char *el, char flag)
 	if (fd == -1 || ft_strncmp(&path[strlen(path) - 4], ".xpm", 4)
 		|| is_xpm_valid(fd))
 	{
-		write(2, "Invalid path\n", 14);
+		ft_putstr_fd("Invalid path\n", 2);
 		free(path);
 		path = NULL;
 		close(fd);
