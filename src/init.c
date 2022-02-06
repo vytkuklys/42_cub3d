@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkuklys <vkuklys@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:41:42 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 00:46:54 by vkuklys          ###   ########.fr       */
+/*   Updated: 2022/02/06 20:52:09 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	init_img(t_img *img)
 {
-	int	i;
-
-	i = -1;
 	img->tex_paths[door] = ft_strdup("images/5.xpm");
 	if (img->tex_paths[door] == NULL)
 		return (EXIT_FAILURE);
@@ -70,7 +67,7 @@ int	init_data(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
 		return (EXIT_FAILURE);
-	data->mlx_win = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "Cub3d");
+	data->mlx_win = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "cub3D");
 	if (data->mlx_win == NULL)
 		return (EXIT_FAILURE);
 	data->p_x = 4;
