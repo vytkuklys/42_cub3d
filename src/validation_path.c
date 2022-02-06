@@ -22,13 +22,18 @@ int	is_xpm_valid(int fd)
 		if (line[0] == '"')
 		{
 			if (ft_strncmp(&line[1], "64 64", 5))
+			{
+				free(line);
+				line = NULL;
 				return (EXIT_FAILURE);
+			}
 			else
 			{
 				close(fd);
+				free(line);
+				line = NULL;
 				return (EXIT_SUCCESS);
 			}
-			break ;
 		}
 		free(line);
 		line = get_next_line(fd);
