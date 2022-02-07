@@ -70,5 +70,7 @@ Things to enjoy
 [back to **Contents**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#contents)<br>
 
 ### Example
-<img src="readme_additions/example.mov"/><br>
-
+[This](https://github.com/vytkuklys/42_cub3d/blob/main/maps/42.cub) is the map file used in the example.<br><br>
+<img src="readme_additions/example.gif"/><br>
+[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#our-cub3d)<br>
+[back to **Contents**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#contents)<br>
