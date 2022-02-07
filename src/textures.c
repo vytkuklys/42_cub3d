@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:04:20 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/06 20:55:33 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/07 14:37:40 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	init_textures(t_data *data)
 		if (img->textures.tex_addr == NULL)
 			return (EXIT_FAILURE);
 		call_pixels_function(img, i);
-		free(img->textures.tex_addr);// test for problems, caused some on linux
-		img->textures.tex_addr = NULL;// test for problems, caused some on linux
+		free(img->textures.tex_addr);
+		img->textures.tex_addr = NULL;
 		i++;
 	}
 	if (init_hand_textures(data) == EXIT_FAILURE)
