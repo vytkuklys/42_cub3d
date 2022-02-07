@@ -74,6 +74,7 @@ Things to enjoy
 The wall textures as well as the door texture is interchangeable, as long as:<br>
 - the texture is 64 by 64 pixels
 - the texture is a .xmp file
+- the textures are called `1.xpm`, `2.xpm`, `3.xpm`, `4.xpm`, `5.xpm` with `5.xpm` being the door
 
 If you want to change the windowsize, this can be done in the [cub3d.h](https://github.com/vytkuklys/42_cub3d/blob/main/include/cub3d.h) file.<br>
 But the hands are currently not resized to the windowsize, so either you have to resize the texture itself and replace the existing hand-textures in [images](https://github.com/vytkuklys/42_cub3d/tree/main/images) or just disble the hands by commenting out **line 113** in [draw.c](https://github.com/vytkuklys/42_cub3d/blob/main/src/draw.c).<br>
