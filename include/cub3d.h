@@ -6,7 +6,7 @@
 /*   By: tblaase <tblaase@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 16:55:52 by vkuklys           #+#    #+#             */
-/*   Updated: 2022/02/03 16:11:50 by tblaase          ###   ########.fr       */
+/*   Updated: 2022/02/07 14:59:39 by tblaase          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define ROTATION 0.033
 
 // windowsize
-// if this is changed, the hands need to be redone
+// if this is changed, the hands need to be redone or removed by
+// commenting out line 113 in draw.c
 # define WIDTH 1024
 # define HEIGHT 512
 
