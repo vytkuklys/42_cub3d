@@ -33,6 +33,7 @@ If you want to run it on Linux [here](https://harm-smits.github.io/42docs/libs/m
 2. run `./cub3D maps/42.cub` in the root of the directory
 3. move the character with `WASD`
 4. turn the FOV left and right by pressing `arrow_left` and `arrow_right` or by moving the mouse right or left
+
 Things to enjoy
 - wall collition
 - moving hands while walking
