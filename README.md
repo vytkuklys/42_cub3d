@@ -27,7 +27,7 @@ For the detailed instructions on the project, [here](https://github.com/vytkukly
 only tested on **macOS Catalina (Version 10.15.7)**<br>
 For all other OS it is not guaranteed to work.<br>
 OpenGL and AppKit is required to run it.<br>
-If you want to run it on Linux [here](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#compilation-on-linux) is a tutorial that might help and [here](https://github.com/42Paris/minilibx-linux) is the required verion of miniLibX, this is **not tested** with our cub3D.<br>
+If you want to run it on Linux [here](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#compilation-on-linux) is a tutorial that might help and [here](https://github.com/42Paris/minilibx-linux) is the required version of miniLibX, this is **not tested** with our cub3D.<br>
 ### How to cub3D
 1. run `make` or `make all` in the root of the directory
 2. run `./cub3D maps/42.cub` in the root of the directory
@@ -55,7 +55,7 @@ Things to enjoy
 - the map has to be enclosed by walls on all sides
 - doors have to have walls on two opposite sides
 - any other characters other than the ones above are forbidden
-- if there is a ` `(space)&nbsp;inside the map it has to be enclosed by walls
+- if there is a ` `(space)&nbsp;inside the map it has to be enclosed by walls, as you can see [here](https://github.com/vytkuklys/42_cub3d/blob/main/maps/biggy.cub)
 - only one player position is allowed
 - you have to set all the textures that should be used as wall texture i.e.
   - `WE images/1.xpm`
@@ -73,7 +73,7 @@ Things to enjoy
 ### Texture requirements
 The wall textures as well as the door texture is interchangeable, as long as:<br>
 - the texture is 64 by 64 pixels
-- the texture is a .xmp file
+- the texture is a .xpm file
 - the textures are called `1.xpm`, `2.xpm`, `3.xpm`, `4.xpm`, `5.xpm` with `5.xpm` being the door
 
 If you want to change the windowsize, this can be done in the [cub3d.h](https://github.com/vytkuklys/42_cub3d/blob/main/include/cub3d.h) file.<br>
