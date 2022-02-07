@@ -1,10 +1,10 @@
-# cub3D
+# cub3D (February 2022)
 ## My first RayCaster with miniLibX.
 This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever.<br>
 It will enable you to explore ray-casting.<br>
 Your goal will be to make a dynamic view inside a maze, in which you’ll have to find your way.<br>
 ## from [vytkuklys](https://github.com/vytkuklys) and [tblaase](https://github.com/tblaase)<br>
-<!-- ![result](https://github.com/vytkuklys/42_cub3d/blob/main/readme_additions/minishell_result.jpg) -->
+![result](https://github.com/vytkuklys/42_cub3d/blob/main/readme_additions/result.png)
 ## Contents
 - [Short description](https://github.com/vytkuklys/42_cub3d#short-description-of-the-project)
 - [Our cub3D](https://github.com/vytkuklys/42_cub3d#our-cub3d)
