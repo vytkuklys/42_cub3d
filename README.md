@@ -6,12 +6,13 @@ Your goal will be to make a dynamic view inside a maze, in which you’ll have t
 ## from [vytkuklys](https://github.com/vytkuklys) and [tblaase](https://github.com/tblaase)<br>
 <!-- ![result](https://github.com/vytkuklys/42_cub3d/blob/main/readme_additions/minishell_result.jpg) -->
 ## Contents
-- [Short description](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#short-description-of-the-project)
-- [Our cub3D](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#our-cub3d)
-  - [Requirements to run the game](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#requirements-to-run-the-game)
-  - [How to cub3D](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#how-to-cub3d)
-  - [Map requirements](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#map-requirements)
-- [Example](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#example)
+- [Short description](https://github.com/vytkuklys/42_cub3d#short-description-of-the-project)
+- [Our cub3D](https://github.com/vytkuklys/42_cub3d#our-cub3d)
+  - [Requirements to run the game](https://github.com/vytkuklys/42_cub3d#requirements-to-run-the-game)
+  - [How to cub3D](https://github.com/vytkuklys/42_cub3d#how-to-cub3d)
+  - [Map requirements](https://github.com/vytkuklys/42_cub3d#map-requirements)
+  - [Texture requirements](https://github.com/vytkuklys/42_cub3d#texture-requirements)
+- [Example](https://github.com/vytkuklys/42_cub3d#example)
 
 ## Short description of the project
 
@@ -26,7 +27,7 @@ For the detailed instructions on the project, [here](https://github.com/vytkukly
 only tested on **macOS Catalina (Version 10.15.7)**<br>
 For all other OS it is not guaranteed to work.<br>
 OpenGL and AppKit is required to run it.<br>
-If you want to run it on Linux [here](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#compilation-on-linux) is a tutorial that might help and [here](https://github.com/42Paris/minilibx-linux) is the required verion of miniLibX.<br>
+If you want to run it on Linux [here](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#compilation-on-linux) is a tutorial that might help and [here](https://github.com/42Paris/minilibx-linux) is the required verion of miniLibX, this is **not tested** with our cub3D.<br>
 ### How to cub3D
 1. run `make` or `make all` in the root of the directory
 2. run `./cub3D maps/42.cub` in the root of the directory
@@ -38,8 +39,8 @@ Things to enjoy
 - opening and closing doors by walking into them
 - fully customizable [maps](https://github.com/vytkuklys/42_cub3d/tree/main/maps)
 
-[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#our-cub3d)<br>
-[back to **Contents**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#contents)<br>
+[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d#our-cub3d)<br>
+[back to **Contents**](https://github.com/vytkuklys/42_cub3d#contents)<br>
 
 ### Map requirements
 - decide which texture is displayed on which side
@@ -66,11 +67,19 @@ Things to enjoy
 - you have to set the floor color, i.e.:
   - `F 141, 1, 126`
 
-[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#our-cub3d)<br>
-[back to **Contents**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#contents)<br>
+[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d#our-cub3d)<br>
+[back to **Contents**](https://github.com/vytkuklys/42_cub3d#contents)<br>
+
+### Texture requirements
+The wall textures as well as the door texture is interchangeable, as long as:<br>
+- the texture is 64 by 64 pixels
+- the texture is a .xmp file
+
+If you want to change the windowsize, this can be done in the [cub3d.h](https://github.com/vytkuklys/42_cub3d/blob/main/include/cub3d.h) file.<br>
+But the hands are currently not resized to the windowsize, so either you have to resize the texture itself and replace the existing hand-textures in [images](https://github.com/vytkuklys/42_cub3d/tree/main/images) or just disble the hands by commenting out **line 113** in [draw.c](https://github.com/vytkuklys/42_cub3d/blob/main/src/draw.c).<br>
 
 ### Example
 [This](https://github.com/vytkuklys/42_cub3d/blob/main/maps/42.cub) is the map file used in the example.<br><br>
 <img src="readme_additions/example.gif"/><br>
-[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#our-cub3d)<br>
-[back to **Contents**](https://github.com/vytkuklys/42_cub3d/new/main?readme=1#contents)<br>
+[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d#our-cub3d)<br>
+[back to **Contents**](https://github.com/vytkuklys/42_cub3d#contents)<br>
