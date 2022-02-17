@@ -80,6 +80,9 @@ The wall textures as well as the door texture is interchangeable, as long as:<br
 If you want to change the windowsize, this can be done in the [cub3d.h](https://github.com/vytkuklys/42_cub3d/blob/main/include/cub3d.h) file.<br>
 But the hands are currently not resized to the windowsize, so either you have to resize the texture itself and replace the existing hand-textures in [images](https://github.com/vytkuklys/42_cub3d/tree/main/images) or just disble the hands by commenting out **line 113** in [draw.c](https://github.com/vytkuklys/42_cub3d/blob/main/src/draw.c).<br>
 
+[back to **Our cub3D**](https://github.com/vytkuklys/42_cub3d#our-cub3d)<br>
+[back to **Contents**](https://github.com/vytkuklys/42_cub3d#contents)<br>
+
 ### Example
 [This](https://github.com/vytkuklys/42_cub3d/blob/main/maps/42.cub) is the map file used in the example.<br><br>
 <img src="readme_additions/example.gif"/><br>
