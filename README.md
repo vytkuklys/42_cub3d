@@ -20,7 +20,7 @@ This project’s objectives are similar to all this first year’s objectives: R
 As a graphic design project, cub3D will enable you to improve your skills in these areas: windows, colors, events, fill shapes, etc.<br><br>
 To conclude cub3D is a remarkable playground to explore the playful practical applications of mathematics without having to understand the specifics.<br><br>
 With the help of the numerous documents available on the internet, you will use mathematics as a tool to create elegant and efficient algorithms.<br><br>
-For the detailed instructions on the project, [here](https://github.com/vytkuklys/42_cub3d/blob/main/readme_additions/en.subject.pdf) is the subject.pdf.<br>
+For the detailed instructions on the project,check the subject.pdf.<br>
 
 ## Our cub3D
 ### Requirements to run the game
